@@ -3,6 +3,8 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-indent */
 import { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ResponsiveAppBar from './menu';
 
 function Home(props) {
     console.log(props);
@@ -11,6 +13,8 @@ function Home(props) {
     const [isPosts, setIsPosts] = useState(true);
     const [isProf, setIsProf] = useState(false);
     const [UID, setUID] = useState('');
+
+    const theme = createTheme();
 
     function nextToRender() {
         let ret;
@@ -33,9 +37,9 @@ function Home(props) {
       }
 
     return (
-        <div>
-            {nextToRender()}
-        </div>
+        <ThemeProvider theme={theme}>
+            <ResponsiveAppBar />
+        </ThemeProvider>
     );
 }
 
