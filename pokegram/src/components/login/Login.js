@@ -4,59 +4,87 @@
 /* eslint-disable no-console */
 /* eslint-disable no-trailing-spaces */
 import React, { useState } from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { TextField } from '@mui/material';
+
+const theme = createTheme();
 
 function Login(props) {
   const [user, setUser] = useState({
     username: '',
     password: ''
   });
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
     
     // testing code for state manipulation
     console.log(props);
     props.parStates.handleSetStates(true, true, user.username);
-  }
-  function handleUsername(event) {
+  };
+  const handleUsername = (event) => {
     console.log(event.target.value);
     const updateuser = {
       username: event.target.value,
       password: user.password
     };
     setUser(updateuser);
-  }
-  function handlePassword(event) {
+  };
+  const handlePassword = (event) => {
     console.log(event.target.value);
     const updateuser = {
       username: user.username,
       password: event.target.value
     };
     setUser(updateuser);
-  }
+  };
+  const handleSignup = (event) => {
+    event.preventDefault();
+    props.parStates.handleSetStates(false, false, -1);
+  };
   return (
-    <div className="body">
-      <div className="header">
-        Welcome to Pokemongram!
-      </div>
-      <div className="login-section">
-        <form onSubmit={handleSubmit}>
-          <label className="userinfo" id="username"><b>Username</b></label>
-          <br />
-          <input type="text" name="username" onChange={handleUsername} />
-          <br />
-          <label className="userinfo" id="password"><b>Password</b></label>
-          <br />
-          <input type="password" name="password" onChange={handlePassword} />
-          <br />
-          <button type="submit" className="loginButton">Login</button>
-        </form>
-      </div>
-      <div className="signup-section">
-        <b>No Account?</b>
-        <button type="submit" className="signupButton">Sign Up</button>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="xs">
+        <Box sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+        >
+          <Avatar alt="pikachu" sx={{ m: 1 }} src="../pokegram/src/images/pikachu.jpg" />
+          <Typography component="h1" variant="h4">Wecome to Pokegram!</Typography>
+        </Box>
+        <Divider variant="middle" />
+        <Box 
+          component="form" 
+          onSubmit={handleSubmit} 
+          noValidate 
+          sx={{
+            marginTop: 20, my: 3, mx: 2, p: 4, border: '2px solid', borderRadius: '16px', boxShadow: 1, alignItems: 'center'
+          }}
+        >
+          <Typography component="h1" variant="h6">Username:</Typography>
+          <TextField margin="normal" required fullWidth id="username" onChange={handleUsername} />
+          <Typography component="h1" variant="h6">Password:</Typography>
+          <TextField margin="normal" required fullWidth id="password" type="password" onChange={handlePassword} />
+          <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }}>Sign In</Button>
+        </Box>
+        <Box sx={{ 
+          my: 3, mx: 2, p: 1, marginTop: 8, border: 1, alignItems: 'center', display: 'flex'
+        }}
+        >
+          <Typography component="h1" variant="h6" style={{ marginLeft: '16px', marginRight: '64px' }}>No Account?</Typography>
+          <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleSignup}>Sign Up</Button>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 export default Login;
