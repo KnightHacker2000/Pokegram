@@ -1,6 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-console */
+/* eslint-disable no-trailing-spaces */
 import React, { useState } from 'react';
 
-function Login() {
+function Login(props) {
   const [user, setUser] = useState({
     username: '',
     password: ''
@@ -8,6 +13,10 @@ function Login() {
   function handleSubmit(event) {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
+    
+    // testing code for state manipulation
+    console.log(props);
+    props.parStates.handleSetStates(true, true, user.username);
   }
   function handleUsername(event) {
     console.log(event.target.value);
