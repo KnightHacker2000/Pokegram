@@ -8,6 +8,7 @@
 import { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ResponsiveAppBar from './menu';
+import Act from '../activity/activity';
 
 function Home(props) {
     // console.log(props);
@@ -47,6 +48,7 @@ function Home(props) {
 
         if (isAct) {
             // return Activity Page
+            ret = <Act homeStates={parentStates} />;
         }
 
         if (isUp) {
@@ -60,6 +62,8 @@ function Home(props) {
         if (isProf) {
             // return Profile Page
         }
+
+        return ret;
       }
 
     return (
