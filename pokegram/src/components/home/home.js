@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ResponsiveAppBar from './menu';
 import Act from '../activity/activity';
+import Profile from '../profile/Profile';
 
 function Home(props) {
     // console.log(props);
@@ -61,6 +62,7 @@ function Home(props) {
 
         if (isProf) {
             // return Profile Page
+            ret = <Profile homeStates={parentStates} />;
         }
 
         return ret;
