@@ -15,31 +15,61 @@
       "username": "Rachel",
       "password": "RachelYuan",
       "numPosts": 10,
-      "likedPost": [1, 2, 3],
-      "follows": [1, 2, 3],
+      "likedPost": [
+        1,
+        2,
+        3
+      ],
+      "follows": [
+        1,
+        2,
+        3
+      ],
       "numFollows": 57,
-      "subscribers": ["jieni", "pika", "charlie"],
+      "subscribers": [
+        "jieni",
+        "pika",
+        "charlie"
+      ],
       "numSubs": 1,
-      "comments": [1, 2, 3],
-      "activities": [1, 2, 3]
+      "comments": [
+        1,
+        2,
+        3
+      ],
+      "activities": [
+        1,
+        2,
+        3
+      ]
     }
   ],
   "getActivityByUsername": [
     {
       "id": 1,
-      "activity": [{
-        "id": 1,
-        "initiatorId": "jieni",
-        "targetId": "pika",
-        "activityType": "Comment",
-        "timestamp": "December 16, 2021 03:24:00"
-      },
-      {
-        "id": 2,
-        "initiatorId": "jieni",
-        "targetId": "pika",
-        "activityType": "Like",
-        "timestamp": "December 16, 2021 03:24:00"
-      }]
-  }]
+      "activity": [
+        {
+          "id": 1,
+          "initiatorId": "jieni",
+          "targetId": "pika",
+          "activityType": "Comment",
+          "timestamp": "December 16, 2021 03:24:00"
+        },
+        {
+          "id": 2,
+          "initiatorId": "jieni",
+          "targetId": "pika",
+          "activityType": "Like",
+          "timestamp": "December 16, 2021 03:24:00"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "initiatorId": "testUser1",
+      "targetId": "charlie",
+      "activityType": "Comment",
+      "timestamp": "Thu Dec 16 2021 03:24:00 GMT-0500 (Eastern Standard Time)"
+    }
+  ]
 }
