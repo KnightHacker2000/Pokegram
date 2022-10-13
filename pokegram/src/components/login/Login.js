@@ -12,6 +12,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
+import pokemon from '../../images/pikachu.jpg';
 
 const theme = createTheme();
 
@@ -25,7 +26,7 @@ function Login(props) {
     // alert('current state is: ' + user.username + ' ' + user.password);
     
     // testing code for state manipulation
-    console.log(props);
+    // console.log(props);
     props.parStates.handleSetStates(true, true, user.username);
   };
   const handleUsername = (event) => {
@@ -58,7 +59,7 @@ function Login(props) {
           alignItems: 'center'
         }}
         >
-          <Avatar alt="pikachu" sx={{ m: 1 }} src="../pokegram/src/images/pikachu.jpg" />
+          <Avatar alt="pikachu" sx={{ m: 1 }} src={pokemon} />
           <Typography component="h1" variant="h4">Wecome to Pokegram!</Typography>
         </Box>
         <Divider variant="middle" />

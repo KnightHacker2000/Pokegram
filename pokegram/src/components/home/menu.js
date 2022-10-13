@@ -22,8 +22,6 @@ import avatar from '../../images/pikachu.jpg';
 const pages = ['ACTIVITY', 'UPLOAD', 'LOGOUT'];
 
 function ResponsiveAppBar(props) {
-  console.log(props);
-  console.log(props.homeStates.UID);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -32,7 +30,11 @@ function ResponsiveAppBar(props) {
   };
   const handleProfPicClick = (event) => {
     setAnchorElUser(event.currentTarget);
-    props.homeStates.handleHomeStates(false, true, false, false, false, props.UID);
+    props.homeStates.handleHomeStates(false, true, false, false, false, props.homeStates.UID);
+  };
+  const handlePokegramClick = (event) => {
+    setAnchorElUser(event.currentTarget);
+    props.homeStates.handleHomeStates(false, false, false, false, true, props.homeStates.UID);
   };
 
   const handleCloseNavMenu = (event) => {
@@ -64,7 +66,6 @@ function ResponsiveAppBar(props) {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -74,6 +75,7 @@ function ResponsiveAppBar(props) {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            onClick={handlePokegramClick}
           >
             Pokegram
           </Typography>

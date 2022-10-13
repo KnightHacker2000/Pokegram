@@ -12,6 +12,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
+import pokemon from '../../images/pikachu.jpg';
 
 const theme = createTheme();
 
@@ -84,7 +85,7 @@ function SignUp(props) {
           alignItems: 'center'
         }}
         >
-          <Avatar alt="pikachu" sx={{ m: 1 }} src="../pokegram/src/images/pikachu.jpg" />
+          <Avatar alt="pikachu" sx={{ m: 1 }} src={pokemon} />
           <Typography component="h1" variant="h4">Wecome to Pokegram!</Typography>
           <Typography component="h2" variant="h6">Register with Pokemongram, Pika Pika</Typography>
         </Box>

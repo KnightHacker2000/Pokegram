@@ -39,6 +39,7 @@ function App(props) {
     } else {
       ret = <Home parStates={parentStates} />;
     }
+    // return <Profile parStates={parentStates} UID={-1} />;
     return ret;
   }
 
