@@ -12,8 +12,8 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
-import pokemon from '../../images/pikachu.jpg';
 import validator from 'validator';
+import pokemon from '../../images/pikachu.jpg';
 
 const theme = createTheme();
 
