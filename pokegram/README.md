@@ -71,4 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### running `json-server`
 cd into redux_mocked_backend/json-server
-json-server -- watch db.json --port 8000
+json-server --watch db.json --port 8000
