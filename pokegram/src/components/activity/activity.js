@@ -38,7 +38,7 @@ function Act(props) {
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchData();
-      // putData();
+      putData();
     }
   });
   // call to get user activity by id
