@@ -41,6 +41,25 @@ class PokemonClient {
         throw (error);
       });
   }
+
+  /**
+   * Generic Post request method
+  */
+  async put(
+    endpoint,
+    body,
+    axiosParams
+  ) {
+    return axios
+      .put(this.BACKEND_URL + endpoint, body, {
+        ...axiosParams,
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then((response) => response.data)
+      .catch((error) => {
+        throw (error);
+      });
+  }
 }
 
 export default PokemonClient;

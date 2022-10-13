@@ -29,6 +29,16 @@ class ActivityService {
     });
     return ActArr;
   }
+
+  /**
+   * new activity API endpoint
+  */
+  async createActivity(body) {
+    // TODO: replace test endpoint
+    // const response = await this.client.get(API.ACT_TEST, body);
+    const response = await this.client.post(`${API.ACT_TEST}`, body);
+    return response;
+  }
 }
 
 export default ActivityService;
