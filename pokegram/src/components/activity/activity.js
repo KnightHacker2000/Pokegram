@@ -12,6 +12,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import avatar from '../../images/pikachu.jpg';
+import Activity from '../../models/activity';
 import ActivityService from '../../services/activityService';
 
 function Act(props) {
@@ -25,9 +26,19 @@ function Act(props) {
       const data = await srvc.getActivityByTarget(JSON.parse(params));
       setActList(data);
     }
+
+    async function putData() {
+      const testAct1 = new Activity(10, 'testUser1', 'charlie', 'Comment', new Date('December 16, 2021 03:24:00'));
+      testAct1.timestamp = testAct1.timestamp.toString();
+      // console.log(testAct1);
+      const res = await srvc.createActivity(testAct1);
+      // console.log(res);
+    }
+
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchData();
+      // putData();
     }
   });
   // call to get user activity by id
