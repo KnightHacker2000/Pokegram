@@ -10,6 +10,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ResponsiveAppBar from './menu';
 import Act from '../activity/activity';
 import Profile from '../profile/Profile';
+import Posts from '../posts/Post';
+import Upload from '../posts/Upload';
 
 function Home(props) {
     // console.log(props);
@@ -19,7 +21,7 @@ function Home(props) {
     const [isUp, setIsUp] = useState(false);
     const [isPosts, setIsPosts] = useState(true);
     const [isProf, setIsProf] = useState(false);
-    const [UID, setUID] = useState(myUID);
+    const [UID, setUID] = useState(66);
 
     const theme = createTheme();
 
@@ -54,10 +56,12 @@ function Home(props) {
 
         if (isUp) {
             // return Upload Page
+            ret = <Upload />;
         }
 
         if (isPosts) {
             // return Posts Page
+            ret = <Posts />;
         }
 
         if (isProf) {

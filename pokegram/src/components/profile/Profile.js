@@ -31,15 +31,16 @@ const theme = createTheme();
 function Profile(props) {
   const {
     myUID, isAct, isUp, isPosts, isProf, UID, handleHomeStates
-  } = props;
+  } = props.homeStates;
   const handleLogout = (event) => {
     // console.log(props);
     event.preventDefault();
-    props.homeStates.handleHomeStates(true, isProf, isAct, isUp, isPosts, UID);
+    handleHomeStates(true, isProf, isAct, isUp, isPosts, UID);
     // console.log(props);
   };
   const handleFollow = (event) => {
     event.preventDefault();
+    // console.log(event.cu);
   };
 
   function ConditionalRender() {
