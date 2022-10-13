@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import pokemon from '../../images/pikachu.jpg';
+import validator from 'validator';
 
 const theme = createTheme();
 
@@ -99,13 +100,45 @@ function SignUp(props) {
           }}
         >
           <Typography component="h1" variant="h6">Full Name:</Typography>
-          <TextField margin="normal" required fullWidth id="username" onChange={handleFullname} />
+          <TextField 
+            margin="normal" 
+            required 
+            fullWidth 
+            id="fullname" 
+            label="Fullname"
+            name="fullname"
+            value={user.fullname}
+            onChange={handleFullname} 
+          />
           <Typography component="h1" variant="h6">Username:</Typography>
-          <TextField margin="normal" required fullWidth id="username" onChange={handleUsername} />
-          <Typography component="h1" variant="h6">Email Address:</Typography>
-          <TextField margin="normal" required fullWidth id="username" onChange={handleEmailaddress} />
+          <TextField margin="normal" required fullWidth id="username" label="Username" onChange={handleUsername} />
           <Typography component="h1" variant="h6">Password:</Typography>
-          <TextField margin="normal" required fullWidth id="password" type="password" onChange={handlePassword} />
+          <TextField 
+            margin="normal" 
+            type="password"
+            label="Password"
+            required 
+            fullWidth 
+            id="password" 
+            name="password"
+            value={user.password}
+            onChange={handlePassword} 
+            error={user.password !== '' && user.password.length < 8}
+            helperText={user.password !== '' && user.password.length < 8 ? 'Password should contains Minimum eight characters' : ' '}
+          />
+          <Typography component="h1" variant="h6">Email Address:</Typography>
+          <TextField 
+            margin="normal" 
+            required 
+            fullWidth 
+            id="emailaddress" 
+            label="Email address"
+            name="emailaddress"
+            value={user.emailaddress}
+            onChange={handleEmailaddress}
+            error={user.emailaddress !== '' && !validator.isEmail(user.emailaddress)}
+            helperText={user.emailaddress !== '' && !validator.isEmail(user.emailaddress) ? 'invalid email address' : ' '} 
+          />
           <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} onClick={handleSignin}>Sign Up</Button>
         </Box>
         <Box sx={{ 

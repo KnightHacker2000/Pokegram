@@ -72,9 +72,21 @@ function Login(props) {
           }}
         >
           <Typography component="h1" variant="h6">Username:</Typography>
-          <TextField margin="normal" required fullWidth id="username" onChange={handleUsername} />
+          <TextField margin="normal" required fullWidth id="username" label="Username" onChange={handleUsername} />
           <Typography component="h1" variant="h6">Password:</Typography>
-          <TextField margin="normal" required fullWidth id="password" type="password" onChange={handlePassword} />
+          <TextField 
+            margin="normal" 
+            type="password"
+            required 
+            fullWidth 
+            id="password" 
+            name="password"
+            label="Password"
+            value={user.password}
+            onChange={handlePassword} 
+            error={user.password !== '' && user.password.length < 8}
+            helperText={user.password !== '' && user.password.length < 8 ? 'Password should contains Minimum eight characters' : ' '}
+          />
           <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }}>Sign In</Button>
         </Box>
         <Box sx={{ 
