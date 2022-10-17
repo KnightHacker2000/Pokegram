@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import pokemon from '../../images/pikachu.jpg';
+import userService from '../../services/userService';
 
 const theme = createTheme();
 
@@ -21,12 +22,13 @@ function Login(props) {
     username: '',
     password: ''
   });
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
     
     // testing code for state manipulation
     // console.log(props);
+    await userService.login();
     props.parStates.handleSetStates(true, true, user.username);
   };
   const handleUsername = (event) => {

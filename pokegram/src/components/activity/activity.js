@@ -17,13 +17,12 @@ import ActivityService from '../../services/activityService';
 
 function Act(props) {
   const [actList, setActList] = useState([]);
-  const srvc = new ActivityService();
   const firstRendering = useRef(true);
 
   useEffect(() => {
     const params = '{"userId": 1}';
     async function fetchData() {
-      const data = await srvc.getActivityByTarget(JSON.parse(params));
+      const data = await ActivityService.getActivityByTarget(JSON.parse(params));
       setActList(data);
     }
 
@@ -31,14 +30,14 @@ function Act(props) {
       const testAct1 = new Activity(10, 'testUser1', 'charlie', 'Comment', new Date('December 16, 2021 03:24:00'));
       testAct1.timestamp = testAct1.timestamp.toString();
       // console.log(testAct1);
-      const res = await srvc.createActivity(testAct1);
+      const res = await ActivityService.createActivity(testAct1);
       // console.log(res);
     }
 
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchData();
-      putData();
+      // putData();
     }
   });
   // call to get user activity by id

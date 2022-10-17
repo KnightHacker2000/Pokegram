@@ -31,6 +31,8 @@ function SignUp(props) {
     // testing code for state manipulation
     console.log(props);
     props.parStates.handleSetStates(true, true, user.username);
+
+    // TODO: create new user, call register endpoint
   };
   const handleFullname = (event) => {
     console.log(event.target.value);

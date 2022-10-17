@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -11,27 +11,51 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import userimage from '../../images/jieni.jpg';
 import Posts from '../posts/Post';
+import userService from '../../services/userService';
+import User from '../../models/user';
 // import { TextField } from '@mui/material';
 
-const user = {
-  id: 1,
-  email: 'Rachel@gmail.com',
-  username: 'Rachel',
-  password: 'RachelYuan',
-  numPosts: 10,
-  likedPost: [1, 2, 3],
-  follows: [1, 2, 3],
-  numFollows: 57,
-  subscribers: [1, 2, 3],
-  numSubs: 1,
-  comments: [1, 2, 3],
-  activities: [1, 2, 3]
-};
+// const user = {
+//   id: 1,
+//   email: 'Rachel@gmail.com',
+//   username: 'Rachel',
+//   password: 'RachelYuan',
+//   numPosts: 10,
+//   likedPost: [1, 2, 3],
+//   follows: [1, 2, 3],
+//   numFollows: 57,
+//   subscribers: [1, 2, 3],
+//   numSubs: 1,
+//   comments: [1, 2, 3],
+//   activities: [1, 2, 3]
+// };
 const theme = createTheme();
 function Profile(props) {
   const {
     myUID, isAct, isUp, isPosts, isProf, UID, handleHomeStates
   } = props.homeStates;
+  const firstRendering = useRef(true);
+  const [user, setUser] = useState(new User());
+
+  useEffect(() => {
+    // TODO: getUser just testing, use prop.UID in the future
+    const params = '{"userId": 1}';
+    async function fetchData() {
+      const data = await userService.getUserById(JSON.parse(params));
+      setUser(data);
+
+      // Test code for update endpoint
+      // await userService.getUserById(JSON.parse(params)).then((data) => {
+      //   setUser(data);
+      //   userService.unfollowUser(data, 2);
+      // });
+    }
+
+    if (firstRendering.current) {
+      firstRendering.current = false;
+      fetchData();
+    }
+  });
   const handleLogout = (event) => {
     // console.log(props);
     event.preventDefault();
