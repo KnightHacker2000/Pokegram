@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable import/no-dynamic-require */
+import * as React from 'react';
+import { useState, useEffect, useRef } from 'react';
 // import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,18 +17,36 @@ import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import jieni from '../../images/jieni.jpg';
+import postsService from '../../services/postsService';
 
-const posts = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+// const posts = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 
 const theme = createTheme();
 
 function Posts() {
+  // console.log(props);
+  const [postList, setPostList] = useState([]);
+  const firstRendering = useRef(true);
+
+  useEffect(() => {
+    // const params = '{"userId": 1}';
+    async function fetchData() {
+      const data = await postsService.getAllPosts();
+      setPostList(data);
+    }
+
+    if (firstRendering.current) {
+      firstRendering.current = false;
+      fetchData();
+      // putData();
+    }
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
-          {posts.map((post) => (
+          {postList.map((post) => (
             <Grid item key={post.id} xs={12} sm={6} md={4}>
               <Card
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -36,18 +56,18 @@ function Posts() {
                   action={
                     <IconButton aria-label="settings" />
                   }
-                  title="Shrimp and Chorizo Paella"
-                  subheader="September 14, 2016"
+                  title={post.username}
+                  subheader={post.timestamp.toString()}
                 />
                 <CardMedia
                   component="img"
                   height="194"
-                  image={jieni}
-                  alt="Paella dish"
+                  src={require('../../images/jieni.jpg')} // todo: fix this
+                  alt="post image"
                 />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
-                    {post.id}
+                    {post.description}
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>

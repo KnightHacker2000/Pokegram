@@ -14,14 +14,13 @@ import Posts from '../posts/Post';
 import Upload from '../posts/Upload';
 
 function Home(props) {
-    // console.log(props);
     const myUID = props.parStates.myUID;
     const handleRootState = props.parStates.handleSetStates;
     const [isAct, setIsAct] = useState(false);
     const [isUp, setIsUp] = useState(false);
     const [isPosts, setIsPosts] = useState(true);
     const [isProf, setIsProf] = useState(false);
-    const [UID, setUID] = useState(66);
+    const [UID, setUID] = useState(-1);
 
     const theme = createTheme();
 
@@ -61,7 +60,7 @@ function Home(props) {
 
         if (isPosts) {
             // return Posts Page
-            ret = <Posts />;
+            ret = <Posts homeStates={parentStates} />;
         }
 
         if (isProf) {
