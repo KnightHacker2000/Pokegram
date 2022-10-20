@@ -159,6 +159,46 @@
     {
       "sessionId": "00377",
       "id": 40
+    },
+    {
+      "sessionId": "32171",
+      "id": 41
+    },
+    {
+      "sessionId": "43807",
+      "id": 42
+    },
+    {
+      "sessionId": "17232",
+      "id": 43
+    },
+    {
+      "sessionId": "74043",
+      "id": 44
+    },
+    {
+      "sessionId": "87002",
+      "id": 45
+    },
+    {
+      "sessionId": "02643",
+      "id": 46
+    },
+    {
+      "sessionId": "25797",
+      "id": 47
+    },
+    {
+      "sessionId": "08304",
+      "id": 48
+    },
+    {
+      "sessionId": "42548",
+      "id": 49
+    },
+    {
+      "sessionId": "45068",
+      "id": 50
     }
   ],
   "activities": [
@@ -227,6 +267,7 @@
       "username": "Rachel",
       "timestamp": "December 01, 2021 03:24:00",
       "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
+      "type": "photo",
       "numLike": 10,
       "description": "This is my post!",
       "commentRefs": [
@@ -245,6 +286,7 @@
       "username": "Reneee",
       "timestamp": "December 16, 2021 :24:00",
       "content_url": "http://img4.wikia.nocookie.net/__cb20140724195345/pokemon/images/thumb/7/73/004Charmander.png/200px-004Charmander.png",
+      "type": "photo",
       "numLike": 18,
       "description": "Look at my cute Pika!",
       "commentRefs": [
@@ -263,6 +305,7 @@
       "username": "Charlie",
       "timestamp": "December 25, 2021 01:30:00",
       "content_url": "http://img1.wikia.nocookie.net/__cb20140328191525/pokemon/images/thumb/3/39/007Squirtle.png/200px-007Squirtle.png",
+      "type": "photo",
       "numLike": 97,
       "description": "Have a wonderful night with my teammate",
       "commentRefs": [
@@ -275,6 +318,39 @@
         5678,
         9101
       ]
+    },
+    {
+      "username": "Abby",
+      "timestamp": "Fri Oct 21 2022 05:07:47 GMT+0800 (China Standard Time)",
+      "type": "photo",
+      "content_url": "",
+      "numLike": 0,
+      "description": "",
+      "commentRefs": [],
+      "users": [],
+      "id": 4
+    },
+    {
+      "username": "Abby",
+      "timestamp": "Fri Oct 21 2022 05:07:47 GMT+0800 (China Standard Time)",
+      "type": "photo",
+      "content_url": "",
+      "numLike": 0,
+      "description": "",
+      "commentRefs": [],
+      "users": [],
+      "id": 5
+    },
+    {
+      "username": "Abby",
+      "timestamp": "Fri Oct 21 2022 05:15:27 GMT+0800 (China Standard Time)",
+      "type": "photo",
+      "content_url": "",
+      "numLike": 0,
+      "description": "",
+      "commentRefs": [],
+      "users": [],
+      "id": 6
     }
   ],
   "comment": [
@@ -282,7 +358,7 @@
       "id": 1,
       "userId": 7,
       "postId": 1,
-      "content": "I love this poast!",
+      "content": "I love this post!",
       "referredUser": [
         1,
         2,

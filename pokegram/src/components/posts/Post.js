@@ -19,12 +19,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 
-// const posts = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
-
 const theme = createTheme();
 
-function Posts() {
-  // console.log(props);
+function Posts(props) {
+  console.log(props);
   const [postList, setPostList] = useState([]);
   const firstRendering = useRef(true);
 
@@ -41,7 +39,8 @@ function Posts() {
       // putData();
     }
   });
-
+  
+  
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ py: 8 }} maxWidth="md">

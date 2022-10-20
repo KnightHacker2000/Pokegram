@@ -1,8 +1,10 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 
 // import Button from '@mui/material/Button';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Button, Box, Container, FormControl, InputLabel, MenuItem, TextField
 } from '@mui/material';
@@ -11,46 +13,57 @@ import Posts from '../../models/post';
 import postsService from '../../services/postsService';
 
 // const theme = createTheme();
-function Upload() {
+function Upload(props) {
+  // console.log(props.homeStates);
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
-  const inputRef = useRef();
-  const post = {
-    id: '',
-    username: '',
-    timestamp: '',
+  const [newpost, setPost] = useState({
+    id: 5,
+    username: 'Abby',
+    timestamp: new Date(),
+    type: 'photo',
     content_url: '',
     numLike: 0,
     description: '',
     commentRefs: [],
     users: []
-  };
-  // console.log(source);
-  useEffect(() => {
-    async function putData() {
-      const newPost = new Posts(4, 'Ann', new Date('October 16, 2022 11:30:00'), '../../images/pikachu.jpg', 5, 'A new post', [], []);
-      newPost.timestamp = newPost.timestamp.toString();
-      const res = await postsService.createPost(newPost);
-      console.log(res);
-    }
-    console.log(source);
-    if (source) {
-      putData();
-    }
   });
+  const inputRef = useRef();
 
   const handleChange = (event) => {
     setType(event.target.value);
+    const updatepost = {
+      id: newpost.id,
+      username: newpost.username,
+      timestamp: newpost.timestamp,
+      type: event.target.value,
+      content_url: newpost.content_url,
+      numLike: 0,
+      description: newpost.description,
+      commentRefs: newpost.commentRefs,
+      users: newpost.users
+    };
+    setPost(updatepost);
     setSource();
   };
 
   function uploadVideo() {
-    // const { width, height } = props;
     const handleFileChange = (event) => {
       const file = event.target.files[0];
       const url = URL.createObjectURL(file);
-      console.log(file);
       setSource(url);
+      const updatepost = {
+        id: newpost.id,
+        username: newpost.username,
+        timestamp: newpost.timestamp,
+        type: newpost.type,
+        content_url: url,
+        numLike: 0,
+        description: newpost.description,
+        commentRefs: newpost.commentRefs,
+        users: newpost.users
+      };
+      setPost(updatepost);
     };
     const handleChoose = () => {
       inputRef.current.click();
@@ -74,7 +87,7 @@ function Upload() {
             src={source}
           />
         )}
-        <div className="VideoInput_footer">{source || 'Nothing selectd'}</div>
+        <div className="VideoInput_footer">{source || 'Nothing selected'}</div>
       </div>
     );
   }
@@ -84,6 +97,18 @@ function Upload() {
       const file = event.target.files[0];
       const url = URL.createObjectURL(file);
       setSource(url);
+      const updatepost = {
+        id: newpost.id,
+        username: newpost.username,
+        timestamp: newpost.timestamp,
+        type: newpost.type,
+        content_url: url,
+        numLike: 0,
+        description: newpost.description,
+        commentRefs: newpost.commentRefs,
+        users: newpost.users
+      };
+      setPost(updatepost);
     };
     const handleChoose = () => {
       inputRef.current.click();
@@ -107,7 +132,7 @@ function Upload() {
             src={source}
           />
         )}
-        <div className="VideoInput_footer">{source || 'Nothing selectd'}</div>
+        <div className="VideoInput_footer">{source || 'Nothing selected'}</div>
       </div>
     );
   }
@@ -124,14 +149,39 @@ function Upload() {
   const handleCreatePost = (event) => {
     event.preventDefault();
     console.log('entered create post');
-    console.log(post);
-    post.description = 'changed!';
-    console.log(post);
+    console.log(newpost);
+    async function putData() {
+      const temp = new Posts();
+      temp.username = newpost.username;
+      temp.timestamp = newpost.timestamp;
+      temp.type = newpost.type;
+      temp.content_url = newpost.content_url;
+      temp.numLike = newpost.numLike;
+      temp.description = newpost.description;
+      temp.commentRefs = newpost.commentRefs;
+      temp.users = newpost.users;
+      temp.timestamp = temp.timestamp.toString();
+      await postsService.createPost(temp);
+    }
+    putData();
+    props.homeStates.handleHomeStates(false, false, false, false, true, props.homeStates.UID);
   };
 
   const handleContent = (event) => {
     event.preventDefault();
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    const updatepost = {
+      id: newpost.id,
+      username: newpost.username,
+      timestamp: newpost.timestamp,
+      type: newpost.type,
+      content_url: newpost.content_url,
+      numLike: 0,
+      description: event.target.value,
+      commentRefs: newpost.commentRefs,
+      users: newpost.users
+    };
+    setPost(updatepost);
   };
   return (
     <Container maxWidth="lg">
