@@ -61,8 +61,9 @@ function Posts() {
                 />
                 <CardMedia
                   component="img"
-                  height="194"
-                  src={require('../../images/jieni.jpg')} // todo: fix this
+                  height={200}
+                  width={400}
+                  src={post.content_url}
                   alt="post image"
                 />
                 <CardContent>
