@@ -15,7 +15,7 @@ import SignUp from './components/signup/SignUp';
 function App(props) {
   const [isLogin, setIsLogin] = useState(false);
   const [isReg, setIsReg] = useState(true);
-  const [myUID, setMyUID] = useState(-1);
+  const [myUID, setMyUID] = useState(1);
 
   const handleSetStates = (newLogin, newReg, newMyUID) => {
     setIsLogin(newLogin);

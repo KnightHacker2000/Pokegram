@@ -4,6 +4,8 @@ class API {
   static USER = '/user';
 
   static LOGIN = '/login';
+
+  static POSTS = '/posts';
 }
 
 export default API;

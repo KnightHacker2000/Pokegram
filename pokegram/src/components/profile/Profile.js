@@ -39,11 +39,10 @@ function Profile(props) {
 
   useEffect(() => {
     // TODO: getUser just testing, use prop.UID in the future
-    const params = '{"userId": 1}';
+    const params = '{"userId": 2}';
     async function fetchData() {
       const data = await userService.getUserById(JSON.parse(params));
       setUser(data);
-
       // Test code for update endpoint
       // await userService.getUserById(JSON.parse(params)).then((data) => {
       //   setUser(data);
@@ -143,7 +142,7 @@ function Profile(props) {
         </Box>
       </Container>
       <Divider />
-      <Posts />
+      <Posts homeStates={props.homeStates} />
     </ThemeProvider>
   );
 }

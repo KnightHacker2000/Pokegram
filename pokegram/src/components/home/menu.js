@@ -30,7 +30,7 @@ function ResponsiveAppBar(props) {
   };
   const handleProfPicClick = (event) => {
     setAnchorElUser(event.currentTarget);
-    props.homeStates.handleHomeStates(false, true, false, false, false, props.homeStates.UID);
+    props.homeStates.handleHomeStates(false, true, false, false, false, props.homeStates.myUID);
   };
   const handlePokegramClick = (event) => {
     setAnchorElUser(event.currentTarget);
