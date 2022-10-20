@@ -10,10 +10,10 @@ import avatar from '../../images/pikachu.jpg';
 // import Activity from '../../models/activity';
 import ActivityService from '../../services/activityService';
 
-function Act(props) {
+function Act() {
   const [actList, setActList] = useState([]);
   const firstRendering = useRef(true);
-  console.log(props);
+  // console.log(props);
 
   useEffect(() => {
     const params = '{"userId": 1}';

@@ -1,9 +1,4 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/media-has-caption */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-
-// import Button from '@mui/material/Button';
+import PropTypes from 'prop-types';
 import React, { useState, useRef } from 'react';
 import {
   Button, Box, Container, FormControl, InputLabel, MenuItem, TextField
@@ -11,10 +6,12 @@ import {
 import Select from '@mui/material/Select';
 import Posts from '../../models/post';
 import postsService from '../../services/postsService';
+import HomeState from '../../models/homeState';
 
 // const theme = createTheme();
 function Upload(props) {
   // console.log(props.homeStates);
+  const { homeStates } = props;
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
   const [newpost, setPost] = useState({
@@ -29,7 +26,7 @@ function Upload(props) {
     users: []
   });
   const inputRef = useRef();
-
+  // <track src="" kind="captions" srcLang="en" label="english_captions" />
   const handleChange = (event) => {
     setType(event.target.value);
     const updatepost = {
@@ -77,7 +74,7 @@ function Upload(props) {
           onChange={handleFileChange}
           accept=".mov,.mp4"
         />
-        {!source && <button onClick={handleChoose}>Choose</button>}
+        {!source && <button type="button" onClick={handleChoose}>Choose</button>}
         {source && (
           <video
             className="VideoInput_video"
@@ -85,7 +82,9 @@ function Upload(props) {
             height={300}
             controls
             src={source}
-          />
+          >
+            <track default kind="captions" srcLang="en" src="" />
+          </video>
         )}
         <div className="VideoInput_footer">{source || 'Nothing selected'}</div>
       </div>
@@ -114,25 +113,25 @@ function Upload(props) {
       inputRef.current.click();
     };
     return (
-      <div className="VideoInput">
+      <div className="PhotoInput">
         <input
           ref={inputRef}
-          className="VideoInput_input"
+          className="PhotoInput_input"
           type="file"
           onChange={handleFileChange}
           accept=".jpg,.jpeg,.png"
         />
-        {!source && <button onClick={handleChoose}>Choose</button>}
+        {!source && <button type="button" onClick={handleChoose}>Choose</button>}
         {source && (
           <img
-            className="VideoInput_video"
+            className="PhotoInput_video"
             alt=""
             width={300}
             height={300}
             src={source}
           />
         )}
-        <div className="VideoInput_footer">{source || 'Nothing selected'}</div>
+        <div className="PhotoInput_footer">{source || 'Nothing selected'}</div>
       </div>
     );
   }
@@ -148,8 +147,8 @@ function Upload(props) {
   }
   const handleCreatePost = (event) => {
     event.preventDefault();
-    console.log('entered create post');
-    console.log(newpost);
+    // console.log('entered create post');
+    // console.log(newpost);
     async function putData() {
       const temp = new Posts();
       temp.username = newpost.username;
@@ -164,7 +163,7 @@ function Upload(props) {
       await postsService.createPost(temp);
     }
     putData();
-    props.homeStates.handleHomeStates(false, false, false, false, true, props.homeStates.UID);
+    homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
   };
 
   const handleContent = (event) => {
@@ -232,4 +231,11 @@ function Upload(props) {
     </Container>
   );
 }
+Upload.propTypes = {
+  homeStates: PropTypes.instanceOf(HomeState)
+};
+
+Upload.defaultProps = {
+  homeStates: null
+};
 export default Upload;

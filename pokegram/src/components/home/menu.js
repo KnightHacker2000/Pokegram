@@ -21,8 +21,8 @@ const pages = ['ACTIVITY', 'UPLOAD', 'LOGOUT'];
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  console.log(anchorElUser);
+  const [, setAnchorElUser] = useState(null);
+  // console.log(anchorElUser);
   const { homeStates } = props;
 
   const handleOpenNavMenu = (event) => {

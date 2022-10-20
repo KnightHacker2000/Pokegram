@@ -32,7 +32,7 @@ function Login(props) {
     props.parStates.handleSetStates(true, true, user.username);
   };
   const handleUsername = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const updateuser = {
       username: event.target.value,
       password: user.password

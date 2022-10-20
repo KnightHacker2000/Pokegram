@@ -49,8 +49,8 @@ function Home(props) {
     }
 
     if (isUp) {
-        // return Upload Page
-        ret = <Upload homeStates={parentStates} />;
+      // return Upload Page
+      ret = <Upload homeStates={parentStates} />;
     }
 
     if (isPosts) {

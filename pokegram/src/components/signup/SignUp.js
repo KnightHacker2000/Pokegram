@@ -14,6 +14,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import validator from 'validator';
 import pokemon from '../../images/pikachu.jpg';
+import Upload from '../posts/Upload';
+import HomeState from '../../models/homeState';
 
 const theme = createTheme();
 

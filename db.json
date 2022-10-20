@@ -5,200 +5,16 @@
       "id": 1
     },
     {
-      "sessionId": "83796",
+      "sessionId": "50636",
       "id": 2
     },
     {
-      "sessionId": "15821",
+      "sessionId": "37781",
       "id": 3
     },
     {
-      "sessionId": "53725",
+      "sessionId": "46850",
       "id": 4
-    },
-    {
-      "sessionId": "03326",
-      "id": 5
-    },
-    {
-      "sessionId": "87509",
-      "id": 6
-    },
-    {
-      "sessionId": "60509",
-      "id": 7
-    },
-    {
-      "sessionId": "57488",
-      "id": 8
-    },
-    {
-      "sessionId": "37255",
-      "id": 9
-    },
-    {
-      "sessionId": "18511",
-      "id": 10
-    },
-    {
-      "sessionId": "63312",
-      "id": 11
-    },
-    {
-      "sessionId": "43362",
-      "id": 12
-    },
-    {
-      "sessionId": "63122",
-      "id": 13
-    },
-    {
-      "sessionId": "19810",
-      "id": 14
-    },
-    {
-      "sessionId": "71862",
-      "id": 15
-    },
-    {
-      "sessionId": "42105",
-      "id": 16
-    },
-    {
-      "sessionId": "98559",
-      "id": 17
-    },
-    {
-      "sessionId": "43171",
-      "id": 18
-    },
-    {
-      "sessionId": "91558",
-      "id": 19
-    },
-    {
-      "sessionId": "07332",
-      "id": 20
-    },
-    {
-      "sessionId": "76371",
-      "id": 21
-    },
-    {
-      "sessionId": "29383",
-      "id": 22
-    },
-    {
-      "sessionId": "81225",
-      "id": 23
-    },
-    {
-      "sessionId": "39921",
-      "id": 24
-    },
-    {
-      "sessionId": "30480",
-      "id": 25
-    },
-    {
-      "sessionId": "76944",
-      "id": 26
-    },
-    {
-      "sessionId": "87226",
-      "id": 27
-    },
-    {
-      "sessionId": "90810",
-      "id": 28
-    },
-    {
-      "sessionId": "02488",
-      "id": 29
-    },
-    {
-      "sessionId": "40875",
-      "id": 30
-    },
-    {
-      "sessionId": "53122",
-      "id": 31
-    },
-    {
-      "sessionId": "15326",
-      "id": 32
-    },
-    {
-      "sessionId": "23482",
-      "id": 33
-    },
-    {
-      "sessionId": "14826",
-      "id": 34
-    },
-    {
-      "sessionId": "91556",
-      "id": 35
-    },
-    {
-      "sessionId": "24069",
-      "id": 36
-    },
-    {
-      "sessionId": "54159",
-      "id": 37
-    },
-    {
-      "sessionId": "08630",
-      "id": 38
-    },
-    {
-      "sessionId": "77218",
-      "id": 39
-    },
-    {
-      "sessionId": "00377",
-      "id": 40
-    },
-    {
-      "sessionId": "32171",
-      "id": 41
-    },
-    {
-      "sessionId": "43807",
-      "id": 42
-    },
-    {
-      "sessionId": "17232",
-      "id": 43
-    },
-    {
-      "sessionId": "74043",
-      "id": 44
-    },
-    {
-      "sessionId": "87002",
-      "id": 45
-    },
-    {
-      "sessionId": "02643",
-      "id": 46
-    },
-    {
-      "sessionId": "25797",
-      "id": 47
-    },
-    {
-      "sessionId": "08304",
-      "id": 48
-    },
-    {
-      "sessionId": "42548",
-      "id": 49
-    },
-    {
-      "sessionId": "45068",
-      "id": 50
     }
   ],
   "activities": [
@@ -322,35 +138,13 @@
     {
       "username": "Abby",
       "timestamp": "Fri Oct 21 2022 05:07:47 GMT+0800 (China Standard Time)",
-      "type": "photo",
-      "content_url": "",
+      "type": "video",
+      "content_url": "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4",
       "numLike": 0,
-      "description": "",
+      "description": "This is a video!",
       "commentRefs": [],
       "users": [],
       "id": 4
-    },
-    {
-      "username": "Abby",
-      "timestamp": "Fri Oct 21 2022 05:07:47 GMT+0800 (China Standard Time)",
-      "type": "photo",
-      "content_url": "",
-      "numLike": 0,
-      "description": "",
-      "commentRefs": [],
-      "users": [],
-      "id": 5
-    },
-    {
-      "username": "Abby",
-      "timestamp": "Fri Oct 21 2022 05:15:27 GMT+0800 (China Standard Time)",
-      "type": "photo",
-      "content_url": "",
-      "numLike": 0,
-      "description": "",
-      "commentRefs": [],
-      "users": [],
-      "id": 6
     }
   ],
   "comment": [

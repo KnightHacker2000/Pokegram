@@ -57,7 +57,7 @@ const getAllPosts = async () => {
  * @param none
 */
 const createPost = async (body) => {
-  console.log(body);
+  // console.log(body);
   const response = await client.post(`${API.POSTS}`, body);
   return response;
 };
