@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import Login from './components/login/Login';
 import Home from './components/home/home';
 import SignUp from './components/signup/SignUp';
+import RootState from './models/rootState';
 
 function App(props) {
   const [isLogin, setIsLogin] = useState(false);
@@ -23,12 +24,7 @@ function App(props) {
     setMyUID(newMyUID);
   };
 
-  let parentStates = {
-    isLogin,
-    isReg,
-    myUID,
-    handleSetStates
-  };
+  let parentStates = new RootState(isLogin, isReg, myUID, handleSetStates);
 
   function nextToRender() {
     let ret;
