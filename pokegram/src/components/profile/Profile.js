@@ -31,6 +31,7 @@ import User from '../../models/user';
 // };
 const theme = createTheme();
 function Profile(props) {
+  console.log(props);
   const {
     myUID, isAct, isUp, isPosts, isProf, UID, handleHomeStates
   } = props.homeStates;
