@@ -16,7 +16,9 @@ const getPostsById = async (userId) => {
     const newPost = new Posts(
       pos.id,
       pos.username,
+      new Date(pos.timestamp),
       pos.content_url,
+      pos.type,
       pos.numLike,
       pos.description,
       pos.commentRefs,
@@ -38,6 +40,7 @@ const getAllPosts = async () => {
       pos.id,
       pos.username,
       new Date(pos.timestamp),
+      pos.type,
       pos.content_url,
       pos.numLike,
       pos.description,
@@ -54,7 +57,7 @@ const getAllPosts = async () => {
  * @param none
 */
 const createPost = async (body) => {
-  console.log(body);
+  // console.log(body);
   const response = await client.post(`${API.POSTS}`, body);
   return response;
 };

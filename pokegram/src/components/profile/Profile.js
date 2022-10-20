@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
+import PropTypes from 'prop-types';
 import React, { useEffect, useState, useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,6 +12,7 @@ import userimage from '../../images/jieni.jpg';
 import Posts from '../posts/Post';
 import userService from '../../services/userService';
 import User from '../../models/user';
+import HomeState from '../../models/homeState';
 // import { TextField } from '@mui/material';
 
 // const user = {
@@ -31,9 +31,7 @@ import User from '../../models/user';
 // };
 const theme = createTheme();
 function Profile(props) {
-  const {
-    myUID, isAct, isUp, isPosts, isProf, UID, handleHomeStates
-  } = props.homeStates;
+  const { homeStates } = props;
   const firstRendering = useRef(true);
   const [user, setUser] = useState(new User());
 
@@ -58,7 +56,14 @@ function Profile(props) {
   const handleLogout = (event) => {
     // console.log(props);
     event.preventDefault();
-    handleHomeStates(true, isProf, isAct, isUp, isPosts, UID);
+    homeStates.handleHomeStates(
+      true,
+      homeStates.isProf,
+      homeStates.isAct,
+      homeStates.isUp,
+      homeStates.isPosts,
+      homeStates.UID
+    );
     // console.log(props);
   };
   const handleFollow = (event) => {
@@ -68,7 +73,7 @@ function Profile(props) {
 
   function ConditionalRender() {
     let usersection;
-    if (UID === myUID) {
+    if (homeStates.UID === homeStates.myUID) {
       usersection = (
         <Box sx={{
           mx: 2, p: 1, alignItems: 'center', display: 'flex'
@@ -146,4 +151,11 @@ function Profile(props) {
     </ThemeProvider>
   );
 }
+Profile.propTypes = {
+  homeStates: PropTypes.instanceOf(HomeState)
+};
+
+Profile.defaultProps = {
+  homeStates: null
+};
 export default Profile;

@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable comma-dangle */
 import * as React from 'react';
 import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -16,25 +12,29 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import PropTypes from 'prop-types';
 // import AdbIcon from '@mui/icons-material/Adb';
 import avatar from '../../images/pikachu.jpg';
+import HomeState from '../../models/homeState';
 
 const pages = ['ACTIVITY', 'UPLOAD', 'LOGOUT'];
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [, setAnchorElUser] = useState(null);
+  // console.log(anchorElUser);
+  const { homeStates } = props;
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleProfPicClick = (event) => {
     setAnchorElUser(event.currentTarget);
-    props.homeStates.handleHomeStates(false, true, false, false, false, props.homeStates.myUID);
+    homeStates.handleHomeStates(false, true, false, false, false, homeStates.myUID);
   };
   const handlePokegramClick = (event) => {
     setAnchorElUser(event.currentTarget);
-    props.homeStates.handleHomeStates(false, false, false, false, true, props.homeStates.UID);
+    homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
   };
 
   const handleCloseNavMenu = (event) => {
@@ -42,15 +42,15 @@ function ResponsiveAppBar(props) {
     switch (nextPage) {
       // set activity page
       case pages[0]:
-        props.homeStates.handleHomeStates(false, false, true, false, false, props.homeStates.UID);
+        homeStates.handleHomeStates(false, false, true, false, false, homeStates.UID);
         break;
       // set upload page
       case pages[1]:
-        props.homeStates.handleHomeStates(false, false, false, true, false, props.homeStates.UID);
+        homeStates.handleHomeStates(false, false, false, true, false, homeStates.UID);
         break;
       // set logout
       case pages[2]:
-        props.homeStates.handleHomeStates(true, false, false, false, false, props.homeStates.UID);
+        homeStates.handleHomeStates(true, false, false, false, false, homeStates.UID);
         break;
       default:
         break;
@@ -73,7 +73,7 @@ function ResponsiveAppBar(props) {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none',
+              textDecoration: 'none'
             }}
             onClick={handlePokegramClick}
           >
@@ -96,17 +96,17 @@ function ResponsiveAppBar(props) {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left',
+                horizontal: 'left'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left',
+                horizontal: 'left'
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block', md: 'none' }
               }}
             >
               {pages.map((page) => (
@@ -129,7 +129,7 @@ function ResponsiveAppBar(props) {
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
-              textDecoration: 'none',
+              textDecoration: 'none'
             }}
           >
             Pokegram
@@ -159,4 +159,11 @@ function ResponsiveAppBar(props) {
   );
 }
 
+ResponsiveAppBar.propTypes = {
+  homeStates: PropTypes.instanceOf(HomeState)
+};
+
+ResponsiveAppBar.defaultProps = {
+  homeStates: null
+};
 export default ResponsiveAppBar;

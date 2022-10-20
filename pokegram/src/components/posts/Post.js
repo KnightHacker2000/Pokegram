@@ -1,4 +1,5 @@
 /* eslint-disable import/no-dynamic-require */
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 // import Button from '@mui/material/Button';
@@ -18,13 +19,13 @@ import ShareIcon from '@mui/icons-material/Share';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
-
-// const posts = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+import pokemon from '../../images/pikachu.jpg';
+import HomeState from '../../models/homeState';
 
 const theme = createTheme();
 
-function Posts() {
-  // console.log(props);
+function Posts(props) {
+  const { homeStates } = props;
   const [postList, setPostList] = useState([]);
   const firstRendering = useRef(true);
 
@@ -42,6 +43,21 @@ function Posts() {
     }
   });
 
+  function rendermedia(post) {
+    let ret;
+    if (post.type === 'video') {
+      ret = (<CardMedia component="video" height={200} width={400} src={post.content_url} alt="post video" autoPlay controls />);
+    } else {
+      ret = (<CardMedia component="img" height={200} width={400} src={post.content_url} alt="post image" />);
+    }
+    return ret;
+  }
+  const handleAvatarClick = (event) => {
+    // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
+    event.preventDefault();
+    const otherUID = event.currentTarget.getAttribute('data-index');
+    homeStates.handleHomeStates(false, true, false, false, false, otherUID);
+  };
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ py: 8 }} maxWidth="md">
@@ -52,20 +68,14 @@ function Posts() {
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
               >
                 <CardHeader
-                  avatar={<Avatar />}
+                  avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src={pokemon} onClick={handleAvatarClick} data-index={post.username} />}
                   action={
                     <IconButton aria-label="settings" />
                   }
                   title={post.username}
                   subheader={post.timestamp.toString()}
                 />
-                <CardMedia
-                  component="img"
-                  height={200}
-                  width={400}
-                  src={post.content_url}
-                  alt="post image"
-                />
+                {rendermedia(post)}
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     {post.description}
@@ -87,4 +97,11 @@ function Posts() {
     </ThemeProvider>
   );
 }
+Posts.propTypes = {
+  homeStates: PropTypes.instanceOf(HomeState)
+};
+
+Posts.defaultProps = {
+  homeStates: null
+};
 export default Posts;

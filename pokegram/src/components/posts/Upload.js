@@ -1,56 +1,66 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/media-has-caption */
-
-// import Button from '@mui/material/Button';
-import React, { useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import React, { useState, useRef } from 'react';
 import {
   Button, Box, Container, FormControl, InputLabel, MenuItem, TextField
 } from '@mui/material';
 import Select from '@mui/material/Select';
 import Posts from '../../models/post';
 import postsService from '../../services/postsService';
+import HomeState from '../../models/homeState';
 
 // const theme = createTheme();
-function Upload() {
+function Upload(props) {
+  // console.log(props.homeStates);
+  const { homeStates } = props;
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
-  const inputRef = useRef();
-  const post = {
-    id: '',
-    username: '',
-    timestamp: '',
+  const [newpost, setPost] = useState({
+    id: 5,
+    username: 'Abby',
+    timestamp: new Date(),
+    type: 'photo',
     content_url: '',
     numLike: 0,
     description: '',
     commentRefs: [],
     users: []
-  };
-  // console.log(source);
-  useEffect(() => {
-    async function putData() {
-      const newPost = new Posts(4, 'Ann', new Date('October 16, 2022 11:30:00'), '../../images/pikachu.jpg', 5, 'A new post', [], []);
-      newPost.timestamp = newPost.timestamp.toString();
-      const res = await postsService.createPost(newPost);
-      console.log(res);
-    }
-    console.log(source);
-    if (source) {
-      putData();
-    }
   });
-
+  const inputRef = useRef();
+  // <track src="" kind="captions" srcLang="en" label="english_captions" />
   const handleChange = (event) => {
     setType(event.target.value);
+    const updatepost = {
+      id: newpost.id,
+      username: newpost.username,
+      timestamp: newpost.timestamp,
+      type: event.target.value,
+      content_url: newpost.content_url,
+      numLike: 0,
+      description: newpost.description,
+      commentRefs: newpost.commentRefs,
+      users: newpost.users
+    };
+    setPost(updatepost);
     setSource();
   };
 
   function uploadVideo() {
-    // const { width, height } = props;
     const handleFileChange = (event) => {
       const file = event.target.files[0];
       const url = URL.createObjectURL(file);
-      console.log(file);
       setSource(url);
+      const updatepost = {
+        id: newpost.id,
+        username: newpost.username,
+        timestamp: newpost.timestamp,
+        type: newpost.type,
+        content_url: url,
+        numLike: 0,
+        description: newpost.description,
+        commentRefs: newpost.commentRefs,
+        users: newpost.users
+      };
+      setPost(updatepost);
     };
     const handleChoose = () => {
       inputRef.current.click();
@@ -64,7 +74,7 @@ function Upload() {
           onChange={handleFileChange}
           accept=".mov,.mp4"
         />
-        {!source && <button onClick={handleChoose}>Choose</button>}
+        {!source && <button type="button" onClick={handleChoose}>Choose</button>}
         {source && (
           <video
             className="VideoInput_video"
@@ -72,9 +82,11 @@ function Upload() {
             height={300}
             controls
             src={source}
-          />
+          >
+            <track default kind="captions" srcLang="en" src="" />
+          </video>
         )}
-        <div className="VideoInput_footer">{source || 'Nothing selectd'}</div>
+        <div className="VideoInput_footer">{source || 'Nothing selected'}</div>
       </div>
     );
   }
@@ -84,30 +96,42 @@ function Upload() {
       const file = event.target.files[0];
       const url = URL.createObjectURL(file);
       setSource(url);
+      const updatepost = {
+        id: newpost.id,
+        username: newpost.username,
+        timestamp: newpost.timestamp,
+        type: newpost.type,
+        content_url: url,
+        numLike: 0,
+        description: newpost.description,
+        commentRefs: newpost.commentRefs,
+        users: newpost.users
+      };
+      setPost(updatepost);
     };
     const handleChoose = () => {
       inputRef.current.click();
     };
     return (
-      <div className="VideoInput">
+      <div className="PhotoInput">
         <input
           ref={inputRef}
-          className="VideoInput_input"
+          className="PhotoInput_input"
           type="file"
           onChange={handleFileChange}
           accept=".jpg,.jpeg,.png"
         />
-        {!source && <button onClick={handleChoose}>Choose</button>}
+        {!source && <button type="button" onClick={handleChoose}>Choose</button>}
         {source && (
           <img
-            className="VideoInput_video"
+            className="PhotoInput_video"
             alt=""
             width={300}
             height={300}
             src={source}
           />
         )}
-        <div className="VideoInput_footer">{source || 'Nothing selectd'}</div>
+        <div className="PhotoInput_footer">{source || 'Nothing selected'}</div>
       </div>
     );
   }
@@ -123,15 +147,40 @@ function Upload() {
   }
   const handleCreatePost = (event) => {
     event.preventDefault();
-    console.log('entered create post');
-    console.log(post);
-    post.description = 'changed!';
-    console.log(post);
+    // console.log('entered create post');
+    // console.log(newpost);
+    async function putData() {
+      const temp = new Posts();
+      temp.username = newpost.username;
+      temp.timestamp = newpost.timestamp;
+      temp.type = newpost.type;
+      temp.content_url = newpost.content_url;
+      temp.numLike = newpost.numLike;
+      temp.description = newpost.description;
+      temp.commentRefs = newpost.commentRefs;
+      temp.users = newpost.users;
+      temp.timestamp = temp.timestamp.toString();
+      await postsService.createPost(temp);
+    }
+    putData();
+    homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
   };
 
   const handleContent = (event) => {
     event.preventDefault();
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    const updatepost = {
+      id: newpost.id,
+      username: newpost.username,
+      timestamp: newpost.timestamp,
+      type: newpost.type,
+      content_url: newpost.content_url,
+      numLike: 0,
+      description: event.target.value,
+      commentRefs: newpost.commentRefs,
+      users: newpost.users
+    };
+    setPost(updatepost);
   };
   return (
     <Container maxWidth="lg">
@@ -182,4 +231,11 @@ function Upload() {
     </Container>
   );
 }
+Upload.propTypes = {
+  homeStates: PropTypes.instanceOf(HomeState)
+};
+
+Upload.defaultProps = {
+  homeStates: null
+};
 export default Upload;
