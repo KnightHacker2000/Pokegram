@@ -33,13 +33,25 @@ function Profile(props) {
   const { homeStates } = props;
   const firstRendering = useRef(true);
   const [user, setUser] = useState(new User());
+  const [myUser, setMyUser] = useState(new User());
+  const [isFollow, setIsFollow] = useState(false);
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
     // TODO: getUser just testing, use prop.UID in the future
     const params = '{"userId": 2}';
+    const myParams = '{"userId": 1}';
     async function fetchData() {
       const data = await userService.getUserById(JSON.parse(params));
       setUser(data);
+      await userService.getUserById(JSON.parse(myParams)).then((d) => {
+        setMyUser(d);
+        if (d.follows.indexOf(2) !== -1) {
+          setIsFollow(true);
+        }
+      });
+
       // Test code for update endpoint
       // await userService.getUserById(JSON.parse(params)).then((data) => {
       //   setUser(data);
@@ -51,7 +63,8 @@ function Profile(props) {
       firstRendering.current = false;
       fetchData();
     }
-  });
+  }, [isFollow]);
+
   const handleLogout = (event) => {
     // console.log(props);
     event.preventDefault();
@@ -65,9 +78,20 @@ function Profile(props) {
     );
     // console.log(props);
   };
-  const handleFollow = (event) => {
+  const handleFollow = async (event) => {
     event.preventDefault();
-    // console.log(event.cu);
+    await userService.followUser(myUser, 2);
+    firstRendering.current = true;
+    setIsFollow(true);
+    forceUpdate();
+  };
+
+  const handleUnfollow = async (event) => {
+    event.preventDefault();
+    await userService.unfollowUser(myUser, 2);
+    firstRendering.current = true;
+    setIsFollow(false);
+    forceUpdate();
   };
 
   function ConditionalRender() {
@@ -111,7 +135,8 @@ function Profile(props) {
           >
             {user.username}
           </Typography>
-          <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleFollow}>Follow</Button>
+          {!isFollow && <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleFollow}>Follow</Button>}
+          {isFollow && <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleUnfollow}>Unfollow</Button>}
         </Box>
       );
     }

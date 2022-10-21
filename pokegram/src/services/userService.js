@@ -40,7 +40,6 @@ const getUserById = async (userId) => {
   // TODO: replace test endpoint
   // const response = await this.client.get(API.USER, userId);
   const response = await client.get(`${API.USER}/${userId.userId}`);
-  // console.log(response);
   const user = new User(
     response.id,
     response.email,
