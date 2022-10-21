@@ -1,4 +1,3 @@
-/* eslint-disable import/no-dynamic-require */
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
