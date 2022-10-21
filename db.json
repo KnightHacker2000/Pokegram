@@ -1,20 +1,8 @@
 {
   "login": [
     {
-      "sessionId": "70541",
+      "sessionId": "26750",
       "id": 1
-    },
-    {
-      "sessionId": "50636",
-      "id": 2
-    },
-    {
-      "sessionId": "37781",
-      "id": 3
-    },
-    {
-      "sessionId": "46850",
-      "id": 4
     }
   ],
   "activities": [
@@ -40,10 +28,8 @@
         100,
         101
       ],
-      "follows": [
-        3
-      ],
-      "numFollows": 57,
+      "follows": [],
+      "numFollows": 0,
       "subscribers": [
         "jieni",
         "pika",
@@ -70,10 +56,8 @@
         3
       ],
       "numFollows": 57,
-      "subscribers": [
-        3
-      ],
-      "numSubs": 1,
+      "subscribers": [],
+      "numSubs": 0,
       "fullname": "Rachel Yuan"
     }
   ],
@@ -145,6 +129,17 @@
       "commentRefs": [],
       "users": [],
       "id": 4
+    },
+    {
+      "username": "Abby",
+      "timestamp": "Fri Oct 21 2022 10:19:10 GMT-0400 (Eastern Daylight Time)",
+      "type": "video",
+      "content_url": "blob:http://localhost:3000/5a13d28b-42c8-4f0c-b817-fd717f5a4a0c",
+      "numLike": 0,
+      "description": "test",
+      "commentRefs": [],
+      "users": [],
+      "id": 5
     }
   ],
   "comment": [
