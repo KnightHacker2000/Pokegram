@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
-import pokemon from '../../images/pikachu.jpg';
+// import pokemon from '../../images/pikachu.jpg';
 import userService from '../../services/userService';
 import RootState from '../../models/rootState';
 
@@ -58,7 +58,7 @@ function Login(props) {
           alignItems: 'center'
         }}
         >
-          <Avatar alt="pikachu" sx={{ m: 1 }} src={pokemon} />
+          <Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" />
           <Typography component="h1" variant="h4">Wecome to Pokegram!</Typography>
         </Box>
         <Divider variant="middle" />
