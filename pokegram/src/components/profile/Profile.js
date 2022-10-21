@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import userimage from '../../images/jieni.jpg';
+// import userimage from '../../images/jieni.jpg';
 import Posts from '../posts/Post';
 import userService from '../../services/userService';
 import User from '../../models/user';
@@ -150,7 +150,7 @@ function Profile(props) {
             my: 3, mx: 2, p: 1, marginTop: 0, alignItems: 'center', display: 'flex'
           }}
         >
-          <Avatar alt="pikachu" sx={{ height: '100px', width: '100px' }} src={userimage} />
+          <Avatar alt="pikachu" sx={{ height: '100px', width: '100px' }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" />
           <Box
             sx={{
               mx: 2, p: 1, marginTop: 5, alignItems: 'center'

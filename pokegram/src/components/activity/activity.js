@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import avatar from '../../images/pikachu.jpg';
+// import avatar from '../../images/pikachu.jpg';
 // import Activity from '../../models/activity';
 import ActivityService from '../../services/activityService';
 
@@ -51,7 +51,7 @@ function Act() {
   // const actList = [testAct1, testAct2, testAct3, testAct4];
 
   // fetch user avatar
-  const avaList = [avatar, avatar, avatar, avatar];
+  // const avaList = [avatar, avatar, avatar, avatar];
 
   const parseActText = (act) => {
     // const time = act.timestamp.toString();
@@ -79,7 +79,7 @@ function Act() {
         {actList.map((act) => (
           <ListItem key={act.id} alignItems="flex-start">
             <ListItemAvatar>
-              <Avatar alt="Remy Sharp" src={avaList[act.id]} />
+              <Avatar alt="Remy Sharp" src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" />
             </ListItemAvatar>
             <ListItemText
               primary={`New ${act.activityType} Activity!`}
