@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import PropTypes from 'prop-types';
 // import AdbIcon from '@mui/icons-material/Adb';
-import avatar from '../../images/pikachu.jpg';
+// import avatar from '../../images/pikachu.jpg';
 import HomeState from '../../models/homeState';
 
 const pages = ['ACTIVITY', 'UPLOAD', 'LOGOUT'];
@@ -149,7 +149,7 @@ function ResponsiveAppBar(props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleProfPicClick} sx={{ p: 0 }}>
-                <Avatar alt="profPic" src={avatar} />
+                <Avatar alt="profPic" src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" />
               </IconButton>
             </Tooltip>
           </Box>
