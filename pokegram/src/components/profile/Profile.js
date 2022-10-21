@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -147,7 +146,7 @@ function Profile(props) {
         </Box>
       </Container>
       <Divider />
-      <Posts homeStates={props.homeStates} />
+      <Posts homeStates={homeStates} />
     </ThemeProvider>
   );
 }
