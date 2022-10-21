@@ -72,3 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### running `json-server`
 cd ..
 json-server --watch db.json --port 8000
+
+### running `jest`
+npm install -g jest-cli
