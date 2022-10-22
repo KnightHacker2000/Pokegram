@@ -14,6 +14,8 @@ Pokegram is a responsive website for people to share pictures and videos. Users 
 ![post](post.png)
 ### Activities
 ![activities](activities.jpg)
+### Upload
+We allow click to choose between video and image, you can test by using image and video sources stored in ./pokegram/src/images and ./pokegram/src/videos
 ## How to Run Locally
 
 - Download the project, cd into its directory by using `cd pokegram` and run `npm install` to download dependencies needed (you should have node, npm installed on your local machine).
