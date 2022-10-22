@@ -1,19 +1,10 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-console */
-/* eslint-disable import/order */
-/* eslint-disable quotes */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Login from './components/login/Login';
 import Home from './components/home/home';
 import SignUp from './components/signup/SignUp';
 import RootState from './models/rootState';
 
-function App(props) {
+function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isReg, setIsReg] = useState(true);
   const [myUID, setMyUID] = useState(1);
@@ -24,12 +15,12 @@ function App(props) {
     setMyUID(newMyUID);
   };
 
-  let parentStates = new RootState(isLogin, isReg, myUID, handleSetStates);
+  const parentStates = new RootState(isLogin, isReg, myUID, handleSetStates);
 
   function nextToRender() {
     let ret;
     if (!isLogin) {
-      ret = isReg 
+      ret = isReg
         ? <Login parStates={parentStates} />
         : <SignUp parStates={parentStates} />;
     } else {
