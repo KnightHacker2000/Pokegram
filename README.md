@@ -2,9 +2,8 @@
 ## Description
 Pokegram is a responsive website for people to share pictures and videos. Users can create an account and sign in to create their own posts, as well as leave comments or thumb up on posts. 
 ## Main Features
-- Users may create an account, sign in or sign out with validiction check.
-- Once logged in, users may create their own posts with picture or video and update or delete them later on.
-- Users may leave comments or thumb up and delete their own operations.
+- Users may create an account, sign in or sign out with validation check.
+- Once logged in, users may create their own posts with picture or video.
 - Users may see the activities.
 ### Login
 ![Login](Login.png)
@@ -22,7 +21,7 @@ We allow click to choose between video and image, you can test by using image an
 - Download the project
 - We use `json-server` to mock backend, running `json-server` outside the pokegram (the current directory) with command `json-server --watch db.json --port 8000`
 - cd into pokegram directory by using `cd pokegram` and run `npm install` to download dependencies needed (you should have node, npm installed on your local machine). And then run `npm start` to start the frontend view
-- We use `jest` for testing and please run `jest --coverage` outside the pokegram folder to see the test result (we also attach the screenshot of our coverage in wiki page).
+- We use `jest` for testing and please run `jest --coverage` inside the pokegram folder to see the test result (we also attach the screenshot of our coverage in wiki page).
 
 ### running `json-server`
 cd ..
