@@ -16,6 +16,20 @@ describe("Follow Test", () => {
   });
 });
 
+describe("remove like", () => {
+  const temp = new User();
+  temp.id = 1;
+  temp.likedPosts = [10, 2];
+
+  const tar = new User();
+  tar.id = 1;
+  tar.subscribers = [];
+
+  test("test unlike", () => {
+      expect(UserService.removeLike(temp, 2).likedPosts).toBe(undefined);
+  });
+});
+
 describe("Unfollow Test", () => {
   const temp = new User();
   temp.id = 1;
