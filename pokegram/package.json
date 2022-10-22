@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@jest/globals": "^29.2.1",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.9",
     "@testing-library/jest-dom": "^5.16.5",
@@ -23,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false --coverage -- --config jest.config.js",
+    "test": "react-scripts test --coverage -- --config jest.config.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

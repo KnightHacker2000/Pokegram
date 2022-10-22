@@ -80,7 +80,7 @@ function Profile(props) {
   };
   const handleFollow = async (event) => {
     event.preventDefault();
-    await userService.followUser(myUser, 2);
+    // await userService.followUser(myUser, 2);
     firstRendering.current = true;
     setIsFollow(true);
     forceUpdate();

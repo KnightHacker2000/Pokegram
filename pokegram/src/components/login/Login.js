@@ -71,9 +71,10 @@ function Login(props) {
           }}
         >
           <Typography component="h1" variant="h6">Username:</Typography>
-          <TextField margin="normal" required fullWidth id="username" label="Username" onChange={handleUsername} />
+          <TextField margin="normal" required fullWidth id="username" label="Username" data-testid="test_username" onChange={handleUsername} />
           <Typography component="h1" variant="h6">Password:</Typography>
           <TextField
+            data-testid="test_password"
             margin="normal"
             type="password"
             required
@@ -86,14 +87,14 @@ function Login(props) {
             error={user.password !== '' && user.password.length < 8}
             helperText={user.password !== '' && user.password.length < 8 ? 'Password should contains Minimum eight characters' : ' '}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }}>Sign In</Button>
+          <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} data-testid="login_submit">Sign In</Button>
         </Box>
         <Box sx={{
           my: 3, mx: 2, p: 1, marginTop: 8, border: 1, alignItems: 'center', display: 'flex'
         }}
         >
           <Typography component="h1" variant="h6" style={{ marginLeft: '16px', marginRight: '64px' }}>No Account?</Typography>
-          <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleSignup}>Sign Up</Button>
+          <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} data-testid="login_signup" onClick={handleSignup}>Sign Up</Button>
         </Box>
       </Container>
     </ThemeProvider>
