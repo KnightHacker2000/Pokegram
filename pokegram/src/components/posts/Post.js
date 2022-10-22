@@ -18,7 +18,7 @@ import ShareIcon from '@mui/icons-material/Share';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
-import pokemon from '../../images/pikachu.jpg';
+// import pokemon from '../../images/pikachu.jpg';
 import HomeState from '../../models/homeState';
 
 const theme = createTheme();
@@ -67,7 +67,7 @@ function Posts(props) {
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
               >
                 <CardHeader
-                  avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src={pokemon} onClick={handleAvatarClick} data-index={post.username} />}
+                  avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" onClick={handleAvatarClick} data-index={post.username} />}
                   action={
                     <IconButton aria-label="settings" />
                   }

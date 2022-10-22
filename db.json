@@ -7,6 +7,30 @@
     {
       "sessionId": "18064",
       "id": 2
+    },
+    {
+      "sessionId": "98005",
+      "id": 3
+    },
+    {
+      "sessionId": "01822",
+      "id": 4
+    },
+    {
+      "sessionId": "47350",
+      "id": 5
+    },
+    {
+      "sessionId": "64261",
+      "id": 6
+    },
+    {
+      "sessionId": "53786",
+      "id": 7
+    },
+    {
+      "sessionId": "87044",
+      "id": 8
     }
   ],
   "activities": [
@@ -21,26 +45,8 @@
   "user": [
     {
       "id": 1,
-      "email": "Rachel@gmail.com",
-      "username": "Rachel",
-      "avatar": "../../images/pikachu.jpg",
-      "numPosts": 10,
-      "likedPosts": [
-        1,
-        2,
-        3,
-        100,
-        101
-      ],
       "follows": [],
-      "numFollows": 0,
-      "subscribers": [
-        "jieni",
-        "pika",
-        "charlie"
-      ],
-      "numSubs": 1,
-      "fullname": "Rachel Yuan"
+      "numFollows": null
     },
     {
       "id": 2,
@@ -61,7 +67,7 @@
       ],
       "numFollows": 57,
       "subscribers": [],
-      "numSubs": 0,
+      "numSubs": -9,
       "fullname": "Rachel Yuan"
     }
   ],

@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import validator from 'validator';
-import pokemon from '../../images/pikachu.jpg';
+// import pokemon from '../../images/pikachu.jpg';
 import RootState from '../../models/rootState';
 
 const theme = createTheme();
@@ -86,7 +86,7 @@ function SignUp(props) {
           alignItems: 'center'
         }}
         >
-          <Avatar alt="pikachu" sx={{ m: 1 }} src={pokemon} />
+          <Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" />
           <Typography component="h1" variant="h4">Wecome to Pokegram!</Typography>
           <Typography component="h2" variant="h6">Register with Pokemongram, Pika Pika</Typography>
         </Box>
@@ -139,14 +139,14 @@ function SignUp(props) {
             error={user.emailaddress !== '' && !validator.isEmail(user.emailaddress)}
             helperText={user.emailaddress !== '' && !validator.isEmail(user.emailaddress) ? 'invalid email address' : ' '}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} onClick={handleSignin}>Sign Up</Button>
+          <Button data-testid="signUp_submit" type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} onClick={handleSignin}>Sign Up</Button>
         </Box>
         <Box sx={{
           my: 3, mx: 2, p: 1, marginTop: 8, border: 1, alignItems: 'center', display: 'flex'
         }}
         >
           <Typography component="h1" variant="h6" style={{ marginLeft: '16px', marginRight: '64px' }}>Had an Account?</Typography>
-          <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleSignin}>Sign In</Button>
+          <Button data-testid="signIn_submit" type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleSignin}>Sign In</Button>
         </Box>
       </Container>
     </ThemeProvider>

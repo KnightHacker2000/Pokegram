@@ -10,6 +10,11 @@ import RootState from '../../models/rootState';
 import HomeState from '../../models/homeState';
 
 function Home(props) {
+  // const defaultProps = new RootState(
+  //   true,
+  //   true,
+  //   1
+  // );
   const { parStates } = props;
   const [isAct, setIsAct] = useState(false);
   const [isUp, setIsUp] = useState(false);
@@ -45,7 +50,7 @@ function Home(props) {
 
     if (isAct) {
       // return Activity Page
-      ret = <Act homeStates={parentStates} />;
+      ret = <Act.Act homeStates={parentStates} />;
     }
 
     if (isUp) {

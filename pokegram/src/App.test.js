@@ -1,13 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import renderer from 'react-test-renderer';
+// import { render, screen } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom/extend-expect';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/);
-  expect(linkElement).toBeInTheDocument();
+test('test root', () => {
+  const rootComp = renderer.create(<App />);
+  // const tree = rootComp.toJson();
+  console.log(rootComp.toJSON());
 });

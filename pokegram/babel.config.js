@@ -1,7 +1,7 @@
 module.exports = {
   presets: [
-    '@babel/present-env',
-    ['@babel/present-react', {
+    '@babel/preset-env',
+    ['@babel/preset-react', {
       runtime: 'automatic'
     }]
   ],
