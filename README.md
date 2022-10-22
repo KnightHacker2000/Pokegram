@@ -21,7 +21,7 @@ We allow click to choose between video and image, you can test by using image an
 - Download the project, cd into its directory by using `cd pokegram` and run `npm install` to download dependencies needed (you should have node, npm installed on your local machine).
 - We use `json-server` to mock backend, running `json-server` ourside the pokegram.
 - We use `jest` for testing, running `json-server` ourside of the pokegram directory.
-- 
+
 ### running `json-server`
 cd ..
 json-server --watch db.json --port 8000
