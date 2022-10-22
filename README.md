@@ -15,6 +15,7 @@ Pokegram is a responsive website for people to share pictures and videos. Users 
 ### Activities
 ![activities](activities.jpg)
 ### Upload
+![upload](upload.jpg)
 We allow click to choose between video and image, you can test by using image and video sources stored in ./pokegram/src/images and ./pokegram/src/videos
 ## How to Run Locally
 
