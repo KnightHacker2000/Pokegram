@@ -241,7 +241,7 @@ function Upload(props) {
           justifyContent="flex-end"
           alignitems="flex-end"
         >
-          <Button type="submit" alignitems="right" variant="contained">Create</Button>
+          <Button type="submit" alignitems="right" variant="contained" data-testid="test_createpost">Create</Button>
         </Box>
       </Box>
     </Container>

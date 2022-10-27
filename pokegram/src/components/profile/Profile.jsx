@@ -162,9 +162,18 @@ function Profile(props) {
                 my: 3, mx: 2, alignItems: 'center', display: 'flex'
               }}
             >
-              <Typography sx={{ marginLeft: 5, marginRight: 10 }}>{user.numPosts} Posts</Typography>
-              <Typography sx={{ marginRight: 10 }}>{user.numSubs} Subscribers</Typography>
-              <Typography sx={{ marginRight: 10 }}>{user.numFollows} Follows</Typography>
+              <Typography sx={{ marginLeft: 5, marginRight: 10 }}>
+                {user.numPosts}
+                Posts
+              </Typography>
+              <Typography sx={{ marginRight: 10 }}>
+                {user.numSubs}
+                Subscribers
+              </Typography>
+              <Typography sx={{ marginRight: 10 }}>
+                {user.numFollows}
+                Follows
+              </Typography>
             </Box>
             <Typography sx={{ marginTop: 0, marginLeft: 7 }}>This is self-Introduction</Typography>
           </Box>

@@ -11,5 +11,4 @@ test('test root', () => {
   const rootComp = renderer.create(<App />);
   // const tree = rootComp.toJson();
   console.log(rootComp.toJSON());
-  // console.log('test!');
 });

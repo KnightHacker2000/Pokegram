@@ -9,116 +9,40 @@
       "id": 2
     },
     {
-      "sessionId": "40334",
+      "sessionId": "98005",
       "id": 3
     },
     {
-      "sessionId": "79004",
+      "sessionId": "01822",
       "id": 4
     },
     {
-      "sessionId": "76809",
+      "sessionId": "47350",
       "id": 5
     },
     {
-      "sessionId": "71544",
+      "sessionId": "64261",
       "id": 6
     },
     {
-      "sessionId": "13670",
+      "sessionId": "53786",
       "id": 7
     },
     {
-      "sessionId": "93543",
+      "sessionId": "87044",
       "id": 8
     },
     {
-      "sessionId": "12503",
+      "sessionId": "45238",
       "id": 9
     },
     {
-      "sessionId": "68244",
+      "sessionId": "52170",
       "id": 10
     },
     {
-      "sessionId": "21473",
+      "sessionId": "88982",
       "id": 11
-    },
-    {
-      "sessionId": "49078",
-      "id": 12
-    },
-    {
-      "sessionId": "69442",
-      "id": 13
-    },
-    {
-      "sessionId": "58183",
-      "id": 14
-    },
-    {
-      "sessionId": "32723",
-      "id": 15
-    },
-    {
-      "sessionId": "98374",
-      "id": 16
-    },
-    {
-      "sessionId": "77095",
-      "id": 17
-    },
-    {
-      "sessionId": "62713",
-      "id": 18
-    },
-    {
-      "sessionId": "59295",
-      "id": 19
-    },
-    {
-      "sessionId": "96432",
-      "id": 20
-    },
-    {
-      "sessionId": "97977",
-      "id": 21
-    },
-    {
-      "sessionId": "93265",
-      "id": 22
-    },
-    {
-      "sessionId": "56347",
-      "id": 23
-    },
-    {
-      "sessionId": "40688",
-      "id": 24
-    },
-    {
-      "sessionId": "73229",
-      "id": 25
-    },
-    {
-      "sessionId": "14160",
-      "id": 26
-    },
-    {
-      "sessionId": "54877",
-      "id": 27
-    },
-    {
-      "sessionId": "09864",
-      "id": 28
-    },
-    {
-      "sessionId": "34577",
-      "id": 29
-    },
-    {
-      "sessionId": "29154",
-      "id": 30
     }
   ],
   "activities": [
@@ -133,26 +57,8 @@
   "user": [
     {
       "id": 1,
-      "email": "Rachel@gmail.com",
-      "username": "Rachel",
-      "avatar": "../../images/pikachu.jpg",
-      "numPosts": 10,
-      "likedPosts": [
-        1,
-        2,
-        3,
-        100,
-        101
-      ],
       "follows": [],
-      "numFollows": 0,
-      "subscribers": [
-        "jieni",
-        "pika",
-        "charlie"
-      ],
-      "numSubs": 1,
-      "fullname": "Rachel Yuan"
+      "numFollows": -4
     },
     {
       "id": 2,

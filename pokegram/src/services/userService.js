@@ -96,6 +96,7 @@ const followUser = async (currentUser, targetId) => {
   targetUser.numSubs += 1;
   await client.put(`${API.USER}/${targetId}`, targetUser);
   // TODO: handle response
+  return user;
 };
 
 /**
@@ -116,6 +117,7 @@ const unfollowUser = async (currentUser, targetId) => {
   targetUser.numSubs -= 1;
   await client.put(`${API.USER}/${targetId}`, targetUser);
   // TODO: handle response
+  return user;
 };
 
 export default {
