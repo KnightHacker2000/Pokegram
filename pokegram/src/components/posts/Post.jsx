@@ -14,19 +14,22 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
 import HomeState from '../../models/homeState';
+import PD from '../update_post/update_post';
 
 const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
   const [postList, setPostList] = useState([]);
+  const [renderPopUp, setRenderPopUp] = useState(false);
+  const [, updateState] = React.useState();
+  const [editPostId, setEditPostId] = useState(-1);
   const firstRendering = useRef(true);
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
     // const params = '{"userId": 1}';
@@ -51,6 +54,18 @@ function Posts(props) {
     }
     return ret;
   }
+
+  const handleCardClick = (event) => {
+    event.preventDefault();
+    setEditPostId(event.currentTarget.getAttribute('data-index'));
+    setRenderPopUp(true);
+    forceUpdate();
+  };
+
+  const handleEditState = () => {
+    setRenderPopUp(false);
+  };
+
   const handleAvatarClick = (event) => {
     // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
     event.preventDefault();
@@ -59,12 +74,15 @@ function Posts(props) {
   };
   return (
     <ThemeProvider theme={theme}>
+      {renderPopUp && <PD pid={editPostId} handleEditState={handleEditState} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {postList.map((post) => (
             <Grid item key={post.id} xs={12} sm={6} md={4}>
               <Card
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                onClick={handleCardClick}
+                data-index={post.id}
               >
                 <CardHeader
                   avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" onClick={handleAvatarClick} data-index={post.username} />}
