@@ -62,7 +62,7 @@ function Posts(props) {
     forceUpdate();
   };
 
-  const handleEditState = () => {
+  const handlePopUp = () => {
     setRenderPopUp(false);
   };
 
@@ -74,7 +74,7 @@ function Posts(props) {
   };
   return (
     <ThemeProvider theme={theme}>
-      {renderPopUp && <PD pid={editPostId} handleEditState={handleEditState} />}
+      {renderPopUp && <PD pid={editPostId} handleEditState={handlePopUp} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {postList.map((post) => (
