@@ -17,7 +17,7 @@ const theme = createTheme();
 function Login(props) {
   const { parStates } = props;
   const [user, setUser] = useState({
-    username: '',
+    username: 1,
     password: ''
   });
   const handleSubmit = async (event) => {

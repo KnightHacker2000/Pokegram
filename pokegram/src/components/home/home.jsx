@@ -21,7 +21,7 @@ function Home(props) {
   const [isPosts, setIsPosts] = useState(true);
   const [isProf, setIsProf] = useState(false);
   const [UID, setUID] = useState(-1);
-
+  // console.log(parStates);
   const theme = createTheme();
 
   const handleHomeStates = (isLogOut, newIsProf, newIsAct, newIsUp, newIsPosts, newUID) => {

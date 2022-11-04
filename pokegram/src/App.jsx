@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Login from './components/login/Login';
 import Home from './components/home/home';
@@ -16,7 +17,6 @@ function App() {
   };
 
   const parentStates = new RootState(isLogin, isReg, myUID, handleSetStates);
-
   function nextToRender() {
     let ret;
     if (!isLogin) {
@@ -26,7 +26,6 @@ function App() {
     } else {
       ret = <Home parStates={parentStates} />;
     }
-    // return <Profile parStates={parentStates} UID={-1} />;
     return ret;
   }
 
