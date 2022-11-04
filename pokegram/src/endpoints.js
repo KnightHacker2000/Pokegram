@@ -6,6 +6,8 @@ class API {
   static LOGIN = '/login';
 
   static POSTS = '/posts';
+
+  static COMMENTS = '/comments';
 }
 
 export default API;

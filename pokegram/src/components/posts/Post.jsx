@@ -13,12 +13,14 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+// import ShareIcon from '@mui/icons-material/Share';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
+import Comment from './Comment';
 import HomeState from '../../models/homeState';
 
 const theme = createTheme();
@@ -76,7 +78,7 @@ function Posts(props) {
                 />
                 {rendermedia(post)}
                 <CardContent>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}
                   </Typography>
                 </CardContent>
@@ -84,14 +86,15 @@ function Posts(props) {
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                   </IconButton>
-                  <IconButton aria-label="share">
-                    <ShareIcon />
+                  <IconButton>
+                    <AddCommentIcon />
                   </IconButton>
                 </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
+        <Comment />
       </Container>
     </ThemeProvider>
   );
