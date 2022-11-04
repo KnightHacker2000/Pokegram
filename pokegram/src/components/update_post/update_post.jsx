@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import {
   Button, Box, Container, FormControl, InputLabel, MenuItem, TextField
 } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import Select from '@mui/material/Select';
 import Posts from '../../models/post';
 import postsService from '../../services/postsService';
@@ -195,6 +196,11 @@ function UpdatePost(props) {
     setSource();
   };
 
+  const handleClear = (event) => {
+    event.preventDefault();
+    handleEditState();
+  };
+
   return (
     <div style={{
       position: 'fixed',
@@ -225,6 +231,7 @@ function UpdatePost(props) {
       >
 
         <Container maxWidth="lg">
+          <ClearIcon sx={{ width: '200%' }} onClick={handleClear} />
           <Box
             sx={{
               mx: 0, p: 1, display: 'flex', alignItems: 'start', width: 'auto', flexDirection: 'column', paddingTop: '10px'

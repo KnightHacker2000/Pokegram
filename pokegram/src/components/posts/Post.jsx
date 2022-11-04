@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditIcon from '@mui/icons-material/Edit';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
@@ -30,8 +31,10 @@ function Posts(props) {
 
   const [postList, setPostList] = useState([]);
   const [renderEdit, setrenderEdit] = useState(false);
+  const [renderComment, setrenderComment] = useState(false);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
+  const [commentPostId, setcommentPostId] = useState(-1);
   const firstRendering = useRef(true);
   const canEdit = homeStates.UID === homeStates.myUID;
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -73,6 +76,19 @@ function Posts(props) {
     forceUpdate();
   };
 
+  const handleAddCommentClick = (event) => {
+    event.preventDefault();
+    setcommentPostId(event.currentTarget.getAttribute('data-index'));
+    setrenderComment(true);
+    forceUpdate();
+  };
+
+  const handleComment = () => {
+    setrenderComment(false);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
   const handleAvatarClick = (event) => {
     // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
     event.preventDefault();
@@ -82,6 +98,7 @@ function Posts(props) {
   return (
     <ThemeProvider theme={theme}>
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
+      {renderComment && <Comment pid={commentPostId} handleCommentState={handleComment} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {postList.map((post) => (
@@ -116,12 +133,18 @@ function Posts(props) {
                       <EditIcon />
                     </IconButton>
                   )}
+                  <IconButton
+                    aria-label="comment"
+                    onClick={handleAddCommentClick}
+                    data-index={post.id}
+                  >
+                    <AddCommentIcon />
+                  </IconButton>
                 </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
-        <Comment />
       </Container>
     </ThemeProvider>
   );
