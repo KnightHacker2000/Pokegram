@@ -34,7 +34,7 @@ function ResponsiveAppBar(props) {
   };
   const handlePokegramClick = (event) => {
     setAnchorElUser(event.currentTarget);
-    homeStates.handleHomeStates(false, false, false, false, true, homeStates.myUID);
+    homeStates.handleHomeStates(false, false, false, false, true, -1);
   };
 
   const handleCloseNavMenu = (event) => {

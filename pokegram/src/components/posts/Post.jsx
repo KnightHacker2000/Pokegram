@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditIcon from '@mui/icons-material/Edit';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
@@ -116,6 +117,9 @@ function Posts(props) {
                       <EditIcon />
                     </IconButton>
                   )}
+                  <IconButton>
+                    <AddCommentIcon />
+                  </IconButton>
                 </CardActions>
               </Card>
             </Grid>
