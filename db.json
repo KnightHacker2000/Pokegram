@@ -5,44 +5,88 @@
       "id": 1
     },
     {
-      "sessionId": "18064",
+      "sessionId": "73578",
       "id": 2
     },
     {
-      "sessionId": "98005",
+      "sessionId": "42016",
       "id": 3
     },
     {
-      "sessionId": "01822",
+      "sessionId": "76146",
       "id": 4
     },
     {
-      "sessionId": "47350",
+      "sessionId": "61503",
       "id": 5
     },
     {
-      "sessionId": "64261",
+      "sessionId": "85846",
       "id": 6
     },
     {
-      "sessionId": "53786",
+      "sessionId": "25123",
       "id": 7
     },
     {
-      "sessionId": "87044",
+      "sessionId": "25217",
       "id": 8
     },
     {
-      "sessionId": "45238",
+      "sessionId": "58353",
       "id": 9
     },
     {
-      "sessionId": "52170",
+      "sessionId": "90551",
       "id": 10
     },
     {
-      "sessionId": "88982",
+      "sessionId": "84008",
       "id": 11
+    },
+    {
+      "sessionId": "71629",
+      "id": 12
+    },
+    {
+      "sessionId": "46983",
+      "id": 13
+    },
+    {
+      "sessionId": "03633",
+      "id": 14
+    },
+    {
+      "sessionId": "19938",
+      "id": 15
+    },
+    {
+      "sessionId": "61266",
+      "id": 16
+    },
+    {
+      "sessionId": "90798",
+      "id": 17
+    },
+    {
+      "sessionId": "70862",
+      "id": 18
+    },
+    {
+      "sessionId": "55885",
+      "id": 19
+    },
+    {
+      "sessionId": "78046",
+      "id": 20
+    },
+    {
+      "sessionId": "83342",
+      "id": 21
+    },
+    {
+      "sessionId": "66596",
+      "id": 22
     }
   ],
   "activities": [
@@ -153,28 +197,30 @@
       "id": 4
     }
   ],
-  "comment": [
+  "comments": [
     {
       "id": 1,
-      "userId": 7,
       "postId": 1,
+      "timestamp": "November 05, 2021 14:21:00",
       "content": "I love this post!",
       "referredUser": [
         1,
         2,
         3
-      ]
+      ],
+      "userId": 7
     },
     {
       "id": 2,
-      "userId": 4,
       "postId": 1,
+      "timestamp": "November 01, 2021 03:24:00",
       "content": "So cutee!",
       "referredUser": [
         1,
         2,
         3
-      ]
+      ],
+      "commentorId": 1
     }
   ],
   "getActivityByUsername": [
