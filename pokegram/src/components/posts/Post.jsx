@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import EditIcon from '@mui/icons-material/Edit';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
@@ -24,11 +24,15 @@ const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
+  // console.log(homeStates.myUID);
+  // console.log(homeStates.UID);
+
   const [postList, setPostList] = useState([]);
   const [renderEdit, setrenderEdit] = useState(false);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const firstRendering = useRef(true);
+  const canEdit = homeStates.UID === homeStates.myUID;
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
@@ -83,8 +87,6 @@ function Posts(props) {
             <Grid item key={post.id} xs={12} sm={6} md={4}>
               <Card
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                onClick={handleCardClick}
-                data-index={post.id}
               >
                 <CardHeader
                   avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" onClick={handleAvatarClick} data-index={post.username} />}
@@ -104,9 +106,15 @@ function Posts(props) {
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                   </IconButton>
-                  <IconButton aria-label="share">
-                    <ShareIcon />
-                  </IconButton>
+                  { canEdit && (
+                    <IconButton
+                      aria-label="edit"
+                      onClick={handleCardClick}
+                      data-index={post.id}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  )}
                 </CardActions>
               </Card>
             </Grid>

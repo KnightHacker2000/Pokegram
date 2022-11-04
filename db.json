@@ -255,6 +255,22 @@
     {
       "sessionId": "91730",
       "id": 64
+    },
+    {
+      "sessionId": "08656",
+      "id": 65
+    },
+    {
+      "sessionId": "50196",
+      "id": 66
+    },
+    {
+      "sessionId": "10431",
+      "id": 67
+    },
+    {
+      "sessionId": "71690",
+      "id": 68
     }
   ],
   "activities": [
@@ -270,7 +286,7 @@
     {
       "id": 1,
       "follows": [],
-      "numFollows": -4
+      "numFollows": null
     },
     {
       "id": 2,
@@ -291,7 +307,7 @@
       ],
       "numFollows": 57,
       "subscribers": [],
-      "numSubs": 0,
+      "numSubs": -1,
       "fullname": "Rachel Yuan"
     }
   ],

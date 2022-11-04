@@ -17,7 +17,6 @@ function App() {
   };
 
   const parentStates = new RootState(isLogin, isReg, myUID, handleSetStates);
-
   function nextToRender() {
     let ret;
     if (!isLogin) {
