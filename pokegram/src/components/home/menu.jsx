@@ -34,7 +34,7 @@ function ResponsiveAppBar(props) {
   };
   const handlePokegramClick = (event) => {
     setAnchorElUser(event.currentTarget);
-    homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
+    homeStates.handleHomeStates(false, false, false, false, true, homeStates.myUID);
   };
 
   const handleCloseNavMenu = (event) => {
@@ -50,7 +50,7 @@ function ResponsiveAppBar(props) {
         break;
       // set logout
       case pages[2]:
-        homeStates.handleHomeStates(true, false, false, false, false, homeStates.UID);
+        homeStates.handleHomeStates(true, false, false, false, false, homeStates.myUID);
         break;
       default:
         break;
