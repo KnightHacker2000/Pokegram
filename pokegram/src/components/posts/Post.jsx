@@ -18,14 +18,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
 import HomeState from '../../models/homeState';
-import PD from '../update_post/update_post';
+import Edit from '../update_post/update_post';
 
 const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
   const [postList, setPostList] = useState([]);
-  const [renderPopUp, setRenderPopUp] = useState(false);
+  const [renderEdit, setrenderEdit] = useState(false);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const firstRendering = useRef(true);
@@ -58,12 +58,14 @@ function Posts(props) {
   const handleCardClick = (event) => {
     event.preventDefault();
     setEditPostId(event.currentTarget.getAttribute('data-index'));
-    setRenderPopUp(true);
+    setrenderEdit(true);
     forceUpdate();
   };
 
-  const handlePopUp = () => {
-    setRenderPopUp(false);
+  const handleEdit = () => {
+    setrenderEdit(false);
+    firstRendering.current = true;
+    forceUpdate();
   };
 
   const handleAvatarClick = (event) => {
@@ -74,7 +76,7 @@ function Posts(props) {
   };
   return (
     <ThemeProvider theme={theme}>
-      {renderPopUp && <PD pid={editPostId} handleEditState={handlePopUp} />}
+      {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {postList.map((post) => (

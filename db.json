@@ -111,6 +111,150 @@
     {
       "sessionId": "38012",
       "id": 28
+    },
+    {
+      "sessionId": "80236",
+      "id": 29
+    },
+    {
+      "sessionId": "47124",
+      "id": 30
+    },
+    {
+      "sessionId": "30390",
+      "id": 31
+    },
+    {
+      "sessionId": "97255",
+      "id": 32
+    },
+    {
+      "sessionId": "64668",
+      "id": 33
+    },
+    {
+      "sessionId": "49040",
+      "id": 34
+    },
+    {
+      "sessionId": "48030",
+      "id": 35
+    },
+    {
+      "sessionId": "46044",
+      "id": 36
+    },
+    {
+      "sessionId": "60760",
+      "id": 37
+    },
+    {
+      "sessionId": "53457",
+      "id": 38
+    },
+    {
+      "sessionId": "68640",
+      "id": 39
+    },
+    {
+      "sessionId": "26943",
+      "id": 40
+    },
+    {
+      "sessionId": "55322",
+      "id": 41
+    },
+    {
+      "sessionId": "45110",
+      "id": 42
+    },
+    {
+      "sessionId": "55153",
+      "id": 43
+    },
+    {
+      "sessionId": "88885",
+      "id": 44
+    },
+    {
+      "sessionId": "11740",
+      "id": 45
+    },
+    {
+      "sessionId": "56083",
+      "id": 46
+    },
+    {
+      "sessionId": "45867",
+      "id": 47
+    },
+    {
+      "sessionId": "96823",
+      "id": 48
+    },
+    {
+      "sessionId": "89633",
+      "id": 49
+    },
+    {
+      "sessionId": "81200",
+      "id": 50
+    },
+    {
+      "sessionId": "22018",
+      "id": 51
+    },
+    {
+      "sessionId": "53470",
+      "id": 52
+    },
+    {
+      "sessionId": "23218",
+      "id": 53
+    },
+    {
+      "sessionId": "40126",
+      "id": 54
+    },
+    {
+      "sessionId": "83971",
+      "id": 55
+    },
+    {
+      "sessionId": "80125",
+      "id": 56
+    },
+    {
+      "sessionId": "36867",
+      "id": 57
+    },
+    {
+      "sessionId": "23201",
+      "id": 58
+    },
+    {
+      "sessionId": "89572",
+      "id": 59
+    },
+    {
+      "sessionId": "34449",
+      "id": 60
+    },
+    {
+      "sessionId": "47225",
+      "id": 61
+    },
+    {
+      "sessionId": "34826",
+      "id": 62
+    },
+    {
+      "sessionId": "05725",
+      "id": 63
+    },
+    {
+      "sessionId": "91730",
+      "id": 64
     }
   ],
   "activities": [
@@ -155,11 +299,11 @@
     {
       "id": 1,
       "username": "Rachel",
-      "timestamp": "December 01, 2021 03:24:00",
-      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
+      "timestamp": "Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
+      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
       "numLike": 10,
-      "description": "This is my post!",
+      "description": "Yomama!",
       "commentRefs": [
         1234,
         5678,
@@ -174,11 +318,11 @@
     {
       "id": 2,
       "username": "Reneee",
-      "timestamp": "December 16, 2021 :24:00",
-      "content_url": "http://img4.wikia.nocookie.net/__cb20140724195345/pokemon/images/thumb/7/73/004Charmander.png/200px-004Charmander.png",
+      "timestamp": "Fri Dec 17 2021 00:00:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
-      "numLike": 18,
-      "description": "Look at my cute Pika!",
+      "content_url": "blob:http://localhost:3000/b46aca03-666a-4df9-a21c-ae65fc1c84ad",
+      "numLike": 0,
+      "description": "Pika!",
       "commentRefs": [
         1234,
         5678,
@@ -193,11 +337,11 @@
     {
       "id": 3,
       "username": "Charlie",
-      "timestamp": "December 25, 2021 01:30:00",
-      "content_url": "http://img1.wikia.nocookie.net/__cb20140328191525/pokemon/images/thumb/3/39/007Squirtle.png/200px-007Squirtle.png",
+      "timestamp": "Sat Dec 25 2021 01:30:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
+      "content_url": "http://img1.wikia.nocookie.net/__cb20140328191525/pokemon/images/thumb/3/39/007Squirtle.png/200px-007Squirtle.png",
       "numLike": 97,
-      "description": "Have a wonderful night with my teammate",
+      "description": "night!",
       "commentRefs": [
         1234,
         5678,
