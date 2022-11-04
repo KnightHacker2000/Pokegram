@@ -29,18 +29,10 @@ function Upload(props) {
   // <track src="" kind="captions" srcLang="en" label="english_captions" />
   const handleChange = (event) => {
     setType(event.target.value);
-    const updatepost = {
-      id: newpost.id,
-      username: newpost.username,
-      timestamp: newpost.timestamp,
-      type: event.target.value,
-      content_url: newpost.content_url,
-      numLike: 0,
-      description: newpost.description,
-      commentRefs: newpost.commentRefs,
-      users: newpost.users
-    };
-    setPost(updatepost);
+    setPost((prevState) => ({
+      ...prevState,
+      type: event.target.value
+    }));
     setSource();
   };
 
@@ -49,18 +41,10 @@ function Upload(props) {
       const file = event.target.files[0];
       const url = URL.createObjectURL(file);
       setSource(url);
-      const updatepost = {
-        id: newpost.id,
-        username: newpost.username,
-        timestamp: newpost.timestamp,
-        type: newpost.type,
-        content_url: url,
-        numLike: 0,
-        description: newpost.description,
-        commentRefs: newpost.commentRefs,
-        users: newpost.users
-      };
-      setPost(updatepost);
+      setPost((prevState) => ({
+        ...prevState,
+        content_url: url
+      }));
     };
     const handleChoose = () => {
       inputRef.current.click();
@@ -96,18 +80,10 @@ function Upload(props) {
       const file = event.target.files[0];
       const url = URL.createObjectURL(file);
       setSource(url);
-      const updatepost = {
-        id: newpost.id,
-        username: newpost.username,
-        timestamp: newpost.timestamp,
-        type: newpost.type,
-        content_url: url,
-        numLike: 0,
-        description: newpost.description,
-        commentRefs: newpost.commentRefs,
-        users: newpost.users
-      };
-      setPost(updatepost);
+      setPost((prevState) => ({
+        ...prevState,
+        content_url: url
+      }));
     };
     const handleChoose = () => {
       inputRef.current.click();
@@ -168,19 +144,10 @@ function Upload(props) {
 
   const handleContent = (event) => {
     event.preventDefault();
-    // console.log(event.target.value);
-    const updatepost = {
-      id: newpost.id,
-      username: newpost.username,
-      timestamp: newpost.timestamp,
-      type: newpost.type,
-      content_url: newpost.content_url,
-      numLike: 0,
-      description: event.target.value,
-      commentRefs: newpost.commentRefs,
-      users: newpost.users
-    };
-    setPost(updatepost);
+    setPost((prevState) => ({
+      ...prevState,
+      description: event.target.value
+    }));
   };
   return (
     <Container maxWidth="lg">

@@ -13,20 +13,28 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
+import Comment from './Comment';
 import HomeState from '../../models/homeState';
+import Edit from '../update_post/update_post';
 
 const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
+  // console.log(homeStates.myUID);
+  // console.log(homeStates.UID);
+
   const [postList, setPostList] = useState([]);
+  const [renderEdit, setrenderEdit] = useState(false);
+  const [, updateState] = React.useState();
+  const [editPostId, setEditPostId] = useState(-1);
   const firstRendering = useRef(true);
+  const canEdit = homeStates.UID === homeStates.myUID;
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
     // const params = '{"userId": 1}';
@@ -51,6 +59,20 @@ function Posts(props) {
     }
     return ret;
   }
+
+  const handleCardClick = (event) => {
+    event.preventDefault();
+    setEditPostId(event.currentTarget.getAttribute('data-index'));
+    setrenderEdit(true);
+    forceUpdate();
+  };
+
+  const handleEdit = () => {
+    setrenderEdit(false);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
   const handleAvatarClick = (event) => {
     // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
     event.preventDefault();
@@ -59,6 +81,7 @@ function Posts(props) {
   };
   return (
     <ThemeProvider theme={theme}>
+      {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {postList.map((post) => (
@@ -76,7 +99,7 @@ function Posts(props) {
                 />
                 {rendermedia(post)}
                 <CardContent>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}
                   </Typography>
                 </CardContent>
@@ -84,14 +107,21 @@ function Posts(props) {
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                   </IconButton>
-                  <IconButton aria-label="share">
-                    <ShareIcon />
-                  </IconButton>
+                  { canEdit && (
+                    <IconButton
+                      aria-label="edit"
+                      onClick={handleCardClick}
+                      data-index={post.id}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  )}
                 </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
+        <Comment />
       </Container>
     </ThemeProvider>
   );

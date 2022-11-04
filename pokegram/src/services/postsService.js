@@ -7,9 +7,30 @@ const client = new PokemonClient();
 
 /**
  * post API endpoint
+ * @param param: post id
+*/
+const getPostsById = async (param) => {
+  const pos = await client.get(`${API.POSTS}/${param.postId}`);
+  // const posts = response.posts;
+  const newPost = new Posts(
+    pos.id,
+    pos.username,
+    new Date(pos.timestamp),
+    pos.type,
+    pos.content_url,
+    pos.numLike,
+    pos.description,
+    pos.commentRefs,
+    pos.users
+  );
+  return newPost;
+};
+
+/**
+ * post API endpoint
  * @param userId: user id/ username
 */
-const getPostsById = async (userId) => {
+const getPostsByUserId = async (userId) => {
   const response = await client.get(`${API.POSTS}/${userId.userId}`);
   // const posts = response.posts;
   const postsLst = response.map((pos) => {
@@ -17,8 +38,8 @@ const getPostsById = async (userId) => {
       pos.id,
       pos.username,
       new Date(pos.timestamp),
-      pos.content_url,
       pos.type,
+      pos.content_url,
       pos.numLike,
       pos.description,
       pos.commentRefs,
@@ -62,8 +83,20 @@ const createPost = async (body) => {
   return response;
 };
 
+/**
+ * update post API endpoint
+ * @param none
+*/
+const updatePost = async (body) => {
+  // console.log(body);
+  const response = await client.put(`${API.POSTS}/${body.id}`, body);
+  return response;
+};
+
 export default {
   getPostsById,
+  getPostsByUserId,
   getAllPosts,
-  createPost
+  createPost,
+  updatePost
 };

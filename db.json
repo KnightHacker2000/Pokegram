@@ -3,46 +3,6 @@
     {
       "sessionId": "26750",
       "id": 1
-    },
-    {
-      "sessionId": "18064",
-      "id": 2
-    },
-    {
-      "sessionId": "98005",
-      "id": 3
-    },
-    {
-      "sessionId": "01822",
-      "id": 4
-    },
-    {
-      "sessionId": "47350",
-      "id": 5
-    },
-    {
-      "sessionId": "64261",
-      "id": 6
-    },
-    {
-      "sessionId": "53786",
-      "id": 7
-    },
-    {
-      "sessionId": "87044",
-      "id": 8
-    },
-    {
-      "sessionId": "45238",
-      "id": 9
-    },
-    {
-      "sessionId": "52170",
-      "id": 10
-    },
-    {
-      "sessionId": "88982",
-      "id": 11
     }
   ],
   "activities": [
@@ -58,7 +18,7 @@
     {
       "id": 1,
       "follows": [],
-      "numFollows": -4
+      "numFollows": null
     },
     {
       "id": 2,
@@ -79,7 +39,7 @@
       ],
       "numFollows": 57,
       "subscribers": [],
-      "numSubs": 0,
+      "numSubs": -1,
       "fullname": "Rachel Yuan"
     }
   ],
@@ -87,11 +47,11 @@
     {
       "id": 1,
       "username": "Rachel",
-      "timestamp": "December 01, 2021 03:24:00",
-      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
+      "timestamp": "Wed Dec 01 2021 16:24:00 GMT+0800 (China Standard Time)",
       "type": "photo",
+      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
       "numLike": 10,
-      "description": "This is my post!",
+      "description": "Yomama! ddddd",
       "commentRefs": [
         1234,
         5678,
@@ -106,11 +66,11 @@
     {
       "id": 2,
       "username": "Reneee",
-      "timestamp": "December 16, 2021 :24:00",
-      "content_url": "http://img4.wikia.nocookie.net/__cb20140724195345/pokemon/images/thumb/7/73/004Charmander.png/200px-004Charmander.png",
+      "timestamp": "Fri Dec 17 2021 00:00:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
-      "numLike": 18,
-      "description": "Look at my cute Pika!",
+      "content_url": "blob:http://localhost:3000/b46aca03-666a-4df9-a21c-ae65fc1c84ad",
+      "numLike": 0,
+      "description": "Pika!",
       "commentRefs": [
         1234,
         5678,
@@ -125,11 +85,11 @@
     {
       "id": 3,
       "username": "Charlie",
-      "timestamp": "December 25, 2021 01:30:00",
-      "content_url": "http://img1.wikia.nocookie.net/__cb20140328191525/pokemon/images/thumb/3/39/007Squirtle.png/200px-007Squirtle.png",
+      "timestamp": "Sat Dec 25 2021 01:30:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
+      "content_url": "http://img1.wikia.nocookie.net/__cb20140328191525/pokemon/images/thumb/3/39/007Squirtle.png/200px-007Squirtle.png",
       "numLike": 97,
-      "description": "Have a wonderful night with my teammate",
+      "description": "night!",
       "commentRefs": [
         1234,
         5678,
@@ -153,28 +113,30 @@
       "id": 4
     }
   ],
-  "comment": [
+  "comments": [
     {
       "id": 1,
-      "userId": 7,
       "postId": 1,
+      "timestamp": "November 05, 2021 14:21:00",
       "content": "I love this post!",
       "referredUser": [
         1,
         2,
         3
-      ]
+      ],
+      "userId": 7
     },
     {
       "id": 2,
-      "userId": 4,
       "postId": 1,
+      "timestamp": "November 01, 2021 03:24:00",
       "content": "So cutee!",
       "referredUser": [
         1,
         2,
         3
-      ]
+      ],
+      "commentorId": 1
     }
   ],
   "getActivityByUsername": [
