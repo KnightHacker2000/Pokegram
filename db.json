@@ -3,6 +3,22 @@
     {
       "sessionId": "26750",
       "id": 1
+    },
+    {
+      "sessionId": "98342",
+      "id": 2
+    },
+    {
+      "sessionId": "63359",
+      "id": 3
+    },
+    {
+      "sessionId": "31332",
+      "id": 4
+    },
+    {
+      "sessionId": "62806",
+      "id": 5
     }
   ],
   "activities": [
@@ -47,7 +63,7 @@
     {
       "id": 1,
       "username": "Rachel",
-      "timestamp": "Wed Dec 01 2021 16:24:00 GMT+0800 (China Standard Time)",
+      "timestamp": "Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
       "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
       "numLike": 10,
