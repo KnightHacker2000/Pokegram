@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
@@ -20,6 +21,7 @@ import postsService from '../../services/postsService';
 import Comment from './Comment';
 import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
+import './post.css';
 
 const theme = createTheme();
 
@@ -53,9 +55,13 @@ function Posts(props) {
   function rendermedia(post) {
     let ret;
     if (post.type === 'video') {
-      ret = (<CardMedia component="video" height={200} width={400} src={post.content_url} alt="post video" autoPlay controls />);
+      ret = (
+        <CardMedia className="media" component="video" height={200} width={400} src={post.content_url} alt="post video" autoPlay controls />
+      );
     } else {
-      ret = (<CardMedia component="img" height={200} width={400} src={post.content_url} alt="post image" />);
+      ret = (
+        <CardMedia className="media" component="img" height={200} width={400} src={post.content_url} alt="post image" />
+      );
     }
     return ret;
   }
@@ -98,6 +104,7 @@ function Posts(props) {
                   subheader={post.timestamp.toString()}
                 />
                 {rendermedia(post)}
+                {/* </div> */}
                 <CardContent>
                   <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}
