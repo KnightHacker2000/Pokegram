@@ -64,7 +64,7 @@ function Comment(props) {
       temp.content = newComment.content;
       temp.referredUser = newComment.referredUser;
       temp.commentorid = newComment.commentorid;
-      console.log(temp);
+      // console.log(temp);
       await commentService.createComment(temp);
     }
     await addComment();
