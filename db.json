@@ -3,62 +3,6 @@
     {
       "sessionId": "26750",
       "id": 1
-    },
-    {
-      "sessionId": "65465",
-      "id": 2
-    },
-    {
-      "sessionId": "10756",
-      "id": 3
-    },
-    {
-      "sessionId": "46751",
-      "id": 4
-    },
-    {
-      "sessionId": "68968",
-      "id": 5
-    },
-    {
-      "sessionId": "67067",
-      "id": 6
-    },
-    {
-      "sessionId": "98342",
-      "id": 2
-    },
-    {
-      "sessionId": "63359",
-      "id": 3
-    },
-    {
-      "sessionId": "31332",
-      "id": 4
-    },
-    {
-      "sessionId": "62806",
-      "id": 5
-    },
-    {
-      "sessionId": "69428",
-      "id": 7
-    },
-    {
-      "sessionId": "93423",
-      "id": 8
-    },
-    {
-      "sessionId": "52122",
-      "id": 9
-    },
-    {
-      "sessionId": "43618",
-      "id": 10
-    },
-    {
-      "sessionId": "48625",
-      "id": 11
     }
   ],
   "activities": [
@@ -122,9 +66,9 @@
     {
       "id": 2,
       "username": "Reneee",
-      "timestamp": "Fri Dec 17 2021 00:00:00 GMT-0500 (Eastern Standard Time)",
+      "timestamp": "Fri Dec 17 2021 13:00:00 GMT+0800 (China Standard Time)",
       "type": "photo",
-      "content_url": "blob:http://localhost:3000/b46aca03-666a-4df9-a21c-ae65fc1c84ad",
+      "content_url": "blob:http://localhost:3000/1277f11a-a7b0-416a-818a-6553373ed9aa",
       "numLike": 0,
       "description": "Pika!",
       "commentRefs": [
@@ -167,6 +111,17 @@
       "description": "This is a video!",
       "commentRefs": [],
       "users": []
+    },
+    {
+      "username": "Abby",
+      "timestamp": "Wed Nov 09 2022 04:34:20 GMT+0800 (China Standard Time)",
+      "type": "photo",
+      "content_url": "blob:http://localhost:3000/d139ac1c-8077-42ba-a5de-f575689cca59",
+      "numLike": 0,
+      "description": "this is a cute pikachu",
+      "commentRefs": [],
+      "users": [],
+      "id": 5
     }
   ],
   "comments": [
