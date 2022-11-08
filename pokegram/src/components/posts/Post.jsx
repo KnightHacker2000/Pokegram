@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
@@ -8,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -21,6 +23,7 @@ import postsService from '../../services/postsService';
 import Comment from './Comment';
 import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
+import './post.css';
 
 const theme = createTheme();
 
@@ -35,6 +38,7 @@ function Posts(props) {
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
+  // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
   const canEdit = homeStates.UID === homeStates.myUID;
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -56,9 +60,13 @@ function Posts(props) {
   function rendermedia(post) {
     let ret;
     if (post.type === 'video') {
-      ret = (<CardMedia component="video" height={200} width={400} src={post.content_url} alt="post video" autoPlay controls />);
+      ret = (
+        <CardMedia className="media" component="video" height={200} width={400} src={post.content_url} alt="post video" autoPlay controls />
+      );
     } else {
-      ret = (<CardMedia component="img" height={200} width={400} src={post.content_url} alt="post image" />);
+      ret = (
+        <CardMedia className="media" component="img" height={200} width={400} src={post.content_url} alt="post image" />
+      );
     }
     return ret;
   }
@@ -89,6 +97,17 @@ function Posts(props) {
     forceUpdate();
   };
 
+  const handleDeletePost = async (event) => {
+    // console.log(event.currentTarget.getAttribute('data-index'));
+    const postId = (event.currentTarget.getAttribute('data-index'));
+    // setdeletePostId(postId);
+    // console.log(postId);
+    // console.log(deletePostId);
+    await postsService.deletePost(postId);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
   const handleAvatarClick = (event) => {
     // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
     event.preventDefault();
@@ -115,6 +134,7 @@ function Posts(props) {
                   subheader={post.timestamp.toString()}
                 />
                 {rendermedia(post)}
+                {/* </div> */}
                 <CardContent>
                   <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}
@@ -140,6 +160,15 @@ function Posts(props) {
                   >
                     <AddCommentIcon />
                   </IconButton>
+                  { canEdit && (
+                    <IconButton
+                      aria-label="delete"
+                      onClick={handleDeletePost}
+                      data-index={post.id}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
                 </CardActions>
               </Card>
             </Grid>

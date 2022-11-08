@@ -1,10 +1,5 @@
 {
-  "login": [
-    {
-      "sessionId": "26750",
-      "id": 1
-    }
-  ],
+  "login": [],
   "activities": [
     {
       "id": 1,
@@ -111,17 +106,6 @@
       "description": "This is a video!",
       "commentRefs": [],
       "users": []
-    },
-    {
-      "username": "Abby",
-      "timestamp": "Wed Nov 09 2022 04:34:20 GMT+0800 (China Standard Time)",
-      "type": "photo",
-      "content_url": "blob:http://localhost:3000/d139ac1c-8077-42ba-a5de-f575689cca59",
-      "numLike": 0,
-      "description": "this is a cute pikachu",
-      "commentRefs": [],
-      "users": [],
-      "id": 5
     }
   ],
   "comments": [
@@ -203,6 +187,17 @@
       ],
       "postId": 1,
       "id": 7
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "omg",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 8
     }
   ],
   "getActivityByUsername": [
