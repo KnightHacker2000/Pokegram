@@ -8,6 +8,7 @@ import Posts from '../posts/Post';
 import Upload from '../posts/Upload';
 import RootState from '../../models/rootState';
 import HomeState from '../../models/homeState';
+import userService from '../../services/userService';
 
 function Home(props) {
   // const defaultProps = new RootState(
@@ -33,6 +34,7 @@ function Home(props) {
 
     // handle log out
     if (isLogOut) {
+      userService.logout();
       parStates.handleSetStates(false, true, '');
     }
   };

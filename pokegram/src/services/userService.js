@@ -24,6 +24,17 @@ const login = async () => {
 };
 
 /**
+ * logout API endpoint -- clear all session ids
+ * @param none
+*/
+const logout = async () => {
+  const sessions = await client.get(`${API.LOGIN}`);
+  const sessionsIdsArray = (sessions.map((session) => session.id));
+  console.log(sessionsIdsArray);
+  sessionsIdsArray.forEach(async (id) => client.delete(`${API.LOGIN}/${id}`));
+};
+
+/**
  * register user API endpoint
  * @param none
 */
@@ -127,5 +138,6 @@ export default {
   addlike,
   removeLike,
   followUser,
-  unfollowUser
+  unfollowUser,
+  logout
 };

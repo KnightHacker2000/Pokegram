@@ -60,6 +60,23 @@ class PokemonClient {
         throw (error);
       });
   }
+
+  /**
+   * Generic Delete request method
+  */
+  async delete(
+    endpoint,
+    params
+  ) {
+    return axios
+      .delete(this.BACKEND_URL + endpoint, {
+        params
+      })
+      .then((response) => response.data)
+      .catch((error) => {
+        throw (error);
+      });
+  }
 }
 
 export default PokemonClient;
