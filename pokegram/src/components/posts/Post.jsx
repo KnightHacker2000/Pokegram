@@ -139,7 +139,6 @@ function Posts(props) {
                   subheader={post.timestamp.toString()}
                 />
                 {rendermedia(post)}
-                {/* </div> */}
                 <CardContent>
                   <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}

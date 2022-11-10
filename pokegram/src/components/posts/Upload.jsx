@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Button, Box, Container, FormControl, InputLabel, MenuItem, TextField
 } from '@mui/material';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip';
 import Posts from '../../models/post';
 import postsService from '../../services/postsService';
 import HomeState from '../../models/homeState';
+import userService from '../../services/userService';
 
 // const theme = createTheme();
 function Upload(props) {
@@ -14,6 +17,8 @@ function Upload(props) {
   const { homeStates } = props;
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
+  const [foList, setFoList] = useState([]);
+  const [taggedUsers, settaggedUsers] = useState([]);
   const [newpost, setPost] = useState({
     id: 5,
     username: 'Abby',
@@ -26,7 +31,22 @@ function Upload(props) {
     users: []
   });
   const inputRef = useRef();
+  const firstRendering = useRef(true);
   // <track src="" kind="captions" srcLang="en" label="english_captions" />
+  useEffect(() => {
+    async function fetchFollows(id) {
+      const params = `{"userId":${id} }`;
+      const tmp = await userService.getUserById(JSON.parse(params));
+      setFoList(tmp.follows);
+    }
+
+    if (firstRendering.current) {
+      firstRendering.current = false;
+      // hardcoded UID, use UID prop in the future
+      fetchFollows(2);
+    }
+  });
+
   const handleChange = (event) => {
     setType(event.target.value);
     setPost((prevState) => ({
@@ -149,6 +169,20 @@ function Upload(props) {
       description: event.target.value
     }));
   };
+
+  const handleTag = (event) => {
+    const {
+      target: { value }
+    } = event;
+    settaggedUsers(
+      typeof value === 'string' ? value.split(',') : value
+    );
+    setPost((prevState) => ({
+      ...prevState,
+      users: typeof value === 'string' ? value.split(',') : value
+    }));
+  };
+
   return (
     <Container maxWidth="lg">
       <Box
@@ -186,6 +220,33 @@ function Upload(props) {
           label="Create your Post!"
           onChange={handleContent}
         />
+        <FormControl sx={{ margintop: 10, width: '25ch' }}>
+          <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
+          <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={taggedUsers}
+            onChange={handleTag}
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+          >
+            {foList.map((user) => (
+              <MenuItem
+                key={user}
+                value={user}
+              >
+                {user}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Box
           m={1}
           display="flex"

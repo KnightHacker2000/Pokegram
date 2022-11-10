@@ -12,6 +12,7 @@ import Posts from '../posts/Post';
 import userService from '../../services/userService';
 import User from '../../models/user';
 import HomeState from '../../models/homeState';
+import Follows from './Follows';
 // import { TextField } from '@mui/material';
 
 // const user = {
@@ -35,6 +36,7 @@ function Profile(props) {
   const [user, setUser] = useState(new User());
   const [myUser, setMyUser] = useState(new User());
   const [isFollow, setIsFollow] = useState(false);
+  const [showFo, setShowFo] = useState(false);
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
@@ -94,6 +96,15 @@ function Profile(props) {
     forceUpdate();
   };
 
+  const handleFollowerCick = () => {
+    setShowFo(true);
+  };
+
+  const handleShowFo = () => {
+    setShowFo(false);
+    forceUpdate();
+  };
+
   function ConditionalRender() {
     let usersection;
     if (homeStates.UID === homeStates.myUID) {
@@ -144,6 +155,15 @@ function Profile(props) {
   }
   return (
     <ThemeProvider theme={theme}>
+      { showFo
+        && (
+        <Follows
+          showSug={homeStates.UID === homeStates.myUID}
+          UID={homeStates.UID}
+          handleShowFo={handleShowFo}
+          homeStates={homeStates}
+        />
+        ) }
       <Container maxWidth="lg">
         <Box
           sx={{
@@ -170,7 +190,7 @@ function Profile(props) {
                 {user.numSubs}
                 Subscribers
               </Typography>
-              <Typography sx={{ marginRight: 10 }}>
+              <Typography sx={{ marginRight: 10 }} onClick={handleFollowerCick}>
                 {user.numFollows}
                 Follows
               </Typography>

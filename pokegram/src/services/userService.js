@@ -44,6 +44,16 @@ const register = async (body) => {
 };
 
 /**
+ * foSug API endpoint
+ * @param UID
+*/
+const getFoSug = async (UID) => {
+  const response = await client.get(`${API.SUG_TEST}/${UID.id}`);
+  console.log(response);
+  return response;
+};
+
+/**
  * user API endpoint
  * @param userId: user id/ username
 */
@@ -139,5 +149,6 @@ export default {
   removeLike,
   followUser,
   unfollowUser,
-  logout
+  logout,
+  getFoSug
 };
