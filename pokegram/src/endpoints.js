@@ -8,6 +8,8 @@ class API {
   static POSTS = '/posts';
 
   static COMMENTS = '/comments';
+
+  static SUG_TEST = '/getFoSugByUID';
 }
 
 export default API;

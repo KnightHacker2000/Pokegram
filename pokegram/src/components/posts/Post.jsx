@@ -17,13 +17,14 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
 // import pokemon from '../../images/pikachu.jpg';
 import Comment from './Comment';
+import TagPhoto from './Tag';
 import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
-import './post.css';
 
 const theme = createTheme();
 
@@ -35,9 +36,11 @@ function Posts(props) {
   const [postList, setPostList] = useState([]);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
+  const [renderTagging, setrenderTagging] = useState(false);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
+  const [tagPostId, settagPostId] = useState(-1);
   // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
   const canEdit = homeStates.UID === homeStates.myUID;
@@ -91,8 +94,21 @@ function Posts(props) {
     forceUpdate();
   };
 
+  const handlePhotoTagClick = (event) => {
+    event.preventDefault();
+    settagPostId(event.currentTarget.getAttribute('data-index'));
+    setrenderTagging(true);
+    forceUpdate();
+  };
+
   const handleComment = () => {
     setrenderComment(false);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
+  const handleTagPost = () => {
+    setrenderTagging(false);
     firstRendering.current = true;
     forceUpdate();
   };
@@ -118,6 +134,7 @@ function Posts(props) {
     <ThemeProvider theme={theme}>
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
       {renderComment && <Comment uid={homeStates.myUID} pid={commentPostId} handleCommentState={handleComment} />}
+      {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {postList.map((post) => (
@@ -134,7 +151,6 @@ function Posts(props) {
                   subheader={post.timestamp.toString()}
                 />
                 {rendermedia(post)}
-                {/* </div> */}
                 <CardContent>
                   <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}
@@ -159,6 +175,13 @@ function Posts(props) {
                     data-index={post.id}
                   >
                     <AddCommentIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="tagging"
+                    onClick={handlePhotoTagClick}
+                    data-index={post.id}
+                  >
+                    <AccountCircleIcon />
                   </IconButton>
                   { canEdit && (
                     <IconButton

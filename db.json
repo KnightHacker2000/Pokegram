@@ -1,56 +1,17 @@
 {
-  "login": [
+  "login": [],
+  "getFoSugByUID": [
     {
-      "sessionId": "35490",
-      "id": 1
+      "id": 1,
+      "users": [
+        2
+      ]
     },
     {
-      "sessionId": "76394",
-      "id": 2
-    },
-    {
-      "sessionId": "53037",
-      "id": 3
-    },
-    {
-      "sessionId": "68824",
-      "id": 4
-    },
-    {
-      "sessionId": "08729",
-      "id": 5
-    },
-    {
-      "sessionId": "75494",
-      "id": 6
-    },
-    {
-      "sessionId": "99189",
-      "id": 7
-    },
-    {
-      "sessionId": "72457",
-      "id": 8
-    },
-    {
-      "sessionId": "25920",
-      "id": 9
-    },
-    {
-      "sessionId": "10945",
-      "id": 10
-    },
-    {
-      "sessionId": "57382",
-      "id": 11
-    },
-    {
-      "sessionId": "21285",
-      "id": 12
-    },
-    {
-      "sessionId": "90237",
-      "id": 13
+      "id": 2,
+      "users": [
+        1
+      ]
     }
   ],
   "activities": [
@@ -134,7 +95,7 @@
       "username": "Rachel",
       "timestamp": "Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
-      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
+      "content_url": "blob:http://localhost:3000/3971917a-6fbc-49b9-9785-67ba217bf2b8",
       "numLike": 10,
       "description": "Yomama! ddddd",
       "commentRefs": [
@@ -231,6 +192,61 @@
       ],
       "postId": 1,
       "id": 3
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "testhahahha",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 4
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "testttt",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 5
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "i love this post again",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 6
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "hahhaa",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 7
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "234",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 8
     }
   ],
   "getActivityByUsername": [

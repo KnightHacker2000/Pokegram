@@ -8,7 +8,7 @@ import RootState from './models/rootState';
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isReg, setIsReg] = useState(true);
-  const [myUID, setMyUID] = useState(1);
+  const [myUID, setMyUID] = useState(2);
 
   const handleSetStates = (newLogin, newReg, newMyUID) => {
     setIsLogin(newLogin);
