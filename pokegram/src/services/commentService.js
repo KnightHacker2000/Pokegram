@@ -11,7 +11,7 @@ const client = new PokemonClient();
 const getCommentBypostId = async (postId) => {
   const response = await client.get(`${API.COMMENTS}`);
   const data = response.filter((comm) => comm.postId === postId);
-  console.log(data);
+  // console.log(data);
   const commentsLst = data.map((comment) => {
     const newComment = new Comments(
       comment.id,
