@@ -78,9 +78,9 @@
     {
       "id": 2,
       "username": "Reneee",
-      "timestamp": "Fri Dec 17 2021 00:00:00 GMT-0500 (Eastern Standard Time)",
+      "timestamp": "Fri Dec 17 2021 13:00:00 GMT+0800 (China Standard Time)",
       "type": "photo",
-      "content_url": "blob:http://localhost:3000/a03656ca-1306-40e8-8284-945f701c64c5",
+      "content_url": "blob:http://localhost:3000/1277f11a-a7b0-416a-818a-6553373ed9aa",
       "numLike": 0,
       "description": "Pika!",
       "commentRefs": [
@@ -213,7 +213,7 @@
         2,
         3
       ],
-      "postId": 3,
+      "postId": 1,
       "id": 8
     }
   ],

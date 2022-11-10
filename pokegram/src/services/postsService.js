@@ -93,10 +93,21 @@ const updatePost = async (body) => {
   return response;
 };
 
+/**
+ * delete post API endpoint
+ * @param id
+*/
+const deletePost = async (postId) => {
+  // console.log(body);
+  const response = await client.delete(`${API.POSTS}/${postId}`);
+  return response;
+};
+
 export default {
   getPostsById,
   getPostsByUserId,
   getAllPosts,
   createPost,
-  updatePost
+  updatePost,
+  deletePost
 };

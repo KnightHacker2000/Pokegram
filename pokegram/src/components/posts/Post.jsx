@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -41,6 +42,7 @@ function Posts(props) {
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
   const [tagPostId, settagPostId] = useState(-1);
+  // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
   const canEdit = homeStates.UID === homeStates.myUID;
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -105,9 +107,20 @@ function Posts(props) {
     firstRendering.current = true;
     forceUpdate();
   };
-
+  
   const handleTagPost = () => {
     setrenderTagging(false);
+    firstRendering.current = true;
+    forceUpdate();
+   };
+  
+  const handleDeletePost = async (event) => {
+    // console.log(event.currentTarget.getAttribute('data-index'));
+    const postId = (event.currentTarget.getAttribute('data-index'));
+    // setdeletePostId(postId);
+    // console.log(postId);
+    // console.log(deletePostId);
+    await postsService.deletePost(postId);
     firstRendering.current = true;
     forceUpdate();
   };
@@ -171,6 +184,15 @@ function Posts(props) {
                   >
                     <AccountCircleIcon />
                   </IconButton>
+                  { canEdit && (
+                    <IconButton
+                      aria-label="delete"
+                      onClick={handleDeletePost}
+                      data-index={post.id}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
                 </CardActions>
               </Card>
             </Grid>
