@@ -25,7 +25,6 @@ import Comment from './Comment';
 import TagPhoto from './Tag';
 import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
-import './post.css';
 
 const theme = createTheme();
 
@@ -107,13 +106,13 @@ function Posts(props) {
     firstRendering.current = true;
     forceUpdate();
   };
-  
+
   const handleTagPost = () => {
     setrenderTagging(false);
     firstRendering.current = true;
     forceUpdate();
-   };
-  
+  };
+
   const handleDeletePost = async (event) => {
     // console.log(event.currentTarget.getAttribute('data-index'));
     const postId = (event.currentTarget.getAttribute('data-index'));
