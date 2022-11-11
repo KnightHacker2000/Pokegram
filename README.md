@@ -46,7 +46,7 @@ Users can see their follower suggestions by clicking follows on their profile pa
 ![taggedpeople](taggedpeople.png)
 
 Users can tag people on photos, and tagged people can be reviewed on the rightmost button on the bottom of post on home page.
-![mentionincomments](mentionincomments.png)
+![mentionincomments](mentionincomments.jpg)
 
 Users can also mention people on the comment by starting typing @.
 
