@@ -20,6 +20,7 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
+import userService from '../../services/userService';
 // import pokemon from '../../images/pikachu.jpg';
 import Comment from './Comment';
 import TagPhoto from './Tag';
@@ -37,6 +38,8 @@ function Posts(props) {
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
   const [renderTagging, setrenderTagging] = useState(false);
+  // const [isLike, setLike] = useState(false);
+  const [likePosts, setlikePosts] = useState([]);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
@@ -53,9 +56,16 @@ function Posts(props) {
       setPostList(data);
     }
 
+    async function getUser() {
+      const userparams = `{"userId":${homeStates.myUID} }`;
+      const user = await userService.getUserById(JSON.parse(userparams));
+      setlikePosts(user.likedPosts);
+    }
+
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchData();
+      getUser();
       // putData();
     }
   });
@@ -94,6 +104,13 @@ function Posts(props) {
     forceUpdate();
   };
 
+  // const handleLikeClick = (event) => {
+  // event.preventDefault();
+  // setlikePostId(event.currentTarget.getAttribute('data-index'));
+  // setrenderLike(true);
+  // forceUpdate();
+  // };
+
   const handlePhotoTagClick = (event) => {
     event.preventDefault();
     settagPostId(event.currentTarget.getAttribute('data-index'));
@@ -109,6 +126,40 @@ function Posts(props) {
 
   const handleTagPost = () => {
     setrenderTagging(false);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
+  const handleLikePost = async (event) => {
+    // console.log(event.currentTarget.getAttribute('data-index'));
+    // console.log(isLike);
+    const postId = event.currentTarget.getAttribute('data-index');
+    const numpostId = parseInt(postId, 10);
+    const params = `{"postId":${postId} }`;
+    const userparams = `{"userId":${homeStates.myUID} }`;
+    const user = await userService.getUserById(JSON.parse(userparams));
+    const post = await postsService.getPostsById(JSON.parse(params));
+    await userService.addlike(user, numpostId);
+    post.numLike += 1;
+    await postsService.updatePost(post);
+    likePosts.push(numpostId);
+    setlikePosts(likePosts);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+  const handleUnLikePost = async (event) => {
+    const postId = event.currentTarget.getAttribute('data-index');
+    const numpostId = parseInt(postId, 10);
+    const params = `{"postId":${postId} }`;
+    const userparams = `{"userId":${homeStates.myUID} }`;
+    const user = await userService.getUserById(JSON.parse(userparams));
+    const post = await postsService.getPostsById(JSON.parse(params));
+    const pIndex = likePosts.indexOf(numpostId);
+    likePosts.splice(pIndex, 1);
+    await userService.removeLike(user, numpostId);
+    post.numLike -= 1;
+    await postsService.updatePost(post);
+    setlikePosts(likePosts);
     firstRendering.current = true;
     forceUpdate();
   };
@@ -130,6 +181,34 @@ function Posts(props) {
     const otherUID = event.currentTarget.getAttribute('data-index');
     homeStates.handleHomeStates(false, true, false, false, false, otherUID);
   };
+
+  function likebuton(postId) {
+    let ret;
+    if (likePosts.includes(postId)) {
+      ret = (
+        <IconButton
+          sx={{ color: 'red' }}
+          aria-label="add to favorites"
+          onClick={handleUnLikePost}
+          data-index={postId}
+        >
+          <FavoriteIcon />
+        </IconButton>
+      );
+    } else {
+      ret = (
+        <IconButton
+          aria-label="add to favorites"
+          onClick={handleLikePost}
+          data-index={postId}
+        >
+          <FavoriteIcon />
+        </IconButton>
+      );
+    }
+    return ret;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
@@ -157,9 +236,7 @@ function Posts(props) {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
+                  {likebuton(post.id)}
                   { canEdit && (
                     <IconButton
                       aria-label="edit"

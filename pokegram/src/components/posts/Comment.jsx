@@ -25,6 +25,7 @@ import commentboxstyle from './commentboxstyle';
 
 function Comment(props) {
   const { uid, pid, handleCommentState } = props;
+  const [username, setUsername] = useState('');
   const [commentList, setCommentList] = useState([]);
   const [editComment, setEditComment] = useState({
     id: -1,
@@ -82,11 +83,18 @@ function Comment(props) {
       // console.log(taggingUsers);
     }
 
+    async function fetchuserinfo(id) {
+      const params = `{"userId": ${id}}`;
+      const user = await userService.getUserById(JSON.parse(params));
+      setUsername(user.username);
+    }
+
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchCommentbyPostId(pid);
       console.log(uid);
       fetchFollowers(uid);
+      fetchuserinfo(uid);
     }
   });
 
@@ -138,7 +146,6 @@ function Comment(props) {
     // console.log(comm);
     setEditComment(comm);
     setupdateValue(comm.content);
-    console.log(editComment);
     forceUpdate();
   };
   const handleDeleteComment = async (event) => {
@@ -159,7 +166,7 @@ function Comment(props) {
       temp.referredUser = editComment.referredUser;
       temp.commentorid = editComment.commentorid;
       temp.id = editComment.id;
-      console.log(temp);
+      // console.log(temp);
       await commentService.updateComment(temp);
     }
     if (event.key === 'Enter') {
@@ -176,7 +183,7 @@ function Comment(props) {
     if (comm.id !== editComment.id) {
       ret = (
         <ListItemText
-          primary={comm.id}
+          primary={username}
           secondary={(
             <Typography
               sx={{ display: 'inline' }}

@@ -49,7 +49,6 @@ const register = async (body) => {
 */
 const getFoSug = async (UID) => {
   const response = await client.get(`${API.SUG_TEST}/${UID.id}`);
-  console.log(response);
   return response;
 };
 
@@ -96,7 +95,7 @@ const addlike = async (user, postId) => {
 */
 const removeLike = async (user, postId) => {
   const pIndex = user.likedPosts.indexOf(postId);
-  user.likedPosts.splice(pIndex);
+  user.likedPosts.splice(pIndex, 1);
   const response = await client.put(`${API.USER}/${user.id}`, user);
   return response;
 };
