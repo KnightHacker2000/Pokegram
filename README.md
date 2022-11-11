@@ -43,8 +43,11 @@ User can edit or delete comments by clicking the button in the middle.
 Users can see their follower suggestions by clicking follows on their profile page, the follower suggestions is on the top.
 ### Tagging photos and  @mentions in comments
 ![taggingphotos](taggingphotos.png)
-![mentionincomments](mentionincomments.png)
+![taggedpeople](taggedpeople.png)
+
 Users can tag people on photos, and tagged people can be reviewed on the rightmost button on the bottom of post on home page.
+![mentionincomments](mentionincomments.png)
+
 Users can also mention people on the comment by starting typing @.
 
 
