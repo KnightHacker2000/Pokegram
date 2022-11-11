@@ -20,31 +20,30 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import postsService from '../../services/postsService';
+import userService from '../../services/userService';
 // import pokemon from '../../images/pikachu.jpg';
 import Comment from './Comment';
 import TagPhoto from './Tag';
 import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
-import './post.css';
-import userService from '../../services/userService';
 
 const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
-  //console.log(homeStates.myUID);
-  //console.log(homeStates.UID);
+  // console.log(homeStates.myUID);
+  // console.log(homeStates.UID);
 
   const [postList, setPostList] = useState([]);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
   const [renderTagging, setrenderTagging] = useState(false);
-  const [isLike, setLike] = useState(false);
+  // const [isLike, setLike] = useState(false);
+  const [likePosts, setlikePosts] = useState([]);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
   const [tagPostId, settagPostId] = useState(-1);
-  // const [likePostId, setlikePostId] = useState(-1);
   // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
   const canEdit = homeStates.UID === homeStates.myUID;
@@ -57,9 +56,16 @@ function Posts(props) {
       setPostList(data);
     }
 
+    async function getUser() {
+      const userparams = `{"userId":${homeStates.myUID} }`;
+      const user = await userService.getUserById(JSON.parse(userparams));
+      setlikePosts(user.likedPosts);
+    }
+
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchData();
+      getUser();
       // putData();
     }
   });
@@ -123,23 +129,37 @@ function Posts(props) {
     firstRendering.current = true;
     forceUpdate();
   };
-  // const handleLike = () => {
-    // setrenderLike(false);
-    // firstRendering.current = true;
-    // forceUpdate();
-  // };
+
   const handleLikePost = async (event) => {
-    const postId = (event.currentTarget.getAttribute('data-index'));
-    const post = postsService.getPostsById(postId);
-    setLike(true);
-    if (!isLike) {
-      userService.addlike(2, postId);
-      post.numLike += 1;
-    } else {
-      userService.removeLike(2, postId);
-      post.numLike -= 1;
-    }
+    // console.log(event.currentTarget.getAttribute('data-index'));
+    // console.log(isLike);
+    const postId = event.currentTarget.getAttribute('data-index');
+    const numpostId = parseInt(postId, 10);
+    const params = `{"postId":${postId} }`;
+    const userparams = `{"userId":${homeStates.myUID} }`;
+    const user = await userService.getUserById(JSON.parse(userparams));
+    const post = await postsService.getPostsById(JSON.parse(params));
+    await userService.addlike(user, numpostId);
+    post.numLike += 1;
     await postsService.updatePost(post);
+    likePosts.push(numpostId);
+    setlikePosts(likePosts);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+  const handleUnLikePost = async (event) => {
+    const postId = event.currentTarget.getAttribute('data-index');
+    const numpostId = parseInt(postId, 10);
+    const params = `{"postId":${postId} }`;
+    const userparams = `{"userId":${homeStates.myUID} }`;
+    const user = await userService.getUserById(JSON.parse(userparams));
+    const post = await postsService.getPostsById(JSON.parse(params));
+    const pIndex = likePosts.indexOf(numpostId);
+    likePosts.splice(pIndex, 1);
+    await userService.removeLike(user, numpostId);
+    post.numLike -= 1;
+    await postsService.updatePost(post);
+    setlikePosts(likePosts);
     firstRendering.current = true;
     forceUpdate();
   };
@@ -161,10 +181,38 @@ function Posts(props) {
     const otherUID = event.currentTarget.getAttribute('data-index');
     homeStates.handleHomeStates(false, true, false, false, false, otherUID);
   };
+
+  function likebuton(postId) {
+    let ret;
+    if (likePosts.includes(postId)) {
+      ret = (
+        <IconButton
+          sx={{ color: 'red' }}
+          aria-label="add to favorites"
+          onClick={handleUnLikePost}
+          data-index={postId}
+        >
+          <FavoriteIcon />
+        </IconButton>
+      );
+    } else {
+      ret = (
+        <IconButton
+          aria-label="add to favorites"
+          onClick={handleLikePost}
+          data-index={postId}
+        >
+          <FavoriteIcon />
+        </IconButton>
+      );
+    }
+    return ret;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
-      {renderComment && <Comment pid={commentPostId} handleCommentState={handleComment} />}
+      {renderComment && <Comment uid={homeStates.myUID} pid={commentPostId} handleCommentState={handleComment} />}
       {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
@@ -182,20 +230,13 @@ function Posts(props) {
                   subheader={post.timestamp.toString()}
                 />
                 {rendermedia(post)}
-                {/* </div> */}
                 <CardContent>
                   <Typography variant="body2" color="text.secondary" maxWidth="20vw">
                     {post.description}
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton
-                    aria-label="add to favorites"
-                    onClick={handleLikePost}
-                    data-index={post.id}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
+                  {likebuton(post.id)}
                   { canEdit && (
                     <IconButton
                       aria-label="edit"

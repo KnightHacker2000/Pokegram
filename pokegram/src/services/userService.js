@@ -44,6 +44,15 @@ const register = async (body) => {
 };
 
 /**
+ * foSug API endpoint
+ * @param UID
+*/
+const getFoSug = async (UID) => {
+  const response = await client.get(`${API.SUG_TEST}/${UID.id}`);
+  return response;
+};
+
+/**
  * user API endpoint
  * @param userId: user id/ username
 */
@@ -86,7 +95,7 @@ const addlike = async (user, postId) => {
 */
 const removeLike = async (user, postId) => {
   const pIndex = user.likedPosts.indexOf(postId);
-  user.likedPosts.splice(pIndex);
+  user.likedPosts.splice(pIndex, 1);
   const response = await client.put(`${API.USER}/${user.id}`, user);
   return response;
 };
@@ -139,5 +148,6 @@ export default {
   removeLike,
   followUser,
   unfollowUser,
-  logout
+  logout,
+  getFoSug
 };
