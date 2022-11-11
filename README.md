@@ -28,9 +28,13 @@ When user unlike a post, The button will change from red to grey.
 Users can add, edit and delete comments on posts, after adding/ editing comments, type enter to save the operation and go back.
 ### Editing/Deleting posts and comments
 ![editPost](editPost.png)
+
 User can edit posts by clicking the second button from left on the bottom of post.
+
 User can delete posts by clicking the rightmost button on the bottom of post.
+
 User can edit or delete comments by clicking the button in the middle on the bottom of post.
+
 ### Follower suggestions
 ![followersuggestions](followersuggestions.png)
 Users can see their follower suggestions by clicking follows, the follower suggestions is on the top.
