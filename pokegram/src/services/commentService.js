@@ -21,7 +21,7 @@ const getCommentBypostId = async (postId) => {
       comment.referredUser,
       comment.commentorid
     );
-    console.log(newComment);
+    // console.log(newComment);
     return newComment;
   });
   // console.log(commentsLst);
@@ -33,12 +33,49 @@ const getCommentBypostId = async (postId) => {
  * @param none
 */
 const createComment = async (body) => {
-  console.log(body);
+  // console.log(body);
   const response = await client.post(`${API.COMMENTS}`, body);
   return response;
 };
 
+const updateComment = async (body) => {
+  // console.log(body);
+  const response = await client.put(`${API.COMMENTS}/${body.id}`, body);
+  return response;
+};
+
+/**
+ * delete comment API endpoint
+ * @param id
+*/
+const deleteComment = async (commentId) => {
+  // console.log(body);
+  const response = await client.delete(`${API.COMMENTS}/${commentId}`);
+  return response;
+};
+
+/**
+ * post API endpoint
+ * @param postId: postId
+*/
+const getCommentByCommentId = async (cid) => {
+  const comment = await client.get(`${API.COMMENTS}/${cid}`);
+  const newComment = new Comments(
+    comment.id,
+    comment.postId,
+    new Date(comment.timestamp),
+    comment.content,
+    comment.referredUser,
+    comment.commentorid
+  );
+  console.log(newComment);
+  return newComment;
+};
+
 export default {
   getCommentBypostId,
-  createComment
+  createComment,
+  updateComment,
+  deleteComment,
+  getCommentByCommentId
 };

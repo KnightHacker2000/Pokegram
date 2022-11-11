@@ -26,8 +26,23 @@
   "user": [
     {
       "id": 1,
-      "follows": [],
-      "numFollows": null
+      "email": "charlie@hotmail.com",
+      "username": "Charlie",
+      "avatar": "../../images/pikachu.jpg",
+      "numPosts": 2,
+      "likedPosts": [
+        1,
+        2,
+        101
+      ],
+      "follows": [
+        3,
+        2
+      ],
+      "numFollows": 57,
+      "subscribers": [],
+      "numSubs": 0,
+      "fullname": "Charlie Cheng"
     },
     {
       "id": 2,
@@ -43,11 +58,32 @@
         101
       ],
       "follows": [
-        3,
-        4,
-        5
+        1,
+        3
       ],
-      "numFollows": 1,
+      "numFollows": 57,
+      "subscribers": [
+        1
+      ],
+      "numSubs": 1,
+      "fullname": "Rachel Yuan"
+    },
+    {
+      "id": 3,
+      "email": "reneeamao@163.com",
+      "username": "shuyany",
+      "avatar": "../../images/pikachu.jpg",
+      "numPosts": 8,
+      "likedPosts": [
+        1,
+        2,
+        3
+      ],
+      "follows": [
+        2,
+        3
+      ],
+      "numFollows": 15,
       "subscribers": [],
       "numSubs": 0,
       "fullname": "Rachel Yuan"
@@ -78,7 +114,7 @@
       "username": "Reneee",
       "timestamp": "Fri Dec 17 2021 13:00:00 GMT+0800 (China Standard Time)",
       "type": "photo",
-      "content_url": "blob:http://localhost:3000/1277f11a-a7b0-416a-818a-6553373ed9aa",
+      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
       "numLike": 0,
       "description": "Pika!",
       "commentRefs": [
@@ -126,31 +162,29 @@
   "comments": [
     {
       "id": 1,
-      "postId": 1,
-      "timestamp": "November 05, 2021 14:21:00",
-      "content": "I love this post!",
+      "timestamp": "2021-11-05T06:21:00.000Z",
+      "content": "I love this post! hahhahah",
       "referredUser": [
         1,
         2,
         3
       ],
-      "userId": 7
+      "postId": 1
     },
     {
       "id": 2,
-      "postId": 1,
-      "timestamp": "November 01, 2021 03:24:00",
-      "content": "So cutee!",
+      "timestamp": "2021-10-31T19:24:00.000Z",
+      "content": "So cutee! @<b>shuyany</b>",
       "referredUser": [
         1,
         2,
         3
       ],
-      "commentorId": 1
+      "postId": 1
     },
     {
       "timestamp": "November 05, 2021 14:21:00",
-      "content": "test",
+      "content": "test @<b>shuyany</b>",
       "referredUser": [
         1,
         2,

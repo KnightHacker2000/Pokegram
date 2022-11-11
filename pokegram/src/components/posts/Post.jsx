@@ -133,7 +133,7 @@ function Posts(props) {
   return (
     <ThemeProvider theme={theme}>
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
-      {renderComment && <Comment pid={commentPostId} handleCommentState={handleComment} />}
+      {renderComment && <Comment uid={homeStates.myUID} pid={commentPostId} handleCommentState={handleComment} />}
       {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
