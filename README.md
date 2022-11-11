@@ -24,7 +24,8 @@ When user like a post, The button will change from grey to red.
 When user unlike a post, The button will change from red to grey.
 ### Comment on posts
 ![comments](comments.png)
-Users can make, edit and delete comments on posts, after making/ editing comments, type enter to go back.
+
+Users can add, edit and delete comments on posts, after adding/ editing comments, type enter to save the operation and go back.
 ### Editing/Deleting posts and comments
 ![editPost](editPost.png)
 User can edit posts by clicking the second button from left on the bottom of post.
