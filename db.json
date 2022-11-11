@@ -1,5 +1,14 @@
 {
-  "login": [],
+  "login": [
+    {
+      "sessionId": "22968",
+      "id": 1
+    },
+    {
+      "sessionId": "19476",
+      "id": 2
+    }
+  ],
   "activities": [
     {
       "id": 1,
@@ -198,6 +207,17 @@
       ],
       "postId": 1,
       "id": 8
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "I Love",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 2,
+      "id": 9
     }
   ],
   "getActivityByUsername": [

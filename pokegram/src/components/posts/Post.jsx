@@ -26,22 +26,25 @@ import TagPhoto from './Tag';
 import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
 import './post.css';
+import userService from '../../services/userService';
 
 const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
-  // console.log(homeStates.myUID);
-  // console.log(homeStates.UID);
+  //console.log(homeStates.myUID);
+  //console.log(homeStates.UID);
 
   const [postList, setPostList] = useState([]);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
   const [renderTagging, setrenderTagging] = useState(false);
+  const [isLike, setLike] = useState(false);
   const [, updateState] = React.useState();
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
   const [tagPostId, settagPostId] = useState(-1);
+  // const [likePostId, setlikePostId] = useState(-1);
   // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
   const canEdit = homeStates.UID === homeStates.myUID;
@@ -95,6 +98,13 @@ function Posts(props) {
     forceUpdate();
   };
 
+  // const handleLikeClick = (event) => {
+  // event.preventDefault();
+  // setlikePostId(event.currentTarget.getAttribute('data-index'));
+  // setrenderLike(true);
+  // forceUpdate();
+  // };
+
   const handlePhotoTagClick = (event) => {
     event.preventDefault();
     settagPostId(event.currentTarget.getAttribute('data-index'));
@@ -107,13 +117,33 @@ function Posts(props) {
     firstRendering.current = true;
     forceUpdate();
   };
-  
+
   const handleTagPost = () => {
     setrenderTagging(false);
     firstRendering.current = true;
     forceUpdate();
-   };
-  
+  };
+  // const handleLike = () => {
+    // setrenderLike(false);
+    // firstRendering.current = true;
+    // forceUpdate();
+  // };
+  const handleLikePost = async (event) => {
+    const postId = (event.currentTarget.getAttribute('data-index'));
+    const post = postsService.getPostsById(postId);
+    setLike(true);
+    if (!isLike) {
+      userService.addlike(2, postId);
+      post.numLike += 1;
+    } else {
+      userService.removeLike(2, postId);
+      post.numLike -= 1;
+    }
+    await postsService.updatePost(post);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
   const handleDeletePost = async (event) => {
     // console.log(event.currentTarget.getAttribute('data-index'));
     const postId = (event.currentTarget.getAttribute('data-index'));
@@ -159,7 +189,11 @@ function Posts(props) {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
+                  <IconButton
+                    aria-label="add to favorites"
+                    onClick={handleLikePost}
+                    data-index={post.id}
+                  >
                     <FavoriteIcon />
                   </IconButton>
                   { canEdit && (
