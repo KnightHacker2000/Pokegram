@@ -20,8 +20,8 @@ We allow click to choose between video and image, you can test by using image an
 ### like & unliking posts
 ![like](like.png)
 Users can like or unlike one or more posts by clicking like (love shaped) button in each post at home page. 
-When user like a post, The button will change from grey to red.
-When user unlike a post, The button will change from red to grey.
+When user like a post, The button will turn red.
+When user unlike a post, The button will turn grey.
 ### Comment on posts
 ![comments](comments.png)
 
@@ -40,14 +40,11 @@ User can edit or delete comments by clicking the button in the middle.
 
 ### Follower suggestions
 ![followersuggestions](followersuggestions.png)
-Users can see their follower suggestions by clicking follows on their profile page, the follower suggestions is on the top.
+Users can see their follower suggestions by clicking follows, the follower suggestions is on the top.
 ### Tagging photos and  @mentions in comments
 ![taggingphotos](taggingphotos.png)
-![taggedpeople](taggedpeople.png)
-
+![mentionincomments](mentionincomments.png)
 Users can tag people on photos, and tagged people can be reviewed on the rightmost button on the bottom of post on home page.
-![mentionincomments](mentionincomments.jpg)
-
 Users can also mention people on the comment by starting typing @.
 
 
