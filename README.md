@@ -19,8 +19,9 @@ This is the homepage and there is a menu bar on top, click `Pokegram` to return 
 We allow click to choose between video and image, you can test by using image and video sources stored in ./pokegram/src/images and ./pokegram/src/videos
 ### like & unliking posts
 ![like](like.png)
-![unlike](unlike.jpg)
-Users can like or unlike one or more posts by clicking like button in each post.
+Users can like or unlike one or more posts by clicking like (love shaped) button in each post at home page. 
+When user like a post, The button will change from grey to red.
+When user unlike a post, The button will change from red to grey.
 ### Comment on posts
 ![comments](comments.jpg)
 Users can make, edit and delete comments on posts, after making/ editing comments, type enter to go back.
