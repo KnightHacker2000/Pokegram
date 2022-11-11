@@ -23,19 +23,19 @@ Users can like or unlike one or more posts by clicking like (love shaped) button
 When user like a post, The button will change from grey to red.
 When user unlike a post, The button will change from red to grey.
 ### Comment on posts
-![comments](comments.jpg)
+![comments](comments.png)
 Users can make, edit and delete comments on posts, after making/ editing comments, type enter to go back.
 ### Editing/Deleting posts and comments
-![editPost](editPost.jpg)
+![editPost](editPost.png)
 User can edit posts by clicking the second button from left on the bottom of post.
 User can delete posts by clicking the rightmost button on the bottom of post.
 User can edit or delete comments by clicking the button in the middle on the bottom of post.
 ### Follower suggestions
-![followersuggestions](followersuggestions.jpg)
+![followersuggestions](followersuggestions.png)
 Users can see their follower suggestions by clicking follows, the follower suggestions is on the top.
 ### Tagging photos and  @mentions in comments
-![taggingphotos](taggingphotos.jpg)
-![mentionincomments](mentionincomments.jpg)
+![taggingphotos](taggingphotos.png)
+![mentionincomments](mentionincomments.png)
 Users can tag people on photos, and tagged people can be reviewed on the rightmost button on the bottom of post on home page.
 Users can also mention people on the comment by starting typing @.
 
