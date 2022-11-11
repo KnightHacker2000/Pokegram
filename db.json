@@ -1,5 +1,10 @@
 {
-  "login": [],
+  "login": [
+    {
+      "sessionId": "92205",
+      "id": 1
+    }
+  ],
   "getFoSugByUID": [
     {
       "id": 1,
@@ -26,23 +31,8 @@
   "user": [
     {
       "id": 1,
-      "email": "charlie@hotmail.com",
-      "username": "Charlie",
-      "avatar": "../../images/pikachu.jpg",
-      "numPosts": 2,
-      "likedPosts": [
-        1,
-        2,
-        101
-      ],
-      "follows": [
-        3,
-        2
-      ],
-      "numFollows": 57,
-      "subscribers": [],
-      "numSubs": 0,
-      "fullname": "Charlie Cheng"
+      "follows": [],
+      "numFollows": null
     },
     {
       "id": 2,
@@ -62,10 +52,8 @@
         3
       ],
       "numFollows": 57,
-      "subscribers": [
-        1
-      ],
-      "numSubs": 1,
+      "subscribers": [],
+      "numSubs": -3,
       "fullname": "Rachel Yuan"
     },
     {
@@ -95,9 +83,9 @@
       "username": "Rachel",
       "timestamp": "Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
-      "content_url": "blob:http://localhost:3000/3971917a-6fbc-49b9-9785-67ba217bf2b8",
+      "content_url": "blob:http://localhost:3000/5ea48851-be1d-46a0-870a-3d642343fa09",
       "numLike": 10,
-      "description": "Yomama! ddddd",
+      "description": "pika!",
       "commentRefs": [
         1234,
         5678,

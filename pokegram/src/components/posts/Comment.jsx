@@ -22,7 +22,6 @@ import commentService from '../../services/commentService';
 import userService from '../../services/userService';
 import Comments from '../../models/comment';
 import commentboxstyle from './commentboxstyle';
-import './post.css';
 
 function Comment(props) {
   const { uid, pid, handleCommentState } = props;
@@ -72,7 +71,7 @@ function Comment(props) {
       // console.log(followerid);
       const follower = [];
       userService.getUserById(JSON.parse(params)).then((data) => {
-        // console.log(data);
+        console.log(data);
         data.follows.forEach(async (user) => {
           const tmpparams = `{"userId": ${user}}`;
           const tmp = await userService.getUserById(JSON.parse(tmpparams));
@@ -86,6 +85,7 @@ function Comment(props) {
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchCommentbyPostId(pid);
+      console.log(uid);
       fetchFollowers(uid);
     }
   });

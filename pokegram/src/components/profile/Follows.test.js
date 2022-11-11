@@ -3,7 +3,8 @@
  */
 import React from 'react';
 //  import { fireEvent, render } from '@testing-library/react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+// import ShallowRenderer from 'react-test-renderer/shallow';
+import renderer from 'react-test-renderer';
 import Follows from './Follows';
 import HomeState from '../../models/homeState';
 import '@testing-library/jest-dom/extend-expect';
@@ -21,11 +22,22 @@ const parentStates = new HomeState(
   2
 );
 
-test('test follow snapshot', () => {
-  const renderer = new ShallowRenderer();
-  renderer.render(<Follows showSug={true} UID={2} handleShowFo={()=>{}} homeStates={parentStates} />);
-  const followComp = renderer.getRenderOutput();
-  // expect(tree).toMatchSnapshot();
+// test('test follow snapshot', () => {
+//   const renderer = new ShallowRenderer();
+//   renderer.render(<Follows showSug={true} UID={2} handleShowFo={()=>{}} homeStates={parentStates} />);
+//   const followComp = renderer.getRenderOutput();
+//   // expect(tree).toMatchSnapshot();
+// });
+
+test('test fo sug', ()=> {
+  // const renderer = new ShallowRenderer();
+  // renderer.render(<Follows showSug={true} UID={2} handleShowFo={()=>{}} homeStates={parentStates} />);
+  // const followComp = renderer.getRenderOutput();
+  // console.log(followComp.getInstance());
+  const followComp = renderer.create(<Follows showSug={true} UID={2} handleShowFo={()=>{}} homeStates={parentStates} />);
+  const tree = followComp.toJSON();
+  // console.log(followComp.root);
+  expect(tree).toMatchSnapshot();
 });
 
 // test('test profile click', () => {

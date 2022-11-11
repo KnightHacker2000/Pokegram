@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test comments snapshot 1`] = `
+<div
+  style={
+    {
+      "alignItems": "center",
+      "background": "rgba(90, 90, 90, 0.8)",
+      "bottom": 0,
+      "display": "flex",
+      "flexDirection": "row",
+      "left": 0,
+      "position": "fixed",
+      "right": 0,
+      "top": 0,
+      "zIndex": 99,
+    }
+  }
+>
+  <div
+    style={
+      {
+        "alignItems": "center",
+        "background": "white",
+        "border": "1px solid rgba(0, 0, 0, 0.05)",
+        "borderRadius": "10px",
+        "display": "flex",
+        "height": "max-content",
+        "marginBottom": "auto",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "marginTop": "auto",
+        "zIndex": 99,
+      }
+    }
+  >
+    <ForwardRef(Container)
+      maxWidth="xs"
+    >
+      <ForwardRef(Box)
+        sx={
+          {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
+        <defaultStyle(MentionsInput)
+          onChange={[Function]}
+          singleLine={true}
+          style={
+            {
+              "&multiLine": {
+                "control": {
+                  "fontFamily": "monospace",
+                  "minHeight": 63,
+                },
+                "highlighter": {
+                  "border": "1px solid transparent",
+                  "padding": 9,
+                },
+                "input": {
+                  "border": "1px solid silver",
+                  "padding": 9,
+                },
+              },
+              "&singleLine": {
+                "display": "inline-block",
+                "highlighter": {
+                  "border": "2px inset transparent",
+                  "padding": 1,
+                },
+                "input": {
+                  "border": "2px inset",
+                  "padding": 1,
+                },
+                "width": 180,
+              },
+              "control": {
+                "backgroundColor": "#fff",
+                "fontSize": 16,
+              },
+              "suggestions": {
+                "item": {
+                  "&focused": {
+                    "backgroundColor": "#cee4e5",
+                  },
+                  "borderBottom": "1px solid rgba(0,0,0,0.15)",
+                  "padding": "5px 15px",
+                },
+                "list": {
+                  "backgroundColor": "white",
+                  "border": "1px solid rgba(0,0,0,0.15)",
+                  "fontSize": 16,
+                },
+              },
+            }
+          }
+          value=""
+        >
+          <Mention
+            appendSpaceOnAdd={false}
+            data={
+              [
+                {
+                  "display": "amy",
+                  "id": 1,
+                },
+              ]
+            }
+            displayTransform={[Function]}
+            isLoading={false}
+            markup="@[__display__]"
+            onAdd={[Function]}
+            onRemove={[Function]}
+            renderSuggestion={null}
+            style={
+              {
+                "backgroundColor": "#cee4e5",
+              }
+            }
+            trigger="@"
+          />
+        </defaultStyle(MentionsInput)>
+        <ForwardRef(Button)
+          onClick={[Function]}
+          type="button"
+        >
+          Add
+        </ForwardRef(Button)>
+        <Memo
+          onClick={[Function]}
+        />
+      </ForwardRef(Box)>
+      <ForwardRef(List)
+        sx={
+          {
+            "bgcolor": "background.paper",
+            "maxWidth": 360,
+          }
+        }
+      />
+    </ForwardRef(Container)>
+  </div>
+</div>
+`;

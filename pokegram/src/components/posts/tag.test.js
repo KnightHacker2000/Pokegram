@@ -12,7 +12,7 @@ test('test tagging snapshot', () => {
   const renderer = new ShallowRenderer();
   renderer.render(<TagPhoto PID={2} handleTagState={()=> {}} />);
   const tagComp = renderer.getRenderOutput();
-  // expect(tree).toMatchSnapshot();
+  expect(tagComp).toMatchSnapshot();
 });
 
 // test('test profile click', () => {

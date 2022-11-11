@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test tagging snapshot 1`] = `
+<div
+  style={
+    {
+      "alignItems": "center",
+      "background": "rgba(90, 90, 90, 0.8)",
+      "bottom": 0,
+      "display": "flex",
+      "flexDirection": "row",
+      "left": 0,
+      "position": "fixed",
+      "right": 0,
+      "top": 0,
+      "zIndex": 99,
+    }
+  }
+>
+  <div
+    style={
+      {
+        "alignItems": "center",
+        "background": "white",
+        "border": "1px solid rgba(0, 0, 0, 0.05)",
+        "borderRadius": "10px",
+        "display": "flex",
+        "height": "max-content",
+        "marginBottom": "auto",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "marginTop": "auto",
+        "zIndex": 99,
+      }
+    }
+  >
+    <ForwardRef(Container)
+      maxWidth="xs"
+    >
+      <ForwardRef(Box)
+        sx={
+          {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
+        <Memo
+          onClick={[Function]}
+          sx={
+            {
+              "width": "200%",
+            }
+          }
+        />
+      </ForwardRef(Box)>
+      <ForwardRef(List)
+        sx={
+          {
+            "bgcolor": "background.paper",
+            "maxWidth": 360,
+            "width": "100%",
+          }
+        }
+      >
+        <p>
+          NO Tagging
+        </p>
+      </ForwardRef(List)>
+    </ForwardRef(Container)>
+  </div>
+</div>
+`;
