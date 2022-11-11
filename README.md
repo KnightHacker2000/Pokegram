@@ -18,29 +18,39 @@ This is the homepage and there is a menu bar on top, click `Pokegram` to return 
 ![upload](upload.jpg)
 We allow click to choose between video and image, you can test by using image and video sources stored in ./pokegram/src/images and ./pokegram/src/videos
 ### like & unliking posts
-![like](like.png)
+
 Users can like or unlike one or more posts by clicking like (love shaped) button in each post at home page. 
 When user like a post, The button will turn red.
 When user unlike a post, The button will turn grey.
+
+![like](like.png)
+
 ### Comment on posts
+Users can add, edit and delete comments on posts, after adding/ editing comments, type enter to save the operation and go back.
+
 ![comments](comments.png)
 
-Users can add, edit and delete comments on posts, after adding/ editing comments, type enter to save the operation and go back.
 ### Editing/Deleting posts and comments
-![editoperation](editoperation.png)
 
 The buttons on the bottom of post from left to right are like/unlike button, edit post button, add/edit/delete comments button, tagged people button and delete post button.
-![editPost](editPost.png)
+
+![editoperation](editoperation.png)
 
 User can edit posts by clicking the second button from left.
+
+![editPost](editPost.png)
+
 
 User can delete posts by clicking the rightmost button.
 
 User can edit or delete comments by clicking the button in the middle.
 
 ### Follower suggestions
-![followersuggestions](followersuggestions.png)
+
 Users can see their follower suggestions by clicking follows, the follower suggestions is on the top.
+
+![followersuggestions](followersuggestions.png)
+
 ### Tagging photos and  @mentions in comments
 Users can tag people on photos, and tagged people can be reviewed on the rightmost button on the bottom of post on home page.
 
