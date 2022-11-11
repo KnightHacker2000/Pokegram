@@ -40,7 +40,7 @@ User can edit or delete comments by clicking the button in the middle.
 
 ### Follower suggestions
 ![followersuggestions](followersuggestions.png)
-Users can see their follower suggestions by clicking follows, the follower suggestions is on the top.
+Users can see their follower suggestions by clicking follows on their profile page, the follower suggestions is on the top.
 ### Tagging photos and  @mentions in comments
 ![taggingphotos](taggingphotos.png)
 ![mentionincomments](mentionincomments.png)
