@@ -26,8 +26,22 @@
   "user": [
     {
       "id": 1,
-      "follows": [],
-      "numFollows": null
+      "email": "charlie@hotmail.com",
+      "username": "Charlie",
+      "avatar": "../../images/pikachu.jpg",
+      "numPosts": 2,
+      "likedPosts": [
+        101,
+        3
+      ],
+      "follows": [
+        3,
+        2
+      ],
+      "numFollows": 57,
+      "subscribers": [],
+      "numSubs": 0,
+      "fullname": "Charlie Cheng"
     },
     {
       "id": 2,
@@ -47,8 +61,10 @@
         3
       ],
       "numFollows": 57,
-      "subscribers": [],
-      "numSubs": 0,
+      "subscribers": [
+        1
+      ],
+      "numSubs": 1,
       "fullname": "Rachel Yuan"
     },
     {
