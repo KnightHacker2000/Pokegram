@@ -26,7 +26,7 @@ When user unlike a post, The button will turn grey.
 ![like](like.png)
 
 ### Comment on posts
-Users can add, edit and delete comments on posts, after adding/ editing comments, type enter to save the operation and go back.
+Users can add, edit and delete comments on posts, after adding/ editing comments, press enter to save the operation and go back.
 
 ![comments](comments.png)
 
