@@ -84,6 +84,7 @@ const getUserById = async (userId) => {
  * @param postId: user liked post
 */
 const addlike = async (user, postId) => {
+  console.log(user);
   user.likedPosts.push(postId);
   const response = await client.put(`${API.USER}/${user.id}`, user);
   return response;
