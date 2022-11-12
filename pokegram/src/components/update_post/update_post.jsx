@@ -54,7 +54,8 @@ function UpdatePost(props) {
       temp.description = post.description;
       temp.commentRefs = post.commentRefs;
       temp.users = post.users;
-      temp.timestamp = temp.timestamp.toString();
+      // temp.timestamp = post.timestamp.toString(); // for testing only
+      temp.timestamp = Date.now().toString();
       // console.log(temp);
       await postsService.updatePost(temp);
     }
@@ -246,6 +247,7 @@ function UpdatePost(props) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
+                  data-testid="test_select"
                   value={type}
                   label="Change Upload Type"
                   onChange={handleChange}

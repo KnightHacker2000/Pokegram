@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test update snapshot 1`] = `
+<div
+  style={
+    {
+      "alignItems": "center",
+      "background": "rgba(90, 90, 90, 0.8)",
+      "bottom": 0,
+      "display": "flex",
+      "flexDirection": "row",
+      "left": 0,
+      "position": "fixed",
+      "right": 0,
+      "top": 0,
+      "zIndex": 99,
+    }
+  }
+>
+  <div
+    style={
+      {
+        "alignItems": "center",
+        "background": "white",
+        "border": "1px solid rgba(0, 0, 0, 0.05)",
+        "borderRadius": "10px",
+        "display": "flex",
+        "height": "max-content",
+        "marginBottom": "auto",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "marginTop": "auto",
+        "zIndex": 99,
+      }
+    }
+  >
+    <ForwardRef(Container)
+      maxWidth="lg"
+    >
+      <Memo
+        onClick={[Function]}
+        sx={
+          {
+            "width": "200%",
+          }
+        }
+      />
+      <ForwardRef(Box)
+        component="form"
+        noValidate={true}
+        onSubmit={[Function]}
+        sx={
+          {
+            "alignItems": "start",
+            "display": "flex",
+            "flexDirection": "column",
+            "mx": 0,
+            "p": 1,
+            "paddingTop": "10px",
+            "width": "auto",
+          }
+        }
+      >
+        <ForwardRef(Box)
+          sx={
+            {
+              "display": "flex",
+            }
+          }
+        >
+          <ForwardRef(FormControl)
+            sx={
+              {
+                "margintop": 10,
+                "width": "25ch",
+              }
+            }
+          >
+            <ForwardRef(InputLabel)
+              id="demo-simple-select-label"
+            >
+              Upload Type
+            </ForwardRef(InputLabel)>
+            <ForwardRef(Select)
+              MenuProps={
+                {
+                  "PaperProps": {
+                    "style": {
+                      "maxHeight": 224,
+                      "width": 250,
+                    },
+                  },
+                }
+              }
+              data-testid="test_select"
+              id="demo-simple-select"
+              label="Change Upload Type"
+              labelId="demo-simple-select-label"
+              onChange={[Function]}
+              value="photo"
+            >
+              <ForwardRef(MenuItem)
+                value="video"
+              >
+                Video
+              </ForwardRef(MenuItem)>
+              <ForwardRef(MenuItem)
+                value="photo"
+              >
+                Photo
+              </ForwardRef(MenuItem)>
+            </ForwardRef(Select)>
+          </ForwardRef(FormControl)>
+        </ForwardRef(Box)>
+        <div>
+          <div
+            className="PhotoInput"
+          >
+            <input
+              accept=".jpg,.jpeg,.png"
+              className="PhotoInput_input"
+              onChange={[Function]}
+              type="file"
+            />
+            <button
+              onClick={[Function]}
+              type="button"
+            >
+              Choose
+            </button>
+            <div
+              className="PhotoInput_footer"
+            >
+              Nothing selected
+            </div>
+          </div>
+        </div>
+        <div>
+          <ForwardRef(TextField)
+            fullWidth={true}
+            id="post_content"
+            label="Update your Post!"
+            margin="normal"
+            margintop="20px"
+            multiline={true}
+            onChange={[Function]}
+            rows={8}
+            rowsmax={8}
+            value=""
+          />
+        </div>
+        <ForwardRef(Box)
+          alignitems="flex-end"
+          display="flex"
+          justifyContent="flex-end"
+          m={1}
+        >
+          <ForwardRef(Button)
+            alignitems="right"
+            data-testid="test_updatepost"
+            type="submit"
+            variant="contained"
+          >
+            Submit
+          </ForwardRef(Button)>
+        </ForwardRef(Box)>
+      </ForwardRef(Box)>
+    </ForwardRef(Container)>
+  </div>
+</div>
+`;

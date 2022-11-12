@@ -19,33 +19,33 @@ const parentStates = new RootState(
   }
 );
 
-test('test Login snapshot', () => {
-  const loginComp = renderer.create(<Login />);
+test('test Login snapshot', async () => {
+  const loginComp = renderer.create(<Login parStates={parentStates}/>);
   const tree = loginComp.toJSON();
   // console.log(loginComp.toJSON());
-  expect(tree).toMatchSnapshot();
+  await expect(tree).toMatchSnapshot();
 });
 
 // test('test button click')
-test('login button', () => {
-  render(<Login />);
+test('login button', async () => {
+  render(<Login parStates={parentStates}/>);
   const submit = screen.getByTestId("login_submit");
   const username = screen.getByTestId("test_username");
   expect(username.value).toBe(undefined);
   console.log(submit);
-  fireEvent.click(submit);
+  await fireEvent.click(submit);
   // const instance =
   // await userEvent.click(submit);
   //expect(submit.onSubmit).toHaveBeenCalled();
 });
 
-test('signup button', () => {
+test('signup button', async () => {
   render(<Login parStates={parentStates} />);
   const signup= screen.getByTestId("login_signup");
   const password = screen.getByTestId("test_password");
   expect(password.value).toBe(undefined);
   console.log(signup);
-  fireEvent.click(signup);
+  await fireEvent.click(signup);
   // const instance =
   // await userEvent.click(submit);
   //expect(submit.onSubmit).toHaveBeenCalled();

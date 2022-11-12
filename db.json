@@ -26,23 +26,8 @@
   "user": [
     {
       "id": 1,
-      "email": "charlie@hotmail.com",
-      "username": "Charlie",
-      "avatar": "../../images/pikachu.jpg",
-      "numPosts": 2,
-      "likedPosts": [
-        1,
-        2,
-        101
-      ],
-      "follows": [
-        3,
-        2
-      ],
-      "numFollows": 57,
-      "subscribers": [],
-      "numSubs": 0,
-      "fullname": "Charlie Cheng"
+      "follows": [],
+      "numFollows": null
     },
     {
       "id": 2,
@@ -62,10 +47,8 @@
         3
       ],
       "numFollows": 57,
-      "subscribers": [
-        1
-      ],
-      "numSubs": 1,
+      "subscribers": [],
+      "numSubs": -22,
       "fullname": "Rachel Yuan"
     },
     {
@@ -95,9 +78,9 @@
       "username": "Rachel",
       "timestamp": "Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)",
       "type": "photo",
-      "content_url": "blob:http://localhost:3000/3971917a-6fbc-49b9-9785-67ba217bf2b8",
+      "content_url": "http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png",
       "numLike": 10,
-      "description": "Yomama! ddddd",
+      "description": "pikapika!",
       "commentRefs": [
         1234,
         5678,
@@ -161,61 +144,6 @@
   ],
   "comments": [
     {
-      "id": 1,
-      "timestamp": "2021-11-05T06:21:00.000Z",
-      "content": "I love this post! hahhahah",
-      "referredUser": [
-        1,
-        2,
-        3
-      ],
-      "postId": 1
-    },
-    {
-      "id": 2,
-      "timestamp": "2021-10-31T19:24:00.000Z",
-      "content": "So cutee! @<b>shuyany</b>",
-      "referredUser": [
-        1,
-        2,
-        3
-      ],
-      "postId": 1
-    },
-    {
-      "timestamp": "November 05, 2021 14:21:00",
-      "content": "test @<b>shuyany</b>",
-      "referredUser": [
-        1,
-        2,
-        3
-      ],
-      "postId": 1,
-      "id": 3
-    },
-    {
-      "timestamp": "November 05, 2021 14:21:00",
-      "content": "testhahahha",
-      "referredUser": [
-        1,
-        2,
-        3
-      ],
-      "postId": 1,
-      "id": 4
-    },
-    {
-      "timestamp": "November 05, 2021 14:21:00",
-      "content": "testttt",
-      "referredUser": [
-        1,
-        2,
-        3
-      ],
-      "postId": 1,
-      "id": 5
-    },
-    {
       "timestamp": "November 05, 2021 14:21:00",
       "content": "i love this post again",
       "referredUser": [
@@ -225,17 +153,6 @@
       ],
       "postId": 1,
       "id": 6
-    },
-    {
-      "timestamp": "November 05, 2021 14:21:00",
-      "content": "hahhaa",
-      "referredUser": [
-        1,
-        2,
-        3
-      ],
-      "postId": 1,
-      "id": 7
     },
     {
       "timestamp": "November 05, 2021 14:21:00",
@@ -258,6 +175,50 @@
       ],
       "postId": 2,
       "id": 9
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "@<b>Reneee</b> I like pokemons",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 10
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "@<b>shuyany</b> what's your name?",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 1,
+      "id": 11
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "@<b>Reneee</b> Why are you rennee?",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 3,
+      "id": 12
+    },
+    {
+      "timestamp": "November 05, 2021 14:21:00",
+      "content": "@<b>shuyany</b> who is Abby?",
+      "referredUser": [
+        1,
+        2,
+        3
+      ],
+      "postId": 4,
+      "id": 17
     }
   ],
   "getActivityByUsername": [

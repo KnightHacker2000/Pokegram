@@ -14,7 +14,7 @@ import postsService from '../../services/postsService';
 
 function TagPhoto(props) {
   const { pid, handleTagState } = props;
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState([1]);
 
   const firstRendering = useRef(true);
   useEffect(() => {

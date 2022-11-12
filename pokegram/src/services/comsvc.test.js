@@ -19,4 +19,9 @@ describe("get Comm List Test", () => {
       expect(data.length).toBe(1);
     });
   });
+  test("test comments by id", () => {
+    commentService.getCommentByCommentId(2).then((data)=> {
+      expect(data.length).toBe(undefined);
+    });
+  });
 });

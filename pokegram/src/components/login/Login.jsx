@@ -58,7 +58,7 @@ function Login(props) {
           alignItems: 'center'
         }}
         >
-          <Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" />
+          <Avatar alt="pikachu" sx={{ m: 1 }} src="" />
           <Typography component="h1" variant="h4">Wecome to Pokegram!</Typography>
         </Box>
         <Divider variant="middle" />

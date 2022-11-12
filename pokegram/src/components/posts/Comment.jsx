@@ -25,9 +25,19 @@ import commentboxstyle from './commentboxstyle';
 
 function Comment(props) {
   const { uid, pid, handleCommentState } = props;
-  const [username, setUsername] = useState('');
-  const [commentList, setCommentList] = useState([]);
-  const [editComment, setEditComment] = useState({
+  const [username, setUsername] = React.useState('');
+  const [commentList, setCommentList] = React.useState([{
+    timestamp: 'November 05, 2021 14:21:00',
+    content: 'i love this post again',
+    referredUser: [
+      1,
+      2,
+      3
+    ],
+    postId: 1,
+    id: 6
+  }]);
+  const [editComment, setEditComment] = React.useState({
     id: -1,
     postId: -1,
     timestamp: '',
@@ -72,7 +82,7 @@ function Comment(props) {
       // console.log(followerid);
       const follower = [];
       userService.getUserById(JSON.parse(params)).then((data) => {
-        // console.log(data);
+        console.log(data);
         data.follows.forEach(async (user) => {
           const tmpparams = `{"userId": ${user}}`;
           const tmp = await userService.getUserById(JSON.parse(tmpparams));
@@ -92,6 +102,7 @@ function Comment(props) {
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchCommentbyPostId(pid);
+      console.log(uid);
       fetchFollowers(uid);
       fetchuserinfo(uid);
     }
@@ -259,7 +270,7 @@ function Comment(props) {
                 markup="@[__display__]"
               />
             </MentionsInput>
-            <Button type="button" onClick={handleAddComment}>Add</Button>
+            <Button type="button" data-testid="test_add" onClick={handleAddComment}>Add</Button>
             <ClearIcon onClick={handleClear} />
           </Box>
           <List sx={{ maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -272,12 +283,14 @@ function Comment(props) {
                 <ListItemButton
                   sx={{ float: 'right' }}
                   data-index={comm.id}
+                  data-testid="test_edit"
                   onClick={handleEditComment}
                 >
                   <EditIcon />
                 </ListItemButton>
                 <ListItemButton
                   aria-label="delete"
+                  data-testid="test_delete"
                   onClick={handleDeleteComment}
                   data-index={comm.id}
                 >

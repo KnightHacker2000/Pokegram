@@ -10,9 +10,22 @@ describe("Follow Test", () => {
   const tar = new User();
   tar.id = 1;
   tar.subscribers = [];
-
   test("test unfollow", () => {
       expect(UserService.followUser(temp, 2).follows).toBe(undefined);
+  });
+});
+
+describe("get user Test", () => {
+  const temp = new User();
+  temp.id = 1;
+  temp.follows = [];
+
+  const tar = new User();
+  tar.id = 1;
+  tar.subscribers = [];
+  test("test get user by id", () => {
+    const params = '{"userId": 2}';
+    expect(UserService.getUserById(JSON.parse(params)).follows).toBe(undefined);
   });
 });
 
@@ -38,8 +51,13 @@ describe("Unfollow Test", () => {
   const tar = new User();
   tar.id = 1;
   tar.subscribers = [1];
-
   test("test unfollow", () => {
       expect(UserService.unfollowUser(temp, 2).follows).toBe(undefined);
+  });
+});
+
+describe("logout", () => {
+  test("test logging out", () => {
+      expect(UserService.logout()).toMatchObject({});
   });
 });
