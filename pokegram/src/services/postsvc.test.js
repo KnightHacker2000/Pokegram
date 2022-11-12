@@ -15,7 +15,19 @@ describe("get Comm List Test", () => {
     commentorid: 1
   }]);
   test("test comments", () => {
-    commentService.getCommentBypostId(2).then((data)=> {
+    let p = `{"postId": 2 }`
+    postsService.getPostsById(JSON.parse(p)).then((data)=> {
+      expect(data.length).toBe(undefined);
+    });
+  });
+  test("test comments", () => {
+    let p = `{"userId": 2 }`
+    postsService.getPostsByUserId(JSON.parse(p)).then((data)=> {
+      expect(data.length).toBe(1);
+    });
+  });
+  test("test comments", () => {
+    postsService.getAllPosts().then((data)=> {
       expect(data.length).toBe(1);
     });
   });

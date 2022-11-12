@@ -22,7 +22,7 @@ function Follows(props) {
   } = props;
   console.log(UID);
   const [, setFoList] = useState(false);
-  const [sugObj, setSugObj] = useState({ id: [], usernames: [], foList: [] });
+  const [sugObj, setSugObj] = useState({ id: [1], usernames: [2], foList: [3] });
 
   const firstRendering = useRef(true);
   useEffect(() => {

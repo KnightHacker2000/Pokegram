@@ -123,6 +123,7 @@ exports[`test comments snapshot 1`] = `
           />
         </defaultStyle(MentionsInput)>
         <ForwardRef(Button)
+          data-testid="test_add"
           onClick={[Function]}
           type="button"
         >
@@ -139,7 +140,76 @@ exports[`test comments snapshot 1`] = `
             "maxWidth": 360,
           }
         }
-      />
+      >
+        <ForwardRef(ListItem)>
+          <ForwardRef(ListItemAvatar)>
+            <ForwardRef(Avatar)
+              src="/static/images/avatar/3.jpg"
+            />
+          </ForwardRef(ListItemAvatar)>
+          <ForwardRef(ListItemText)
+            primary=""
+            secondary={
+              <ForwardRef(Typography)
+                color="text.primary"
+                component="span"
+                sx={
+                  {
+                    "display": "inline",
+                  }
+                }
+                variant="body2"
+              >
+                <JsxParser
+                  allowUnknownElements={true}
+                  autoCloseVoidElements={false}
+                  bindings={{}}
+                  blacklistedAttrs={
+                    [
+                      /\\^on\\.\\+/i,
+                    ]
+                  }
+                  blacklistedTags={
+                    [
+                      "script",
+                    ]
+                  }
+                  className=""
+                  components={{}}
+                  componentsOnly={false}
+                  disableFragments={false}
+                  disableKeyGeneration={false}
+                  jsx="i love this post again"
+                  onError={[Function]}
+                  renderInWrapper={true}
+                  renderUnrecognized={[Function]}
+                  showWarnings={false}
+                />
+              </ForwardRef(Typography)>
+            }
+          />
+          <ForwardRef(ListItemButton)
+            data-index={6}
+            data-testid="test_edit"
+            onClick={[Function]}
+            sx={
+              {
+                "float": "right",
+              }
+            }
+          >
+            <Memo />
+          </ForwardRef(ListItemButton)>
+          <ForwardRef(ListItemButton)
+            aria-label="delete"
+            data-index={6}
+            data-testid="test_delete"
+            onClick={[Function]}
+          >
+            <Memo />
+          </ForwardRef(ListItemButton)>
+        </ForwardRef(ListItem)>
+      </ForwardRef(List)>
     </ForwardRef(Container)>
   </div>
 </div>

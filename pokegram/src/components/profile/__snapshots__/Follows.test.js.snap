@@ -56,6 +56,40 @@ exports[`test fo sug 1`] = `
       <ul
         className="MuiList-root MuiList-padding css-1mcnwpj-MuiList-root"
       >
+        <div>
+          <p>
+            Follower Suggestions For You:
+          </p>
+          <li
+            className="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-1p823my-MuiListItem-root"
+            disabled={false}
+          >
+            <div
+              className="MuiListItemAvatar-root css-1e9lk82-MuiListItemAvatar-root"
+              data-index={1}
+              onClick={[Function]}
+            >
+              <div
+                className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+              >
+                <img
+                  alt={2}
+                  className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+                  src="/static/images/avatar/3.jpg"
+                />
+              </div>
+            </div>
+            <div
+              className="MuiListItemText-root css-tlelie-MuiListItemText-root"
+            >
+              <span
+                className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+              >
+                1
+              </span>
+            </div>
+          </li>
+        </div>
         <hr
           className="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
         />
@@ -63,6 +97,33 @@ exports[`test fo sug 1`] = `
           <p>
             Following: 
           </p>
+          <li
+            className="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-1p823my-MuiListItem-root"
+            disabled={false}
+          >
+            <div
+              className="MuiListItemAvatar-root css-1e9lk82-MuiListItemAvatar-root"
+            >
+              <div
+                className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+              >
+                <img
+                  alt="3"
+                  className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+                  src="/static/images/avatar/3.jpg"
+                />
+              </div>
+            </div>
+            <div
+              className="MuiListItemText-root css-tlelie-MuiListItemText-root"
+            >
+              <span
+                className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+              >
+                3
+              </span>
+            </div>
+          </li>
         </div>
       </ul>
     </div>

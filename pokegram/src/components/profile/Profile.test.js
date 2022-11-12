@@ -27,7 +27,7 @@ test('test profile snapshot', () => {
   const renderer = new ShallowRenderer();
   renderer.render(<Profile homeStates={parentStates} />);
   const profileComp = renderer.getRenderOutput();
-  // expect(tree).toMatchSnapshot();
+  expect(profileComp).toMatchSnapshot();
 });
 
 // test('test profile click', () => {
@@ -44,5 +44,7 @@ test('test follow button', () => {
   const renderer = new ShallowRenderer();
   renderer.render(<Profile homeStates={parentStates} />);
   const res = renderer.getRenderOutput();
-  res.props.children[0].props.children.props.children[1].props.children[0].props.children[1].props.onClick({ preventDefault: () => {} });
+  const spy = jest.spyOn(userService, 'followUser').mockImplementation(() => {});
+  res.props.children[1].props.children.props.children[1].props.children[0].props.children[1].props.onClick({ preventDefault: () => {}});
+  // res.props.children.props.children.props.children[1].props.children[0].props.children[1].props.onClick({ preventDefault: () => {} });
 });

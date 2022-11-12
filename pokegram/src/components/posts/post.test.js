@@ -25,3 +25,38 @@ test('test post snapshot', () => {
   const postComp = renderer.getRenderOutput();
   expect(postComp).toMatchSnapshot();
 });
+
+test('test add fav', () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<Post homeStates={parentStates} />);
+  const postComp = renderer.getRenderOutput();
+  postComp.props.children[3].props.children.props.children[0].props.children.props.children[3].props.children[0].props.onClick({currentTarget: {getAttribute: ()=>{}},preventDefault: () => {}});
+});
+
+test('test button', () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<Post homeStates={parentStates} />);
+  const postComp = renderer.getRenderOutput();
+  postComp.props.children[3].props.children.props.children[0].props.children.props.children[3].props.children[1].props.onClick({currentTarget: {getAttribute: ()=>{}},preventDefault: () => {}});
+});
+
+test('test button', () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<Post homeStates={parentStates} />);
+  const postComp = renderer.getRenderOutput();
+  postComp.props.children[3].props.children.props.children[0].props.children.props.children[3].props.children[2].props.onClick({currentTarget: {getAttribute: ()=>{}},preventDefault: () => {}});
+});
+
+test('test button', () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<Post homeStates={parentStates} />);
+  const postComp = renderer.getRenderOutput();
+  postComp.props.children[3].props.children.props.children[0].props.children.props.children[3].props.children[3].props.onClick({currentTarget: {getAttribute: ()=>{}},preventDefault: () => {}});
+});
+
+test('test button', () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<Post homeStates={parentStates} />);
+  const postComp = renderer.getRenderOutput();
+  postComp.props.children[3].props.children.props.children[0].props.children.props.children[3].props.children[4].props.onClick({currentTarget: {getAttribute: ()=>{}},preventDefault: () => {}});
+});

@@ -34,7 +34,25 @@ function Posts(props) {
   // console.log(homeStates.myUID);
   // console.log(homeStates.UID);
 
-  const [postList, setPostList] = useState([]);
+  const [postList, setPostList] = useState([{
+    id: 1,
+    username: 'Rachel',
+    timestamp: 'Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)',
+    type: 'photo',
+    content_url: 'http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png',
+    numLike: 10,
+    description: 'pikapika!',
+    commentRefs: [
+      1234,
+      5678,
+      9101
+    ],
+    users: [
+      1234,
+      5678,
+      9101
+    ]
+  }]);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
   const [renderTagging, setrenderTagging] = useState(false);
@@ -250,6 +268,7 @@ function Posts(props) {
                     aria-label="comment"
                     onClick={handleAddCommentClick}
                     data-index={post.id}
+                    data-testid="test_addComm"
                   >
                     <AddCommentIcon />
                   </IconButton>

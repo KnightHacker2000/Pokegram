@@ -30,8 +30,9 @@ const login = async () => {
 const logout = async () => {
   const sessions = await client.get(`${API.LOGIN}`);
   const sessionsIdsArray = (sessions.map((session) => session.id));
-  console.log(sessionsIdsArray);
+  // console.log(sessionsIdsArray);
   sessionsIdsArray.forEach(async (id) => client.delete(`${API.LOGIN}/${id}`));
+  return '200';
 };
 
 /**

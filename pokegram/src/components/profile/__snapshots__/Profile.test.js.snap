@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test post snapshot 1`] = `
+exports[`test profile snapshot 1`] = `
 <ThemeProvider
   theme={
     {
@@ -298,114 +298,143 @@ exports[`test post snapshot 1`] = `
   }
 >
   <ForwardRef(Container)
-    maxWidth="md"
-    sx={
-      {
-        "py": 8,
-      }
-    }
+    maxWidth="lg"
   >
-    <ForwardRef(Grid)
-      container={true}
-      spacing={4}
+    <ForwardRef(Box)
+      sx={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "marginTop": 0,
+          "mx": 2,
+          "my": 3,
+          "p": 1,
+        }
+      }
     >
-      <ForwardRef(Grid)
-        item={true}
-        md={4}
-        sm={6}
-        xs={12}
+      <ForwardRef(Avatar)
+        alt="pikachu"
+        src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png"
+        sx={
+          {
+            "height": "100px",
+            "width": "100px",
+          }
+        }
+      />
+      <ForwardRef(Box)
+        sx={
+          {
+            "alignItems": "center",
+            "marginTop": 5,
+            "mx": 2,
+            "p": 1,
+          }
+        }
       >
-        <ForwardRef(Card)
+        <ForwardRef(Box)
           sx={
             {
+              "alignItems": "center",
               "display": "flex",
-              "flexDirection": "column",
-              "height": "100%",
+              "mx": 2,
+              "p": 1,
             }
           }
         >
-          <ForwardRef(CardHeader)
-            action={
-              <ForwardRef(IconButton)
-                aria-label="settings"
-              />
+          <ForwardRef(Typography)
+            component="h1"
+            sx={
+              {
+                "font": "",
+                "fontWeight": "bold",
+                "marginLeft": "16px",
+                "marginRight": "64px",
+              }
             }
-            avatar={
-              <ForwardRef(Avatar)
-                alt="pikachu"
-                data-index="Rachel"
-                onClick={[Function]}
-                src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png"
-                sx={
-                  {
-                    "m": 1,
-                  }
-                }
-              />
+            variant="h5"
+          />
+          <ForwardRef(Button)
+            onClick={[Function]}
+            sx={
+              {
+                "marginTop": "16px",
+                "mat": 3,
+                "mb": 2,
+              }
             }
-            subheader="Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)"
-            title="Rachel"
-          />
-          <ForwardRef(CardMedia)
-            alt="post image"
-            className="media"
-            component="img"
-            height={200}
-            src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png"
-            width={400}
-          />
-          <ForwardRef(CardContent)>
-            <ForwardRef(Typography)
-              color="text.secondary"
-              maxWidth="20vw"
-              variant="body2"
-            >
-              pikapika!
-            </ForwardRef(Typography)>
-          </ForwardRef(CardContent)>
-          <ForwardRef(CardActions)
-            disableSpacing={true}
+            type="submit"
+            variant="contained"
           >
-            <ForwardRef(IconButton)
-              aria-label="add to favorites"
-              data-index={1}
-              onClick={[Function]}
-            >
-              <Memo />
-            </ForwardRef(IconButton)>
-            <ForwardRef(IconButton)
-              aria-label="edit"
-              data-index={1}
-              onClick={[Function]}
-            >
-              <Memo />
-            </ForwardRef(IconButton)>
-            <ForwardRef(IconButton)
-              aria-label="comment"
-              data-index={1}
-              data-testid="test_addComm"
-              onClick={[Function]}
-            >
-              <Memo />
-            </ForwardRef(IconButton)>
-            <ForwardRef(IconButton)
-              aria-label="tagging"
-              data-index={1}
-              onClick={[Function]}
-            >
-              <Memo />
-            </ForwardRef(IconButton)>
-            <ForwardRef(IconButton)
-              aria-label="delete"
-              data-index={1}
-              onClick={[Function]}
-            >
-              <Memo />
-            </ForwardRef(IconButton)>
-          </ForwardRef(CardActions)>
-        </ForwardRef(Card)>
-      </ForwardRef(Grid)>
-    </ForwardRef(Grid)>
+            Follow
+          </ForwardRef(Button)>
+        </ForwardRef(Box)>
+        <ForwardRef(Box)
+          sx={
+            {
+              "alignItems": "center",
+              "display": "flex",
+              "mx": 2,
+              "my": 3,
+            }
+          }
+        >
+          <ForwardRef(Typography)
+            sx={
+              {
+                "marginLeft": 5,
+                "marginRight": 10,
+              }
+            }
+          >
+            Posts
+          </ForwardRef(Typography)>
+          <ForwardRef(Typography)
+            sx={
+              {
+                "marginRight": 10,
+              }
+            }
+          >
+            Subscribers
+          </ForwardRef(Typography)>
+          <ForwardRef(Typography)
+            onClick={[Function]}
+            sx={
+              {
+                "marginRight": 10,
+              }
+            }
+          >
+            Follows
+          </ForwardRef(Typography)>
+        </ForwardRef(Box)>
+        <ForwardRef(Typography)
+          sx={
+            {
+              "marginLeft": 7,
+              "marginTop": 0,
+            }
+          }
+        >
+          This is self-Introduction
+        </ForwardRef(Typography)>
+      </ForwardRef(Box)>
+    </ForwardRef(Box)>
   </ForwardRef(Container)>
+  <ForwardRef(Divider) />
+  <Posts
+    homeStates={
+      HomeState {
+        "UID": 2,
+        "handleHomeStates": [Function],
+        "isAct": false,
+        "isPosts": false,
+        "isProf": true,
+        "isUp": false,
+        "myUID": 1,
+      }
+    }
+  />
 </ThemeProvider>
 `;

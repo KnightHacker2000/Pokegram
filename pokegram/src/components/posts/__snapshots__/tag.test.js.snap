@@ -63,9 +63,17 @@ exports[`test tagging snapshot 1`] = `
           }
         }
       >
-        <p>
-          NO Tagging
-        </p>
+        <ForwardRef(ListItem)>
+          <ForwardRef(ListItemAvatar)>
+            <ForwardRef(Avatar)
+              alt="1"
+              src="/static/images/avatar/3.jpg"
+            />
+          </ForwardRef(ListItemAvatar)>
+          <ForwardRef(ListItemText)
+            primary={1}
+          />
+        </ForwardRef(ListItem)>
       </ForwardRef(List)>
     </ForwardRef(Container)>
   </div>
