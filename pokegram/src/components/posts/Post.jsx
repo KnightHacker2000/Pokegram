@@ -202,7 +202,7 @@ function Posts(props) {
 
   function likebuton(postId) {
     let ret;
-    if (likePosts.includes(postId)) {
+    if (likePosts && likePosts.includes(postId)) {
       ret = (
         <IconButton
           sx={{ color: 'red' }}
