@@ -3,6 +3,7 @@ const cors = require('cors');
 const dbop = require('./db');
 const API = require('./endpoints');
 const actRouter = require('./routes/activityRouter');
+const postRouter = require('./routes/postRouter');
 
 // Create express app
 const app = express();
@@ -24,5 +25,6 @@ app.listen(port, async () => {
 
 app.use(API.ACT, actRouter);
 app.use(API.USER, actRouter);
+app.use(API.POSTS, postRouter);
 
 module.exports = app;
