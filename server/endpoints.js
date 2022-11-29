@@ -8,7 +8,6 @@ class API {
   static POSTS = '/posts';
 
   static COMMENTS = '/comments';
-
 }
 
 module.exports = API;
