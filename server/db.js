@@ -117,6 +117,12 @@ const addDummyData = async (db) => {
       res.push(usrRes);
     }
 
+    // add session collection with NO data
+    const hasSesCol = await db.listCollections({ name: 'session' }).hasNext();
+    if (!hasSesCol) {
+      await db.createCollection('session');
+    }
+
     if (res.length === 0) {
       return { message: 'collections already exists' };
     }

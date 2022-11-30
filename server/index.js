@@ -3,6 +3,8 @@ const cors = require('cors');
 const dbop = require('./db');
 const API = require('./endpoints');
 const actRouter = require('./routes/activityRouter');
+const usrRouter = require('./routes/userRouter');
+const loginRouter = require('./routes/loginRouter');
 
 // Create express app
 const app = express();
@@ -23,6 +25,7 @@ app.listen(port, async () => {
 });
 
 app.use(API.ACT, actRouter);
-app.use(API.USER, actRouter);
+app.use(API.USER, usrRouter);
+app.use(API.LOGIN, loginRouter);
 
 module.exports = app;
