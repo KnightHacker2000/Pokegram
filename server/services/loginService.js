@@ -17,8 +17,25 @@ const createNewSession = async () => {
     const newSession = {
       sessionId: id,
     };
-    await db.collection('session').insertOne(newSession);
+    const res = await db.collection('session').insertOne(newSession);
+    newSession.id = res.insertedId;
     return newSession;
+  } catch (err) {
+    console.log(`error: ${err.message}`);
+    throw new Error(err);
+  }
+};
+
+const authenticate = async (id, password) => {
+  if (!db) {
+    db = dbop.getDB();
+  }
+  try {
+    const res = await db.collection('cred').find({ _id: id, pass: password }).toArray();
+    if (res.length === 0) {
+      throw new Error('Not Found');
+    }
+    return;
   } catch (err) {
     console.log(`error: ${err.message}`);
     throw new Error(err);
@@ -60,4 +77,5 @@ module.exports = {
   createNewSession,
   deleteSessionById,
   clearSessions,
+  authenticate,
 };

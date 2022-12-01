@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const dbop = require('./db');
 const API = require('./endpoints');
@@ -13,6 +14,8 @@ const port = 8080;
 app.use(express.urlencoded({
   extended: true,
 }));
+
+app.use(bodyParser.json());
 
 let db;
 

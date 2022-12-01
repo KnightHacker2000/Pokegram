@@ -6,12 +6,12 @@ const client = new PokemonClient();
 
 /**
  * activity API endpoint
- * @param userId: activity target user id
+ * @param userId: activity target username
 */
 const getActivityByTarget = async (userId) => {
   // TODO: replace test endpoint
   // const response = await this.client.get(API.ACT_TEST, userId);
-  const response = await client.get(`${API.ACT_TEST}/${userId.userId}`);
+  const response = await client.get(`${API.ACT}/${userId.userId}`);
   // let ActArr = [];
   const activities = response.activity;
   const ActArr = activities.map((act) => {

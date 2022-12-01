@@ -17,15 +17,18 @@ const theme = createTheme();
 function Login(props) {
   const { parStates } = props;
   const [user, setUser] = useState({
-    username: 1,
-    password: ''
+    username: 'test1',
+    password: 'password'
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
     // testing code for state manipulation
     // console.log(props);
-    await userService.login();
+    const res = await userService.login(
+      JSON.stringify({ id: user.username, password: user.password })
+    );
+    console.log(res);
     parStates.handleSetStates(true, true, user.username);
   };
   const handleUsername = (event) => {
