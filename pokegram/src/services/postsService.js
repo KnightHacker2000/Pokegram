@@ -30,8 +30,8 @@ const getPostsById = async (param) => {
  * post API endpoint
  * @param userId: user id/ username
 */
-const getPostsByUserId = async (userId) => {
-  const response = await client.get(`${API.POSTS}/${userId.userId}`);
+const getPostsByUserName = async (userName) => {
+  const response = await client.get(`${API.POSTS}/user/${userName}`);
   // const posts = response.posts;
   const postsLst = response.map((pos) => {
     const newPost = new Posts(
@@ -54,7 +54,7 @@ const getPostsByUserId = async (userId) => {
  * post API endpoint
 */
 const getAllPosts = async () => {
-  const response = await client.get(`${API.POSTS}`);
+  const response = await client.get(`${API.POSTS}/all/t`);
   // const posts = response.posts;
   const postsLst = response.map((pos) => {
     const newPost = new Posts(
@@ -105,7 +105,7 @@ const deletePost = async (postId) => {
 
 export default {
   getPostsById,
-  getPostsByUserId,
+  getPostsByUserName,
   getAllPosts,
   createPost,
   updatePost,
