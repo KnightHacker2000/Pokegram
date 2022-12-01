@@ -4,21 +4,30 @@ const { MongoClient } = require('mongodb');
 
 const url = 'mongodb+srv://musicloud0105:2KkZe29akcojjwKN@cluster0.x6ygpvj.mongodb.net/pokegram?retryWrites=true&w=majority';
 let dbCon = null;
+let MongoConnection;
 
 const connect = async () => {
   try {
-    const tmp = (await MongoClient.connect(
+    MongoConnection = (await MongoClient.connect(
       url,
       { useNewUrlParser: true, useUnifiedTopology: true },
-    )).db();
+    ));
     // Connected to db
-    console.log(`Connected to database: ${tmp.databaseName}`);
-    dbCon = tmp;
-    return tmp;
+    console.log(`Connected to database: ${MongoConnection.db().databaseName}`);
+    dbCon = MongoConnection.db();
+    return MongoConnection;
   } catch (err) {
     console.error(err.message);
     throw err;
   }
+};
+
+/**
+ *
+ * Close the mongodb connection
+ */
+const closeMongoDBConnection = async () => {
+  await MongoConnection.close();
 };
 
 const getDB = () => dbCon;
@@ -117,6 +126,12 @@ const addDummyData = async (db) => {
       res.push(usrRes);
     }
 
+    // add session collection with NO data
+    const hasSesCol = await db.listCollections({ name: 'session' }).hasNext();
+    if (!hasSesCol) {
+      await db.createCollection('session');
+    }
+
     if (res.length === 0) {
       return { message: 'collections already exists' };
     }
@@ -131,4 +146,5 @@ module.exports = {
   getDB,
   connect,
   addDummyData,
+  closeMongoDBConnection,
 };

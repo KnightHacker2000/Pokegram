@@ -4,6 +4,8 @@ const dbop = require('./db');
 const API = require('./endpoints');
 const actRouter = require('./routes/activityRouter');
 const postRouter = require('./routes/postRouter');
+const usrRouter = require('./routes/userRouter');
+const loginRouter = require('./routes/loginRouter');
 
 // Create express app
 const app = express();
@@ -16,7 +18,9 @@ app.use(express.urlencoded({
 let db;
 
 app.listen(port, async () => {
-  db = await dbop.connect();
+  // db = await dbop.connect();
+  const dbcon = await dbop.connect();
+  db = dbcon.db();
   console.log(`Server running on port:${port}`);
   await dbop.addDummyData(db).then(
     (res) => { console.log(res); },
@@ -26,5 +30,7 @@ app.listen(port, async () => {
 app.use(API.ACT, actRouter);
 app.use(API.USER, actRouter);
 app.use(API.POSTS, postRouter);
+app.use(API.USER, usrRouter);
+app.use(API.LOGIN, loginRouter);
 
 module.exports = app;
