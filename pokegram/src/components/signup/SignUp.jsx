@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import validator from 'validator';
-// import pokemon from '../../images/pikachu.jpg';
+import userService from '../../services/userService';
 import RootState from '../../models/rootState';
+import User from '../../models/user';
 
 const theme = createTheme();
 
@@ -22,15 +23,34 @@ function SignUp(props) {
     emailaddress: '',
     password: ''
   });
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
-
     // testing code for state manipulation
     // console.log(props);
-    parStates.handleSetStates(true, true, user.username);
 
     // TODO: create new user, call register endpoint
+    const newUser = new User(
+      user.username,
+      user.emailaddress
+    );
+    newUser.fullname = user.fullname;
+    try {
+      const res = await userService.register(
+        JSON.stringify(
+          {
+            id: user.username,
+            email: user.emailaddress,
+            fullname: user.fullname,
+            password: user.password
+          }
+        )
+      );
+      console.log(res);
+      parStates.handleSetStates(true, true, user.username);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleFullname = (event) => {
     // console.log(event.target.value);
@@ -55,7 +75,7 @@ function SignUp(props) {
   const handleEmailaddress = (event) => {
     // console.log(event.target.value);
     const updateuser = {
-      ullname: user.fullname,
+      fullname: user.fullname,
       username: user.username,
       emailaddress: event.target.value,
       password: user.password
@@ -139,7 +159,7 @@ function SignUp(props) {
             error={user.emailaddress !== '' && !validator.isEmail(user.emailaddress)}
             helperText={user.emailaddress !== '' && !validator.isEmail(user.emailaddress) ? 'invalid email address' : ' '}
           />
-          <Button data-testid="signUp_submit" type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} onClick={handleSignin}>Sign Up</Button>
+          <Button data-testid="signUp_submit" type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} onClick={handleSubmit}>Sign Up</Button>
         </Box>
         <Box sx={{
           my: 3, mx: 2, p: 1, marginTop: 8, border: 1, alignItems: 'center', display: 'flex'

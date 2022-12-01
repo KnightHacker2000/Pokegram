@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import PokemonClient from '../client';
 import API from '../endpoints';
 import User from '../models/user';
@@ -11,19 +12,13 @@ let currSession = null;
  * @param none
 */
 const login = async (body) => {
-  // let id = '';
-  // for (let i = 0; i < 5; i += 1) {
-  //   id += Math.floor(Math.random() * 10).toString();
-  // }
-  // // console.log(id);
-  // const newSession = {
-  //   sessionId: id
-  // };
-  // console.log(newSession);
-  console.log(JSON.parse(body));
-  const response = await client.post(API.LOGIN, JSON.parse(body));
-  currSession = response;
-  return response;
+  try {
+    const response = await client.post(API.LOGIN, JSON.parse(body));
+    currSession = response;
+    return response;
+  } catch (err) {
+    throw new Error(err.response.data);
+  }
 };
 
 /**
@@ -43,8 +38,12 @@ const logout = async () => {
  * @param none
 */
 const register = async (body) => {
-  const response = await client.post(`${API.USER}`, body);
-  return response;
+  try {
+    const response = await client.post(`${API.USER}`, JSON.parse(body));
+    return response;
+  } catch (err) {
+    throw new Error(err.response.data.error);
+  }
 };
 
 /**
@@ -63,19 +62,22 @@ const getFoSug = async (UID) => {
 const getUserById = async (userId) => {
   // TODO: replace test endpoint
   // const response = await this.client.get(API.USER, userId);
+  console.log('in user service, getting user');
+  // console.log(userId);
   const response = await client.get(`${API.USER}/${userId.userId}`);
+  const userRes = response.data[0];
+  console.log(userRes);
   const user = new User(
-    response.id,
-    response.email,
-    // response.username,
-    response.avatar,
-    response.numPosts,
-    response.likedPosts,
-    response.follows,
-    response.numFollows,
-    response.subscribers,
-    response.numSubs,
-    response.fullname
+    userRes._id,
+    userRes.email,
+    userRes.avatar,
+    userRes.numPosts,
+    userRes.likedPosts,
+    userRes.follows,
+    userRes.numFollows,
+    userRes.subscribers,
+    userRes.numSubs,
+    userRes.fullname
   );
   // console.log(user);
   return user;

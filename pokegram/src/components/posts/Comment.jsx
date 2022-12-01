@@ -81,6 +81,7 @@ function Comment(props) {
       // const followerid = user.follows;
       // console.log(followerid);
       const follower = [];
+      console.log('Getting Followers');
       userService.getUserById(JSON.parse(params)).then((data) => {
         console.log(data);
         data.follows.forEach(async (user) => {

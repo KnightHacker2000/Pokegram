@@ -31,7 +31,6 @@ app.listen(port, async () => {
 });
 
 app.use(API.ACT, actRouter);
-app.use(API.USER, actRouter);
 app.use(API.POSTS, postRouter);
 app.use(API.USER, usrRouter);
 app.use(API.LOGIN, loginRouter);

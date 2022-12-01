@@ -49,6 +49,7 @@ const deleteSessionById = async (id) => {
     }
     const res = await db.collection('session').deleteOne({ _id: new ObjectId(id) }); // delete by id
     if (res.deletedCount === 1) {
+      console.log(res);
       return;
     }
     if (res.deletedCount === 0) {

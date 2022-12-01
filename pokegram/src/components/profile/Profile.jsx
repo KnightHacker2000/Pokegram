@@ -42,11 +42,13 @@ function Profile(props) {
 
   useEffect(() => {
     // TODO: getUser just testing, use prop.UID in the future
-    const params = '{"userId": 2}';
-    const myParams = '{"userId": 1}';
+    const params = { userId: homeStates.UID };
+    const myParams = { userId: homeStates.myUID };
     async function fetchData() {
-      const data = await userService.getUserById(JSON.parse(params));
+      const data = await userService.getUserById(params);
+      console.log(data);
       setUser(data);
+      console.log('hello');
       await userService.getUserById(JSON.parse(myParams)).then((d) => {
         setMyUser(d);
         if (d.follows.indexOf(2) !== -1) {
@@ -108,6 +110,7 @@ function Profile(props) {
   function ConditionalRender() {
     let usersection;
     if (homeStates.UID === homeStates.myUID) {
+      console.log(user);
       usersection = (
         <Box sx={{
           mx: 2, p: 1, alignItems: 'center', display: 'flex'
@@ -123,7 +126,7 @@ function Profile(props) {
               font: ''
             }}
           >
-            {user.username}
+            {user.id}
           </Typography>
           <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleLogout}>Log Out</Button>
         </Box>
@@ -144,7 +147,7 @@ function Profile(props) {
               font: ''
             }}
           >
-            {user.username}
+            {user.id}
           </Typography>
           {!isFollow && <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleFollow}>Follow</Button>}
           {isFollow && <Button type="submit" variant="contained" sx={{ marginTop: '16px', mat: 3, mb: 2 }} onClick={handleUnfollow}>Unfollow</Button>}
