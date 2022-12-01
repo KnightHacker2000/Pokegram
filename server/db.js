@@ -132,6 +132,12 @@ const addDummyData = async (db) => {
       await db.createCollection('session');
     }
 
+    // add cred collection with NO data
+    const hasCredCol = await db.listCollections({ name: 'cred' }).hasNext();
+    if (!hasCredCol) {
+      await db.createCollection('cred');
+    }
+
     if (res.length === 0) {
       return { message: 'collections already exists' };
     }

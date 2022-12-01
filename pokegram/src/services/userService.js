@@ -4,22 +4,25 @@ import User from '../models/user';
 
 // const UserService = async () => {
 const client = new PokemonClient();
+let currSession = null;
 
 /**
  * login API endpoint -- generates random id
  * @param none
 */
-const login = async () => {
-  let id = '';
-  for (let i = 0; i < 5; i += 1) {
-    id += Math.floor(Math.random() * 10).toString();
-  }
-  // console.log(id);
-  const newSession = {
-    sessionId: id
-  };
+const login = async (body) => {
+  // let id = '';
+  // for (let i = 0; i < 5; i += 1) {
+  //   id += Math.floor(Math.random() * 10).toString();
+  // }
+  // // console.log(id);
+  // const newSession = {
+  //   sessionId: id
+  // };
   // console.log(newSession);
-  const response = await client.post(`${API.LOGIN}`, newSession);
+  console.log(JSON.parse(body));
+  const response = await client.post(API.LOGIN, JSON.parse(body));
+  currSession = response;
   return response;
 };
 
@@ -28,10 +31,10 @@ const login = async () => {
  * @param none
 */
 const logout = async () => {
-  const sessions = await client.get(`${API.LOGIN}`);
-  const sessionsIdsArray = (sessions.map((session) => session.id));
+  await client.delete(`${API.LOGIN}/${currSession.id}`);
+  // const sessionsIdsArray = (sessions.map((session) => session.id));
   // console.log(sessionsIdsArray);
-  sessionsIdsArray.forEach(async (id) => client.delete(`${API.LOGIN}/${id}`));
+  // sessionsIdsArray.forEach(async (id) => client.delete(`${API.LOGIN}/${id}`));
   return '200';
 };
 
@@ -64,7 +67,7 @@ const getUserById = async (userId) => {
   const user = new User(
     response.id,
     response.email,
-    response.username,
+    // response.username,
     response.avatar,
     response.numPosts,
     response.likedPosts,

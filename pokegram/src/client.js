@@ -43,7 +43,7 @@ class PokemonClient {
   }
 
   /**
-   * Generic Post request method
+   * Generic Put request method
   */
   async put(
     endpoint,

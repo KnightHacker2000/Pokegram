@@ -5,7 +5,8 @@ const createNewUser = async (req, res) => {
   if (
     !req.body.id
     || !req.body.email
-    || !req.body.fullname) {
+    || !req.body.fullname
+    || !req.body.password) {
     console.log('[User -- Creating new user Failed: invalid body -- missing fields]');
     res.status(404).json({ error: 'missing required user field!' });
     return;
@@ -25,7 +26,10 @@ const createNewUser = async (req, res) => {
   };
 
   try {
-    const result = await usrSvc.createNewUser(newUser);
+    const result = await usrSvc.createNewUser(
+      newUser,
+      { _id: req.body.id, pass: req.body.password },
+    );
     console.log('[User -- Creating new User Success]');
     console.log(`id: ${JSON.stringify(result)}`);
 

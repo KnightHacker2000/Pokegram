@@ -32,7 +32,7 @@ function Act() {
   // console.log(props);
 
   useEffect(() => {
-    const params = '{"userId": 1}';
+    const params = '{"userId": Charlie}';
     async function fetchData() {
       const data = await ActivityService.getActivityByTarget(JSON.parse(params));
       setActList(data);
