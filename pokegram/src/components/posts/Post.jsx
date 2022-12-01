@@ -82,8 +82,8 @@ function Posts(props) {
     }
 
     async function getUser() {
-      const userparams = `{"userId":${homeStates.myUID} }`;
-      const user = await userService.getUserById(JSON.parse(userparams));
+      const userparams = { userId: homeStates.myUID };
+      const user = await userService.getUserById((userparams));
       setlikePosts(user.likedPosts);
     }
 
@@ -166,8 +166,8 @@ function Posts(props) {
     const postId = event.currentTarget.getAttribute('data-index');
     const numpostId = parseInt(postId, 10);
     const params = `{"postId":${postId} }`;
-    const userparams = `{"userId":${homeStates.myUID} }`;
-    const user = await userService.getUserById(JSON.parse(userparams));
+    const userparams = { userId: homeStates.myUID };
+    const user = await userService.getUserById((userparams));
     const post = await postsService.getPostsById(JSON.parse(params));
     await userService.addlike(user, numpostId);
     post.numLike += 1;
@@ -181,8 +181,8 @@ function Posts(props) {
     const postId = event.currentTarget.getAttribute('data-index');
     const numpostId = parseInt(postId, 10);
     const params = `{"postId":${postId} }`;
-    const userparams = `{"userId":${homeStates.myUID} }`;
-    const user = await userService.getUserById(JSON.parse(userparams));
+    const userparams = { userId: homeStates.myUID };
+    const user = await userService.getUserById((userparams));
     const post = await postsService.getPostsById(JSON.parse(params));
     const pIndex = likePosts.indexOf(numpostId);
     likePosts.splice(pIndex, 1);

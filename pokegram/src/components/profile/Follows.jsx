@@ -27,14 +27,14 @@ function Follows(props) {
   const firstRendering = useRef(true);
   useEffect(() => {
     async function fetchFoSugbyUID(id) {
-      let params = `{"userId":${id} }`;
-      const foList = await userService.getUserById(JSON.parse(params));
+      let params = { userId: id };
+      const foList = await userService.getUserById((params));
       params = `{"id":${id} }`;
       const arr = [];
       await userService.getFoSug(JSON.parse(params)).then((data) => {
         data.users.forEach(async (user) => {
-          params = `{"userId":${user} }`;
-          const tmp = await userService.getUserById(JSON.parse(params));
+          params = { userId: user };
+          const tmp = await userService.getUserById((params));
           arr.push(tmp.username);
         });
         setSugObj({ id: data.users, usernames: arr, foList: foList.follows });

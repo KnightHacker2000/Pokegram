@@ -76,18 +76,18 @@ function Comment(props) {
     }
 
     async function fetchFollowers(id) {
-      const params = `{"userId": ${id}}`;
+      const params = { userId: id };
       // const user = await userService.getUserById(JSON.parse(params));
       // const followerid = user.follows;
       // console.log(followerid);
       const follower = [];
-      console.log('Getting Followers');
-      userService.getUserById(JSON.parse(params)).then((data) => {
+      // console.log('Getting Followers');
+      userService.getUserById(params).then((data) => {
         console.log(data);
         data.follows.forEach(async (user) => {
-          const tmpparams = `{"userId": ${user}}`;
-          const tmp = await userService.getUserById(JSON.parse(tmpparams));
-          follower.push({ id: user, display: tmp.username });
+          const tmpparams = { userId: user };
+          const tmp = await userService.getUserById(tmpparams);
+          follower.push({ id: user, display: tmp.id });
         });
       });
       settaggingUsers(follower);
@@ -95,9 +95,9 @@ function Comment(props) {
     }
 
     async function fetchuserinfo(id) {
-      const params = `{"userId": ${id}}`;
-      const user = await userService.getUserById(JSON.parse(params));
-      setUsername(user.username);
+      const params = { userId: id };
+      const user = await userService.getUserById(params);
+      setUsername(user.id);
     }
 
     if (firstRendering.current) {

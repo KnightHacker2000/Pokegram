@@ -48,7 +48,6 @@ function Profile(props) {
       const data = await userService.getUserById(params);
       setUser(data);
       await userService.getUserById(myParams).then((d) => {
-        console.log('hehehe');
         setMyUser(d);
         if (d.follows.indexOf(user.id) !== -1) {
           setIsFollow(true);
