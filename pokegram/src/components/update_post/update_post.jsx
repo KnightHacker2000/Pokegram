@@ -27,8 +27,7 @@ function UpdatePost(props) {
 
   useEffect(() => {
     async function fetchData() {
-      const params = `{"postId":${pid} }`;
-      const data = await postsService.getPostsById(JSON.parse(params));
+      const data = await postsService.getPostsById(pid);
       setPost(data);
       setType(data.type);
       setSource(data.content_url);
@@ -36,6 +35,7 @@ function UpdatePost(props) {
 
     if (firstRendering.current) {
       firstRendering.current = false;
+      console.log(pid);
       fetchData();
     }
   });
@@ -44,6 +44,7 @@ function UpdatePost(props) {
     event.preventDefault();
     // console.log(post);
     async function putData() {
+      /*
       const temp = new Posts();
       temp.id = post.id;
       temp.username = post.username;
@@ -57,7 +58,18 @@ function UpdatePost(props) {
       // temp.timestamp = post.timestamp.toString(); // for testing only
       temp.timestamp = Date.now().toString();
       // console.log(temp);
-      await postsService.updatePost(temp);
+      */
+      const updatefileds = {
+        username: post.username,
+        timestamp: Date.now().toString(),
+        type: post.type,
+        content_url: post.content_url,
+        numLike: post.numLike,
+        description: post.description,
+        commentRefs: post.commentRefs,
+        users: post.users
+      };
+      await postsService.updatePost(pid, JSON.stringify(updatefileds));
     }
     await putData();
     handleEditState();
