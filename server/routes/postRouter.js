@@ -5,8 +5,9 @@ const postController = require('../controllers/postController');
 
 postRouter.get('/:postId', postController.getPostByPostId);
 postRouter.get('/user/:username', postController.getPostByUsername);
-// postRouter.post('/', postController.createNewAct);
-// postRouter.put('/:actId', postController.updateActivityById);
-// postRouter.delete('/:actId', postController.deleteActivityById);
+postRouter.get('/all/:postId', postController.getAllPosts);
+postRouter.post('/', postController.createNewPost);
+postRouter.put('/:postId', postController.updatePostById);
+postRouter.delete('/:postId', postController.deletePostById);
 
 module.exports = postRouter;

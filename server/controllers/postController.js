@@ -22,6 +22,24 @@ const getPostByPostId = async (req, res) => {
   }
 };
 
+const getAllPosts = async (req, res) => {
+  console.log('[Post -- Getting all posts]');
+  try {
+    const result = await postSvc.getAllPosts();
+    if (result === undefined || result === null) {
+      console.log('[Post -- Getting Post Failed]');
+      res.status(404).json({ error: 'getting post Failed' });
+      return;
+    }
+    console.log('[Post -- Getting Post Success]');
+    res.status(200).json({ data: result });
+    return;
+  } catch (err) {
+    console.log('[Post -- Getting Post Failed]');
+    res.status(404).json({ error: err.message });
+  }
+};
+
 const getPostByUsername = async (req, res) => {
   console.log('[Post -- Getting post by username]');
   try {
@@ -45,7 +63,7 @@ const getPostByUsername = async (req, res) => {
 };
 
 const createNewPost = async (req, res) => {
-  console.log('[Activity -- Creating new activity]');
+  console.log('[Post -- Creating new post]');
   if (
     !req.body.username
     || !req.body.timestamp
@@ -56,111 +74,75 @@ const createNewPost = async (req, res) => {
     || !req.body.commentRefs
     || !req.body.users
   ) {
-    console.log('[Activity -- Creating new activity Failed: invalid body -- missing fields]');
-    res.status(404).json({ error: 'missing required activity field!' });
+    console.log('[Post -- Creating new post Failed: invalid body -- missing fields]');
+    res.status(404).json({ error: 'missing required post field!' });
     return;
   }
-  const legalActType = ['Comment', 'Follow', 'Unfollow', 'Like'];
-  if (!legalActType.includes(req.body.activityType)) {
-    console.log('[Activity -- Creating new activity Failed: invalid body --invalid activity type]');
-    res.status(400).json({ error: `${req.body.activityType} is NOT a valid activity type!` });
+  const legalPostType = ['video', 'photo'];
+  if (!legalPostType.includes(req.body.type)) {
+    console.log('[Post -- Creating new post Failed: invalid body --invalid post type]');
+    res.status(400).json({ error: `${req.body.type} is NOT a valid post type!` });
     return;
   }
-  // create new activity object
-  const newAct = {
-    initiatorId: req.body.initiatorId,
-    targetId: req.body.targetId,
-    activityType: req.body.activityType,
+  const newPost = {
+    username: req.body.username,
     timestamp: req.body.timestamp,
+    type: req.body.type,
+    content_url: req.body.content_url,
+    numLike: req.body.numLike,
+    description: req.body.description,
+    commentRefs: req.body.commentRefs,
+    users: req.body.users,
   };
   try {
-    const result = await postSvc.createActivity(newAct);
-    console.log('[Activity -- Creating new activity Success]');
+    const result = await postSvc.createPost(newPost);
+    console.log('[Post -- Creating new post Success]');
     console.log(`id: ${JSON.stringify(result)}`);
-    // add id to new activity and return it
     res.status(201).json({
-      activity: { id: result, ...newAct },
+      post: { id: result, ...newPost },
     });
   } catch (err) {
     res.status(404).json({ error: err.message });
-    console.log('[Activity -- Creating new activity Failed]');
+    console.log('[Post -- Creating new post Failed]');
   }
 };
 
-/*
-const createNewAct = async (req, res) => {
-  console.log('[Activity -- Creating new activity]');
-  if (
-    !req.body.initiatorId
-    || !req.body.targetId
-    || !req.body.activityType
-    || !req.body.timestamp) {
-    console.log('[Activity -- Creating new activity Failed: invalid body -- missing fields]');
-    res.status(404).json({ error: 'missing required activity field!' });
-    return;
-  }
-  const legalActType = ['Comment', 'Follow', 'Unfollow', 'Like'];
-  if (!legalActType.includes(req.body.activityType)) {
-    console.log('[Activity -- Creating new activity Failed: invalid body --
-       invalid activity type]');
-    res.status(400).json({ error: `${req.body.activityType} is NOT a valid activity type!` });
-    return;
-  }
-  // create new activity object
-  const newAct = {
-    initiatorId: req.body.initiatorId,
-    targetId: req.body.targetId,
-    activityType: req.body.activityType,
-    timestamp: req.body.timestamp,
-  };
+const updatePostById = async (req, res) => {
+  console.log('[Post -- Updating Post]');
   try {
-    const result = await actSvc.createActivity(newAct);
-    console.log('[Activity -- Creating new activity Success]');
-    console.log(`id: ${JSON.stringify(result)}`);
-    // add id to new activity and return it
-    res.status(201).json({
-      activity: { id: result, ...newAct },
-    });
-  } catch (err) {
-    res.status(404).json({ error: err.message });
-    console.log('[Activity -- Creating new activity Failed]');
-  }
-};
-
-const updateActivityById = async (req, res) => {
-  console.log('[Activity -- Updating activity]');
-  try {
-    const result = await actSvc.updateActivityById(req.params.actId, req.body);
-    console.log('[Activity -- Updating activity Success]');
+    const result = await postSvc.updatePostById(req.params.postId, req.body);
+    console.log('[Post -- Updating Post Success]');
     console.log(result);
     res.status(201).json({
-      activity: result,
+      Post: result,
     });
     return;
   } catch (err) {
-    console.log('[Activity -- Updating activity Failed]');
+    console.log('[Post -- Updating Post Failed]');
     res.status(404).json({ error: err.message });
   }
 };
 
-const deleteActivityById = async (req, res) => {
-  console.log('[Activity -- Deleting activity]');
+const deletePostById = async (req, res) => {
+  console.log('[Post -- Deleting Post]');
   try {
-    await actSvc.deleteActivityById(req.params.actId);
-    console.log('[Activity -- Deleting activity Success]');
+    await postSvc.deletePostById(req.params.postId);
+    console.log('[Post -- Deleting Post Success]');
     res.status(200).json({
       message: 'delete success!',
     });
     return;
   } catch (err) {
-    console.log('[Activity -- Deleting activity Failed]');
+    console.log('[Post -- Deleting Post Failed]');
     res.status(404).json({ error: err.message });
   }
 };
-*/
 
 module.exports = {
   getPostByPostId,
   getPostByUsername,
+  getAllPosts,
   createNewPost,
+  updatePostById,
+  deletePostById,
 };

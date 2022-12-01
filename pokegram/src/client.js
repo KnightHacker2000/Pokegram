@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 class PokemonClient {
-  BACKEND_URL = 'http://localhost:8000';
+  BACKEND_URL = 'http://localhost:8080';
 
   /**
    * Generic Get request method

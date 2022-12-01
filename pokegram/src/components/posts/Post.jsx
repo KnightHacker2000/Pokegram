@@ -33,7 +33,7 @@ function Posts(props) {
   const { homeStates } = props;
   // console.log(homeStates.myUID);
   // console.log(homeStates.UID);
-
+  /*
   const [postList, setPostList] = useState([{
     id: 1,
     username: 'Rachel',
@@ -53,6 +53,8 @@ function Posts(props) {
       9101
     ]
   }]);
+  */
+  const [postList, setPostList] = useState([]);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
   const [renderTagging, setrenderTagging] = useState(false);
@@ -69,6 +71,7 @@ function Posts(props) {
 
   useEffect(() => {
     // const params = '{"userId": 1}';
+    console.log(props);
     async function fetchData() {
       const data = await postsService.getAllPosts();
       setPostList(data);
