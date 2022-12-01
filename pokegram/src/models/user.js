@@ -3,7 +3,7 @@ class User {
 
   email;
 
-  username;
+  // username;
 
   avatar;
 
@@ -36,7 +36,7 @@ class User {
   ) {
     this.id = id;
     this.email = email;
-    this.username = name;
+    // this.username = name;
     this.avatar = avatar;
     this.numPosts = numPost;
     this.likedPosts = likedPosts;

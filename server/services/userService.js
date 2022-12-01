@@ -19,12 +19,13 @@ const getUserById = async (uid) => {
   }
 };
 
-const createNewUser = async (newUser) => {
+const createNewUser = async (newUser, cred) => {
   if (!db) {
     db = dbop.getDB();
   }
   try {
     const res = await db.collection('user').insertOne(newUser);
+    await db.collection('cred').insertOne(cred);
     return res;
   } catch (err) {
     console.log(`error: ${err.message}`);

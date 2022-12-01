@@ -1,5 +1,5 @@
 class API {
-  static ACT_TEST = '/getActivityByUsername';
+  static ACT = '/activity';
 
   static USER = '/user';
 

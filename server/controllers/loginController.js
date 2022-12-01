@@ -1,15 +1,30 @@
 const loginSvc = require('../services/loginService');
 
-const createNewSession = async (req, res) => {
-  console.log('[Login -- Creating new user session]');
+const authAndSession = async (req, res) => {
+  console.log('[Login -- Authenticating and creating new user session]');
   try {
+    // check if body is legal
+    if (
+      !req.body.id
+      || !req.body.password) {
+      console.log('[Login -- Authentication Failed: invalid body -- missing fields]');
+      res.status(404).json({ error: 'missing required credential field!' });
+      return;
+    }
+
+    // TODO: remove explicitly passed password
+    await loginSvc.authenticate(req.body.id, req.body.password);
     const result = await loginSvc.createNewSession();
-    console.log('[Login -- Creating new user session Success]');
+    console.log('[Login -- Authenticating and creating new user session Success]');
     res.status(201).json(result);
     return;
   } catch (err) {
-    res.status(404).json({ error: err.message });
-    console.log('[Login -- Creating new user session Failed]');
+    if (err.message.indexOf('Not Found') !== -1) {
+      res.status(401).json({ error: 'Password or Username incorrect!!' });
+    } else {
+      res.status(404).json({ error: err.message });
+    }
+    console.log('[Login -- Authenticating and creating new user session Failed]');
   }
 };
 
@@ -42,7 +57,7 @@ const deleteSessionById = async (req, res) => {
 };
 
 module.exports = {
-  createNewSession,
+  authAndSession,
   deleteSessionById,
   clearSessions,
 };
