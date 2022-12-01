@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import PokemonClient from '../client';
 import API from '../endpoints';
 import Posts from '../models/post';
@@ -9,11 +10,13 @@ const client = new PokemonClient();
  * post API endpoint
  * @param param: post id
 */
-const getPostsById = async (param) => {
-  const pos = await client.get(`${API.POSTS}/${param.postId}`);
+const getPostsById = async (postId) => {
+  console.log(postId);
+  const response = await client.get(`${API.POSTS}/${postId}`);
+  const pos = response.data;
   // const posts = response.posts;
   const newPost = new Posts(
-    pos.id,
+    pos._id,
     pos.username,
     new Date(pos.timestamp),
     pos.type,
@@ -33,9 +36,9 @@ const getPostsById = async (param) => {
 const getPostsByUserName = async (userName) => {
   const response = await client.get(`${API.POSTS}/user/${userName}`);
   // const posts = response.posts;
-  const postsLst = response.map((pos) => {
+  const postsLst = response.data.map((pos) => {
     const newPost = new Posts(
-      pos.id,
+      pos._id,
       pos.username,
       new Date(pos.timestamp),
       pos.type,
@@ -55,10 +58,11 @@ const getPostsByUserName = async (userName) => {
 */
 const getAllPosts = async () => {
   const response = await client.get(`${API.POSTS}/all/t`);
+  // console.log(response);
   // const posts = response.posts;
-  const postsLst = response.map((pos) => {
+  const postsLst = response.data.map((pos) => {
     const newPost = new Posts(
-      pos.id,
+      pos._id,
       pos.username,
       new Date(pos.timestamp),
       pos.type,
@@ -78,8 +82,7 @@ const getAllPosts = async () => {
  * @param none
 */
 const createPost = async (body) => {
-  // console.log(body);
-  const response = await client.post(`${API.POSTS}`, body);
+  const response = await client.post(`${API.POSTS}`, JSON.parse(body));
   return response;
 };
 
@@ -87,9 +90,9 @@ const createPost = async (body) => {
  * update post API endpoint
  * @param none
 */
-const updatePost = async (body) => {
+const updatePost = async (pid, body) => {
   // console.log(body);
-  const response = await client.put(`${API.POSTS}/${body.id}`, body);
+  const response = await client.put(`${API.POSTS}/${pid}`, JSON.parse(body));
   return response;
 };
 

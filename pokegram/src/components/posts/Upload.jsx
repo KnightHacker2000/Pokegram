@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import {
@@ -9,12 +10,12 @@ import Chip from '@mui/material/Chip';
 import Posts from '../../models/post';
 import postsService from '../../services/postsService';
 import HomeState from '../../models/homeState';
-import userService from '../../services/userService';
+// import userService from '../../services/userService';
 
 // const theme = createTheme();
 function Upload(props) {
-  // console.log(props.homeStates);
-  const { homeStates } = props;
+  const { homeStates } = props; // homeStates.myUID is my current username
+  console.log(homeStates);
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
   const [foList, setFoList] = useState([]);
@@ -31,8 +32,9 @@ function Upload(props) {
     users: []
   });
   const inputRef = useRef();
-  const firstRendering = useRef(true);
+  // const firstRendering = useRef(true);
   // <track src="" kind="captions" srcLang="en" label="english_captions" />
+  /*
   useEffect(() => {
     async function fetchFollows(id) {
       const params = `{"userId":${id} }`;
@@ -46,6 +48,7 @@ function Upload(props) {
       fetchFollows(2);
     }
   });
+  */
 
   const handleChange = (event) => {
     setType(event.target.value);
@@ -147,7 +150,7 @@ function Upload(props) {
     // console.log(newpost);
     async function putData() {
       const temp = new Posts();
-      temp.username = newpost.username;
+      temp.username = homeStates.myUID;
       temp.timestamp = newpost.timestamp;
       temp.type = newpost.type;
       temp.content_url = newpost.content_url;
@@ -156,10 +159,19 @@ function Upload(props) {
       temp.commentRefs = newpost.commentRefs;
       temp.users = newpost.users;
       temp.timestamp = temp.timestamp.toString();
-      await postsService.createPost(temp);
+      await postsService.createPost(JSON.stringify({
+        username: homeStates.myUID,
+        timestamp: newpost.timestamp.toString(),
+        type: newpost.type,
+        content_url: newpost.content_url,
+        numLike: 0,
+        description: newpost.description,
+        commentRefs: newpost.commentRefs,
+        users: newpost.users
+      }));
     }
     putData();
-    homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
+    homeStates.handleHomeStates(false, false, false, false, true, -1);
   };
 
   const handleContent = (event) => {

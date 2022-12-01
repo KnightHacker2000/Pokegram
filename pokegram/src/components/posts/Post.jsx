@@ -31,7 +31,7 @@ const theme = createTheme();
 
 function Posts(props) {
   const { homeStates } = props;
-  console.log(homeStates);
+  // console.log(homeStates);
   // console.log(homeStates.myUID);
   // console.log(homeStates.UID);
   const [postList, setPostList] = useState([{
@@ -72,6 +72,7 @@ function Posts(props) {
     // const params = '{"userId": 1}';
     async function fetchallpostsData() {
       const data = await postsService.getAllPosts();
+      // console.log(data);
       setPostList(data);
     }
 
@@ -91,7 +92,8 @@ function Posts(props) {
       if (homeStates.UID === -1) {
         fetchallpostsData();
       } else {
-        fetchpostsbyusername(homeStates.UID);
+        console.log('entered personal!');
+        fetchpostsbyusername(homeStates.myUID);
       }
       getUser();
       // putData();

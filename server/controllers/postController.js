@@ -64,15 +64,11 @@ const getPostByUsername = async (req, res) => {
 
 const createNewPost = async (req, res) => {
   console.log('[Post -- Creating new post]');
+  console.log(req.body);
   if (
     !req.body.username
     || !req.body.timestamp
     || !req.body.type
-    || !req.body.content_url
-    || !req.body.numLike
-    || !req.body.description
-    || !req.body.commentRefs
-    || !req.body.users
   ) {
     console.log('[Post -- Creating new post Failed: invalid body -- missing fields]');
     res.status(404).json({ error: 'missing required post field!' });
@@ -109,6 +105,7 @@ const createNewPost = async (req, res) => {
 
 const updatePostById = async (req, res) => {
   console.log('[Post -- Updating Post]');
+  console.log(req.body);
   try {
     const result = await postSvc.updatePostById(req.params.postId, req.body);
     console.log('[Post -- Updating Post Success]');
