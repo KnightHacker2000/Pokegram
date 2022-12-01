@@ -46,12 +46,11 @@ function Profile(props) {
     const myParams = { userId: homeStates.myUID };
     async function fetchData() {
       const data = await userService.getUserById(params);
-      console.log(data);
       setUser(data);
-      console.log('hello');
-      await userService.getUserById(JSON.parse(myParams)).then((d) => {
+      await userService.getUserById(myParams).then((d) => {
+        console.log('hehehe');
         setMyUser(d);
-        if (d.follows.indexOf(2) !== -1) {
+        if (d.follows.indexOf(user.id) !== -1) {
           setIsFollow(true);
         }
       });
@@ -84,7 +83,7 @@ function Profile(props) {
   };
   const handleFollow = async (event) => {
     event.preventDefault();
-    await userService.followUser(myUser, 2);
+    await userService.followUser(myUser, user);
     firstRendering.current = true;
     setIsFollow(true);
     forceUpdate();
@@ -92,7 +91,7 @@ function Profile(props) {
 
   const handleUnfollow = async (event) => {
     event.preventDefault();
-    await userService.unfollowUser(myUser, 2);
+    await userService.unfollowUser(myUser, user);
     firstRendering.current = true;
     setIsFollow(false);
     forceUpdate();
@@ -110,7 +109,7 @@ function Profile(props) {
   function ConditionalRender() {
     let usersection;
     if (homeStates.UID === homeStates.myUID) {
-      console.log(user);
+      // console.log(user);
       usersection = (
         <Box sx={{
           mx: 2, p: 1, alignItems: 'center', display: 'flex'
