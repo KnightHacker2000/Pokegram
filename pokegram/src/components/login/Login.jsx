@@ -18,18 +18,22 @@ function Login(props) {
   const { parStates } = props;
   const [user, setUser] = useState({
     username: 'test1',
-    password: 'password'
+    password: undefined
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
     // testing code for state manipulation
     // console.log(props);
-    const res = await userService.login(
-      JSON.stringify({ id: user.username, password: user.password })
-    );
-    console.log(res);
-    parStates.handleSetStates(true, true, user.username);
+    try {
+      const res = await userService.login(
+        JSON.stringify({ id: user.username, password: user.password })
+      );
+      console.log(res);
+      parStates.handleSetStates(true, true, user.username);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleUsername = (event) => {
     // console.log(event.target.value);
@@ -85,10 +89,10 @@ function Login(props) {
             id="password"
             name="password"
             label="Password"
-            value={user.password}
+            value={user.password === undefined ? '' : user.password}
             onChange={handlePassword}
-            error={user.password !== '' && user.password.length < 8}
-            helperText={user.password !== '' && user.password.length < 8 ? 'Password should contains Minimum eight characters' : ' '}
+            error={user.password !== undefined && user.password !== '' && user.password.length < 8}
+            helperText={user.password !== undefined && user.password !== '' && user.password.length < 8 ? 'Password should contains Minimum eight characters' : ' '}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mat: 3, mb: 2 }} data-testid="login_submit">Sign In</Button>
         </Box>

@@ -23,6 +23,8 @@ const createNewUser = async (req, res) => {
     subscribers: [],
     numSubs: 0,
     fullname: req.body.fullname,
+    likedPosts: [],
+    numPosts: 0,
   };
 
   try {
