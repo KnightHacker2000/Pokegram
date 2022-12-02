@@ -10,15 +10,16 @@ import Chip from '@mui/material/Chip';
 import Posts from '../../models/post';
 import postsService from '../../services/postsService';
 import HomeState from '../../models/homeState';
-// import userService from '../../services/userService';
+import userService from '../../services/userService';
 
 // const theme = createTheme();
 function Upload(props) {
   const { homeStates } = props; // homeStates.myUID is my current username
-  console.log(homeStates);
+  // console.log(homeStates);
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
   const [foList, setFoList] = useState([]);
+  const [numposts, setNumposts] = useState(0);
   const [taggedUsers, settaggedUsers] = useState([]);
   const [newpost, setPost] = useState({
     id: 5,
@@ -32,23 +33,22 @@ function Upload(props) {
     users: []
   });
   const inputRef = useRef();
-  // const firstRendering = useRef(true);
+  const firstRendering = useRef(true);
   // <track src="" kind="captions" srcLang="en" label="english_captions" />
-  /*
   useEffect(() => {
     async function fetchFollows(id) {
-      const params = `{"userId":${id} }`;
-      const tmp = await userService.getUserById(JSON.parse(params));
-      setFoList(tmp.follows);
+      const userparams = { userId: id };
+      const user = await userService.getUserById((userparams));
+      setFoList(user.follows);
+      setNumposts(user.numPosts);
     }
 
     if (firstRendering.current) {
       firstRendering.current = false;
       // hardcoded UID, use UID prop in the future
-      fetchFollows(2);
+      fetchFollows(homeStates.myUID);
     }
   });
-  */
 
   const handleChange = (event) => {
     setType(event.target.value);
@@ -169,6 +169,8 @@ function Upload(props) {
         commentRefs: newpost.commentRefs,
         users: newpost.users
       }));
+      const updatefileds = { numPosts: numposts + 1 };
+      await userService.updateUser(homeStates.myUID, updatefileds);
     }
     putData();
     homeStates.handleHomeStates(false, false, false, false, true, -1);

@@ -61,7 +61,7 @@ function Home(props) {
     }
 
     if (isPosts) {
-      console.log(parentStates);
+      // console.log(parentStates);
       // return Posts Page
       ret = <Posts homeStates={parentStates} />;
     }

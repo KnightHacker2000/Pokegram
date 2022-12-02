@@ -30,7 +30,7 @@ import Edit from '../update_post/update_post';
 const theme = createTheme();
 
 function Posts(props) {
-  const { homeStates } = props;
+  const { homeStates, ischange } = props;
   // console.log(homeStates);
   // console.log(homeStates.myUID);
   // console.log(homeStates.UID);
@@ -54,6 +54,7 @@ function Posts(props) {
     ]
   }]);
   // const [postList, setPostList] = useState([]);
+  const [numposts, setNumposts] = useState(0);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
   const [renderTagging, setrenderTagging] = useState(false);
@@ -85,6 +86,7 @@ function Posts(props) {
       const userparams = { userId: homeStates.myUID };
       const user = await userService.getUserById((userparams));
       setlikePosts(user.likedPosts);
+      setNumposts(user.numPosts);
     }
 
     if (firstRendering.current) {
@@ -169,8 +171,8 @@ function Posts(props) {
     const user = await userService.getUserById(userparams);
     const post = await postsService.getPostsById(postId);
     await userService.addlike(user, postId);
-    post.numLike += 1;
-    await postsService.updatePost(post);
+    const updatefileds = { numLike: post.numLike + 1 };
+    await postsService.updatePost(postId, updatefileds);
     likePosts.push(postId);
     setlikePosts(likePosts);
     firstRendering.current = true;
@@ -200,6 +202,9 @@ function Posts(props) {
     // console.log(postId);
     // console.log(deletePostId);
     await postsService.deletePost(postId);
+    const updatefileds = { numPosts: numposts - 1 };
+    await userService.updateUser(homeStates.myUID, updatefileds);
+    ischange();
     firstRendering.current = true;
     forceUpdate();
   };
@@ -309,10 +314,13 @@ function Posts(props) {
   );
 }
 Posts.propTypes = {
-  homeStates: PropTypes.instanceOf(HomeState)
+  homeStates: PropTypes.instanceOf(HomeState),
+  ischange: PropTypes.func
+
 };
 
 Posts.defaultProps = {
-  homeStates: null
+  homeStates: null,
+  ischange: null
 };
 export default Posts;

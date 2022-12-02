@@ -77,16 +77,21 @@ function Comment(props) {
       setCommentList(data);
     }
 
-    async function fetchFollowers(id) {
-      const params = { userId: id };
+    async function fetchFollowers(userid) {
+      // console.log('entered fetchfollowers!');
+      const params = { userId: userid };
       // const user = await userService.getUserById(JSON.parse(params));
       // const followerid = user.follows;
       // console.log(followerid);
-      let follower = [];
+      const follower = [];
       // console.log('Getting Followers');
       userService.getUserById(params).then((data) => {
-        console.log(data);
-        follower = data.follows;
+        data.follows.forEach((user) => {
+          // const tmpparams = `{"userId": ${user}}`;
+          // const tmp = await userService.getUserById(JSON.parse(tmpparams));
+          follower.push({ id: user, display: user });
+          // console.log({ id: user, display: user });
+        });
       });
       settaggingUsers(follower);
       // console.log(taggingUsers);
@@ -303,14 +308,16 @@ function Comment(props) {
                     <EditIcon />
                   </ListItemButton>
                 )}
-                <ListItemButton
-                  aria-label="delete"
-                  data-testid="test_delete"
-                  onClick={handleDeleteComment}
-                  data-index={comm.id}
-                >
-                  <DeleteIcon />
-                </ListItemButton>
+                { comm.commentorid === uid && (
+                  <ListItemButton
+                    aria-label="delete"
+                    data-testid="test_delete"
+                    onClick={handleDeleteComment}
+                    data-index={comm.id}
+                  >
+                    <DeleteIcon />
+                  </ListItemButton>
+                )}
               </ListItem>
             ))}
           </List>
