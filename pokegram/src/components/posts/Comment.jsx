@@ -328,7 +328,7 @@ function Comment(props) {
 }
 
 Comment.propTypes = {
-  uid: PropTypes.number,
+  uid: PropTypes.string,
   pid: PropTypes.string,
   handleCommentState: PropTypes.func
 };

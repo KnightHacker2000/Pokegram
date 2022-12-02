@@ -1,7 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import PokemonClient from '../client';
 import API from '../endpoints';
+import Activity from '../models/activity';
 import Comments from '../models/comment';
+import activityService from './activityService';
+import postsService from './postsService';
 
 const client = new PokemonClient();
 
@@ -37,6 +40,14 @@ const getCommentBypostId = async (postId) => {
 const createComment = async (body) => {
   console.log(JSON.parse(body));
   const response = await client.post(`${API.COMMENTS}`, JSON.parse(body));
+  const newBody = JSON.parse(body);
+  const post = await postsService.getPostsById(newBody.postId);
+  const tmpAct = new Activity();
+  tmpAct.initiatorId = newBody.commentorid;
+  tmpAct.targetId = post.username;
+  tmpAct.activityType = 'Comment';
+  tmpAct.timestamp = Date.now();
+  await activityService.createActivity(JSON.stringify(tmpAct));
   return response;
 };
 

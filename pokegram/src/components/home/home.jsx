@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ResponsiveAppBar from './menu';
@@ -9,6 +9,7 @@ import Upload from '../posts/Upload';
 import RootState from '../../models/rootState';
 import HomeState from '../../models/homeState';
 import userService from '../../services/userService';
+import ActivityService from '../../services/activityService';
 
 function Home(props) {
   // const defaultProps = new RootState(
@@ -22,8 +23,18 @@ function Home(props) {
   const [isPosts, setIsPosts] = useState(true);
   const [isProf, setIsProf] = useState(false);
   const [UID, setUID] = useState(-1);
+  const [actList, setActList] = useState([]);
   // console.log(parStates);
   const theme = createTheme();
+
+  useEffect(() => {
+    async function fetchData() {
+      const params = `{"userId": "${parStates.myUID}"}`;
+      const tmp = await ActivityService.getActivityByTarget(JSON.parse(params));
+      setActList(tmp);
+    }
+    fetchData();
+  }, [parStates, isAct, isUp, isPosts, isProf, UID]);
 
   const handleHomeStates = (isLogOut, newIsProf, newIsAct, newIsUp, newIsPosts, newUID) => {
     setIsAct(newIsAct);
@@ -52,7 +63,7 @@ function Home(props) {
 
     if (isAct) {
       // return Activity Page
-      ret = <Act.Act homeStates={parentStates} />;
+      ret = <Act.Act actList={actList} />;
     }
 
     if (isUp) {

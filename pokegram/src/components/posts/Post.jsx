@@ -170,9 +170,9 @@ function Posts(props) {
     const userparams = { userId: homeStates.myUID };
     const user = await userService.getUserById(userparams);
     const post = await postsService.getPostsById(postId);
-    await userService.addlike(user, postId);
+    await userService.addlike(user, postId, post.username);
     const updatefileds = { numLike: post.numLike + 1 };
-    await postsService.updatePost(postId, updatefileds);
+    await postsService.updatePost(postId, JSON.stringify(updatefileds));
     likePosts.push(postId);
     setlikePosts(likePosts);
     firstRendering.current = true;
@@ -188,8 +188,8 @@ function Posts(props) {
     const pIndex = likePosts.indexOf(postId);
     likePosts.splice(pIndex, 1);
     await userService.removeLike(user, postId);
-    post.numLike -= 1;
-    await postsService.updatePost(post);
+    const updatefileds = { numLike: post.numLike - 1 };
+    await postsService.updatePost(postId, JSON.stringify(updatefileds));
     setlikePosts(likePosts);
     firstRendering.current = true;
     forceUpdate();
