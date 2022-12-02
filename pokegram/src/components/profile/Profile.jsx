@@ -38,8 +38,9 @@ function Profile(props) {
   const [isFollow, setIsFollow] = useState(false);
   const [showFo, setShowFo] = useState(false);
   const [, updateState] = React.useState();
+  const [childchange, setchildchange] = React.useState(false);
   const forceUpdate = React.useCallback(() => updateState({}), []);
-
+  const handleischange = () => { setchildchange(!childchange); };
   useEffect(() => {
     // TODO: getUser just testing, use prop.UID in the future
     const params = { userId: homeStates.UID };
@@ -61,11 +62,12 @@ function Profile(props) {
       // });
     }
 
-    if (user.id !== homeStates.UID || firstRendering.current) {
+    if (user.id !== homeStates.UID || firstRendering.current || childchange) {
       firstRendering.current = false;
+      setchildchange(false);
       fetchData();
     }
-  }, [isFollow, homeStates]);
+  }, [isFollow, childchange, homeStates]);
 
   const handleLogout = (event) => {
     // console.log(props);
@@ -82,7 +84,7 @@ function Profile(props) {
   };
   const handleFollow = async (event) => {
     event.preventDefault();
-    console.log(user);
+    // console.log(user);
     await userService.followUser(myUser, user);
     firstRendering.current = true;
     setIsFollow(true);
@@ -205,7 +207,7 @@ function Profile(props) {
         </Box>
       </Container>
       <Divider />
-      <Posts homeStates={homeStates} />
+      <Posts homeStates={homeStates} ischange={handleischange} />
     </ThemeProvider>
   );
 }
