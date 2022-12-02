@@ -61,7 +61,7 @@ function UpdatePost(props) {
       */
       const updatefileds = {
         username: post.username,
-        timestamp: Date.now().toString(),
+        timestamp: Date.now(),
         type: post.type,
         content_url: post.content_url,
         numLike: post.numLike,

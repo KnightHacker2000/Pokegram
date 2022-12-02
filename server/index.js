@@ -1,27 +1,17 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const dbop = require('./db');
-const API = require('./endpoints');
-const actRouter = require('./routes/activityRouter');
-const postRouter = require('./routes/postRouter');
-const usrRouter = require('./routes/userRouter');
-const loginRouter = require('./routes/loginRouter');
-const commentRouter = require('./routes/commentRouter');
+const webapp = require('./server');
 
-// Create express app
-const app = express();
-app.use(cors());
-const port = 8080;
-app.use(express.urlencoded({
-  extended: true,
-}));
+ // (5) define the port
+ const port = 8080;
+ let db;
+ /*
+ // start the server and connect to the DB
+ webapp.listen(port, async () => {
+   console.log(`Server running on port: ${port}`);
+ });
+ */
 
-app.use(bodyParser.json());
-
-let db;
-
-app.listen(port, async () => {
+ webapp.listen(port, async () => {
   // db = await dbop.connect();
   const dbcon = await dbop.connect();
   db = dbcon.db();
@@ -30,11 +20,3 @@ app.listen(port, async () => {
     (res) => { console.log(res); },
   ).catch((err) => { console.log(`error: ${err.message}`); });
 });
-
-app.use(API.ACT, actRouter);
-app.use(API.POSTS, postRouter);
-app.use(API.USER, usrRouter);
-app.use(API.LOGIN, loginRouter);
-app.use(API.COMMENTS, commentRouter);
-
-module.exports = app;
