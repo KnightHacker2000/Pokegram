@@ -26,7 +26,8 @@ describe('user /user enpoint tests', () => {
  */
   const clearDatabase = async () => {
     try {
-      const result = await db.collection('user').deleteMany({ email: 'test@hotmail.com' });
+      const result = await db.collection('user').deleteOne({ _id: 'testbackenduser' });
+      const result2 = await db.collection('cred').deleteOne({ _id: 'testbackenduser' });
       console.log('result', result);
     } catch (err) {
       console.log('error', err.message);
