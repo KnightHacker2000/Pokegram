@@ -49,7 +49,7 @@ function Profile(props) {
       setUser(data);
       await userService.getUserById(myParams).then((d) => {
         setMyUser(d);
-        if (d.follows.indexOf(user.id) !== -1) {
+        if (d.follows.indexOf(data.id) !== -1) {
           setIsFollow(true);
         }
       });
@@ -61,11 +61,11 @@ function Profile(props) {
       // });
     }
 
-    if (firstRendering.current) {
+    if (user.id !== homeStates.UID || firstRendering.current) {
       firstRendering.current = false;
       fetchData();
     }
-  }, [isFollow]);
+  }, [isFollow, homeStates]);
 
   const handleLogout = (event) => {
     // console.log(props);
