@@ -166,7 +166,7 @@ function Follows(props) {
 
 Follows.propTypes = {
   showSug: PropTypes.bool,
-  UID: PropTypes.number,
+  UID: PropTypes.string,
   handleShowFo: PropTypes.func,
   homeStates: PropTypes.instanceOf(HomeState),
   foList: PropTypes.arrayOf(PropTypes.string)

@@ -67,7 +67,7 @@ const getUserById = async (userId) => {
   // console.log(userId);
   const response = await client.get(`${API.USER}/${userId.userId}`);
   const userRes = response.data[0];
-  console.log(userRes);
+  // console.log(userRes);
   const user = new User(
     userRes._id,
     userRes.email,

@@ -34,7 +34,7 @@ function Home(props) {
       setActList(tmp);
     }
     fetchData();
-  }, [parStates]);
+  }, [parStates, isAct, isUp, isPosts, isProf, UID]);
 
   const handleHomeStates = (isLogOut, newIsProf, newIsAct, newIsUp, newIsPosts, newUID) => {
     setIsAct(newIsAct);

@@ -26,10 +26,10 @@ function Login(props) {
     // testing code for state manipulation
     // console.log(props);
     try {
-      const res = await userService.login(
+      await userService.login(
         JSON.stringify({ id: user.username, password: user.password })
       );
-      console.log(res);
+      // console.log(res);
       parStates.handleSetStates(true, true, user.username);
     } catch (err) {
       console.log(err);

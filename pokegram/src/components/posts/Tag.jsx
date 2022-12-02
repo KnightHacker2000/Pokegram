@@ -14,17 +14,18 @@ import postsService from '../../services/postsService';
 
 function TagPhoto(props) {
   const { pid, handleTagState } = props;
-  const [userList, setUserList] = useState([1]);
+  const [userList, setUserList] = useState([]);
 
   const firstRendering = useRef(true);
   useEffect(() => {
     async function fetchUserListbyPostId(postid) {
-      const params = `{"postId":${postid} }`;
-      const data = await postsService.getPostsById(JSON.parse(params));
+      const data = await postsService.getPostsById(postid);
+      // console.log(data);
       setUserList(data.users);
     }
     if (firstRendering.current) {
       firstRendering.current = false;
+      // console.log(pid);
       fetchUserListbyPostId(pid);
     }
   });
@@ -36,7 +37,9 @@ function TagPhoto(props) {
 
   const renderUserList = () => {
     let ret;
+    console.log(userList, userList.length);
     if (userList.length !== 0) {
+      // console.log(userList);
       ret = userList.map((id) => (
         <ListItem key={(id)}>
           <ListItemAvatar>
