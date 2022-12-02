@@ -62,7 +62,6 @@ const getFoSug = async (UID) => {
 const getUserById = async (userId) => {
   // TODO: replace test endpoint
   // const response = await this.client.get(API.USER, userId);
-  console.log('in user service, getting user');
   // console.log(userId);
   const response = await client.get(`${API.USER}/${userId.userId}`);
   const userRes = response.data[0];
@@ -81,6 +80,14 @@ const getUserById = async (userId) => {
   );
   // console.log(user);
   return user;
+};
+
+const updateUser = async (id, body) => {
+  // TODO: replace test endpoint
+  // const response = await this.client.get(API.USER, userId);
+  // console.log(userId);
+  const response = await client.put(`${API.USER}/${id}`, body);
+  return response;
 };
 
 /**
@@ -112,16 +119,17 @@ const removeLike = async (user, postId) => {
  * @param currentUser: my user object
  * @param targetId: user I followed
 */
-const followUser = async (currentUser, targetId) => {
+const followUser = async (currentUser, targetUser) => {
   const user = currentUser;
-  user.follows.push(targetId);
+  console.log(user);
+  user.follows.push(targetUser.id);
   user.numFollows += 1;
   await client.put(`${API.USER}/${user.id}`, user);
 
-  const targetUser = await client.get(`${API.USER}/${targetId}`);
-  targetUser.subscribers.push(currentUser.id);
-  targetUser.numSubs += 1;
-  await client.put(`${API.USER}/${targetId}`, targetUser);
+  const newTargetUser = targetUser;
+  newTargetUser.subscribers.push(currentUser.id);
+  newTargetUser.numSubs += 1;
+  await client.put(`${API.USER}/${newTargetUser.id}`, newTargetUser);
   // TODO: handle response
   return user;
 };
@@ -131,18 +139,18 @@ const followUser = async (currentUser, targetId) => {
  * @param currentUser: my user object
  * @param targetId: user I unfollowed
 */
-const unfollowUser = async (currentUser, targetId) => {
+const unfollowUser = async (currentUser, targetUser) => {
   const user = currentUser;
-  const tarIndex = user.follows.indexOf(targetId);
+  const tarIndex = user.follows.indexOf(targetUser.id);
   user.follows.splice(tarIndex, 1);
   user.numFollows -= 1;
   await client.put(`${API.USER}/${user.id}`, user);
 
-  const targetUser = await client.get(`${API.USER}/${targetId}`);
+  const newTargetUser = targetUser;
   const subIndex = targetUser.subscribers.indexOf(currentUser.id);
-  targetUser.subscribers.splice(subIndex, 1);
-  targetUser.numSubs -= 1;
-  await client.put(`${API.USER}/${targetId}`, targetUser);
+  newTargetUser.subscribers.splice(subIndex, 1);
+  newTargetUser.numSubs -= 1;
+  await client.put(`${API.USER}/${newTargetUser.id}`, targetUser);
   // TODO: handle response
   return user;
 };
@@ -156,5 +164,6 @@ export default {
   followUser,
   unfollowUser,
   logout,
-  getFoSug
+  getFoSug,
+  updateUser
 };

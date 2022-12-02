@@ -166,7 +166,7 @@ function Posts(props) {
     // const numpostId = parseInt(postId, 10);
     // const params = `{"postId":${postId} }`;
     const userparams = { userId: homeStates.myUID };
-    const user = await userService.getUserById((userparams));
+    const user = await userService.getUserById(userparams);
     const post = await postsService.getPostsById(postId);
     await userService.addlike(user, postId);
     post.numLike += 1;
@@ -178,14 +178,14 @@ function Posts(props) {
   };
   const handleUnLikePost = async (event) => {
     const postId = event.currentTarget.getAttribute('data-index');
-    const numpostId = parseInt(postId, 10);
-    const params = `{"postId":${postId} }`;
+    // const numpostId = parseInt(postId, 10);
+    // const params = `{"postId":${postId} }`;
     const userparams = { userId: homeStates.myUID };
     const user = await userService.getUserById((userparams));
-    const post = await postsService.getPostsById(JSON.parse(params));
-    const pIndex = likePosts.indexOf(numpostId);
+    const post = await postsService.getPostsById(postId);
+    const pIndex = likePosts.indexOf(postId);
     likePosts.splice(pIndex, 1);
-    await userService.removeLike(user, numpostId);
+    await userService.removeLike(user, postId);
     post.numLike -= 1;
     await postsService.updatePost(post);
     setlikePosts(likePosts);
