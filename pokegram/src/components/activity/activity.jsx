@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import Activity from '../../models/activity';
 // import avatar from '../../images/pikachu.jpg';
 // import Activity from '../../models/activity';
-import ActivityService from '../../services/activityService';
+// import ActivityService from '../../services/activityService';
 
 const parseActText = (act) => {
   // const time = act.timestamp.toString();
@@ -26,30 +27,15 @@ const parseActText = (act) => {
   return '';
 };
 
-function Act() {
-  const [actList, setActList] = useState([]);
-  const firstRendering = useRef(true);
-  // console.log(props);
-
-  useEffect(() => {
-    const params = '{"userId": Charlie}';
-    async function fetchData() {
-      const data = await ActivityService.getActivityByTarget(JSON.parse(params));
-      setActList(data);
-    }
-
-    if (firstRendering.current) {
-      firstRendering.current = false;
-      fetchData();
-      // putData();
-    }
-  });
+function Act(props) {
+  const { actList } = props;
 
   return (
     <div style={{
       display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '10px'
     }}
     >
+      {actList.length === 0 && <p>No Activity at this moment</p>}
       <List key={5} sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {actList.map((act) => (
           <ListItem key={act.id} alignItems="flex-start">
@@ -80,5 +66,13 @@ function Act() {
     </div>
   );
 }
+
+Act.propTypes = {
+  actList: PropTypes.arrayOf(PropTypes.instanceOf(Activity))
+};
+
+Act.defaultProps = {
+  actList: []
+};
 
 export default { Act, parseActText };
