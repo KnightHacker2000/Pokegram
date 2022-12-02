@@ -17,12 +17,12 @@ const getCommentById = async (CommentId) => {
   }
 };
 
-const getCommentByPostId = async (postId) => {
+const getCommentByPostId = async (pid) => {
   try {
     if (!db) {
       db = dbop.getDB();
     }
-    const comments = await db.collection('comments').find({ postId: new ObjectId(postId) }).toArray();
+    const comments = await db.collection('comments').find({ postId: pid }).toArray();
     console.log(comments);
     return comments;
   } catch (err) {

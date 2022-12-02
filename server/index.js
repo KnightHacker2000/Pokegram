@@ -7,6 +7,7 @@ const actRouter = require('./routes/activityRouter');
 const postRouter = require('./routes/postRouter');
 const usrRouter = require('./routes/userRouter');
 const loginRouter = require('./routes/loginRouter');
+const commentRouter = require('./routes/commentRouter');
 
 // Create express app
 const app = express();
@@ -34,5 +35,6 @@ app.use(API.ACT, actRouter);
 app.use(API.POSTS, postRouter);
 app.use(API.USER, usrRouter);
 app.use(API.LOGIN, loginRouter);
+app.use(API.COMMENTS, commentRouter);
 
 module.exports = app;

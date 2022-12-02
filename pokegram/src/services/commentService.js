@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import PokemonClient from '../client';
 import API from '../endpoints';
 import Comments from '../models/comment';
@@ -9,12 +10,13 @@ const client = new PokemonClient();
  * @param postId: postId
 */
 const getCommentBypostId = async (postId) => {
-  const response = await client.get(`${API.COMMENTS}`);
-  const data = response.filter((comm) => comm.postId === postId);
+  console.log('entered get comment by postid');
+  const response = await client.get(`${API.COMMENTS}/post/${postId}`);
+  // const data = response.filter((comm) => comm.postId === postId);
   // console.log(data);
-  const commentsLst = data.map((comment) => {
+  const commentsLst = response.data.map((comment) => {
     const newComment = new Comments(
-      comment.id,
+      comment._id,
       comment.postId,
       new Date(comment.timestamp),
       comment.content,
@@ -24,7 +26,7 @@ const getCommentBypostId = async (postId) => {
     // console.log(newComment);
     return newComment;
   });
-  // console.log(commentsLst);
+  console.log(commentsLst);
   return commentsLst;
 };
 
@@ -33,14 +35,14 @@ const getCommentBypostId = async (postId) => {
  * @param none
 */
 const createComment = async (body) => {
-  // console.log(body);
-  const response = await client.post(`${API.COMMENTS}`, body);
+  console.log(JSON.parse(body));
+  const response = await client.post(`${API.COMMENTS}`, JSON.parse(body));
   return response;
 };
 
-const updateComment = async (body) => {
+const updateComment = async (cid, body) => {
   // console.log(body);
-  const response = await client.put(`${API.COMMENTS}/${body.id}`, body);
+  const response = await client.put(`${API.COMMENTS}/${cid}`, JSON.parse(body));
   return response;
 };
 
@@ -59,16 +61,17 @@ const deleteComment = async (commentId) => {
  * @param postId: postId
 */
 const getCommentByCommentId = async (cid) => {
-  const comment = await client.get(`${API.COMMENTS}/${cid}`);
+  const response = await client.get(`${API.COMMENTS}/${cid}`);
+  const comment = response.data;
   const newComment = new Comments(
-    comment.id,
+    comment._id,
     comment.postId,
     new Date(comment.timestamp),
     comment.content,
     comment.referredUser,
     comment.commentorid
   );
-  console.log(newComment);
+  // console.log(newComment);
   return newComment;
 };
 
