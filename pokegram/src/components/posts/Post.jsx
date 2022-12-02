@@ -92,8 +92,7 @@ function Posts(props) {
       if (homeStates.UID === -1) {
         fetchallpostsData();
       } else {
-        console.log('entered personal!');
-        fetchpostsbyusername(homeStates.myUID);
+        fetchpostsbyusername(homeStates.UID);
       }
       getUser();
       // putData();
@@ -164,15 +163,15 @@ function Posts(props) {
     // console.log(event.currentTarget.getAttribute('data-index'));
     // console.log(isLike);
     const postId = event.currentTarget.getAttribute('data-index');
-    const numpostId = parseInt(postId, 10);
-    const params = `{"postId":${postId} }`;
+    // const numpostId = parseInt(postId, 10);
+    // const params = `{"postId":${postId} }`;
     const userparams = { userId: homeStates.myUID };
     const user = await userService.getUserById((userparams));
-    const post = await postsService.getPostsById(JSON.parse(params));
-    await userService.addlike(user, numpostId);
+    const post = await postsService.getPostsById(postId);
+    await userService.addlike(user, postId);
     post.numLike += 1;
     await postsService.updatePost(post);
-    likePosts.push(numpostId);
+    likePosts.push(postId);
     setlikePosts(likePosts);
     firstRendering.current = true;
     forceUpdate();
