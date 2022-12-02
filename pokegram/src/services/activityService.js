@@ -41,7 +41,7 @@ const getActivityByTarget = async (userId) => {
 const createActivity = async (body) => {
   // TODO: replace test endpoint
   // const response = await this.client.post(API.ACT, body);
-  const response = await client.post(`${API.ACT_TEST}`, JSON.parse(body));
+  const response = await client.post(`${API.ACT}`, JSON.parse(body));
   return response;
 };
 

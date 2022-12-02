@@ -170,7 +170,7 @@ function Posts(props) {
     const userparams = { userId: homeStates.myUID };
     const user = await userService.getUserById(userparams);
     const post = await postsService.getPostsById(postId);
-    await userService.addlike(user, postId);
+    await userService.addlike(user, postId, post.username);
     const updatefileds = { numLike: post.numLike + 1 };
     await postsService.updatePost(postId, JSON.stringify(updatefileds));
     likePosts.push(postId);

@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import PokemonClient from '../client';
 import API from '../endpoints';
+import Activity from '../models/activity';
 import User from '../models/user';
+import activityService from './activityService';
 
 // const UserService = async () => {
 const client = new PokemonClient();
@@ -95,10 +97,16 @@ const updateUser = async (id, body) => {
  * @param user: user object
  * @param postId: user liked post
 */
-const addlike = async (user, postId) => {
+const addlike = async (user, postId, targetUser) => {
   console.log(user);
   user.likedPosts.push(postId);
   const response = await client.put(`${API.USER}/${user.id}`, user);
+  const tmpAct = new Activity();
+  tmpAct.initiatorId = user.id;
+  tmpAct.targetId = targetUser;
+  tmpAct.activityType = 'Like';
+  tmpAct.timestamp = Date.now();
+  await activityService.createActivity(JSON.stringify(tmpAct));
   return response;
 };
 
@@ -130,6 +138,13 @@ const followUser = async (currentUser, targetUser) => {
   newTargetUser.subscribers.push(currentUser.id);
   newTargetUser.numSubs += 1;
   await client.put(`${API.USER}/${newTargetUser.id}`, newTargetUser);
+
+  const tmpAct = new Activity();
+  tmpAct.initiatorId = currentUser.id;
+  tmpAct.targetId = targetUser.id;
+  tmpAct.activityType = 'Follow';
+  tmpAct.timestamp = Date.now();
+  await activityService.createActivity(JSON.stringify(tmpAct));
   // TODO: handle response
   return user;
 };
@@ -151,6 +166,13 @@ const unfollowUser = async (currentUser, targetUser) => {
   newTargetUser.subscribers.splice(subIndex, 1);
   newTargetUser.numSubs -= 1;
   await client.put(`${API.USER}/${newTargetUser.id}`, targetUser);
+
+  const tmpAct = new Activity();
+  tmpAct.initiatorId = currentUser.id;
+  tmpAct.targetId = targetUser.id;
+  tmpAct.activityType = 'Unfollow';
+  tmpAct.timestamp = Date.now();
+  await activityService.createActivity(JSON.stringify(tmpAct));
   // TODO: handle response
   return user;
 };
