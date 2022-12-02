@@ -9,21 +9,22 @@ let mongo;
 describe('Update a post endpoint integration test', () => {
   let res;
   let db;
-  let testpostID; // will store the id of the test post
+  let testcommentID; // will store the id of the test post
 
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    res = await request(webapp).post('/posts').send('username=testforbackendonly&timestamp=Monday&type=video');
+    res = await request(webapp).post('/comments')
+      .send('postId=63866ffd7137342a8944f054&timestamp=testMonday&content=greatwork&commentorid=Reneee');
     // get the id of the test post
     // eslint-disable-next-line no-underscore-dangle
-    testPostID = JSON.parse(res.text).post._id;
-    // console.log(`!!!${testPostID}`);
+    testcommentID = JSON.parse(res.text).activity;
+    // console.log(`!!!${testcommentID}`);
   });
 
   const clearDatabase = async () => {
     try {
-      await db.collection('posts').deleteMany({ username: 'testforbackendonly' });
+      await db.collection('comments').deleteOne({ timestamp: 'testMonday' });
     } catch (err) {
       console.log('error', err.message);
     }
@@ -43,19 +44,19 @@ describe('Update a post endpoint integration test', () => {
   });
 
   test('Endpoint status code and response async/await', async () => {
-    const resp = await request(webapp).put(`/posts/${testPostID}`).send("type=photo");
+    const resp = await request(webapp).put(`/comments/${testcommentID}`).send("content=notbad");
     expect(resp.status).toEqual(201);
     expect(resp.type).toBe('application/json');
 
     // the database was updated
-    const updatedPost = await db.collection('posts').findOne({ _id: ObjectId(testPostID) });
+    const updatedcomment = await db.collection('comments').findOne({ _id: ObjectId(testcommentID) });
     // console.log( `!!!!${JSON.stringify(updatedPost)}`)
-    expect(updatedPost.type).toEqual('photo');
+    expect(updatedcomment.content).toEqual('notbad');
   });
 
-  test('missing major 404', async () => {
-    res = await request(webapp).put(`/posts/${testpostID}`)
-      .send('name=music');
+  test('missing 404', async () => {
+    res = await request(webapp).put(`/comments/1`)
+      .send('ha');
     expect(res.status).toEqual(404);
   });
 })

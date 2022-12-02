@@ -9,6 +9,9 @@ const getActivityByUsername = async (username) => {
       db = dbop.getDB();
     }
     const actList = await db.collection('activity').find({ targetId: username }).toArray();
+    if (actList.length === 0) {
+      throw new Error('Not Found');
+    }
     return actList;
   } catch (err) {
     console.log(`error: ${err.message}`);
