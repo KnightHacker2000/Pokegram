@@ -92,8 +92,7 @@ function Posts(props) {
       if (homeStates.UID === -1) {
         fetchallpostsData();
       } else {
-        console.log('entered personal!');
-        fetchpostsbyusername(homeStates.myUID);
+        fetchpostsbyusername(homeStates.UID);
       }
       getUser();
       // putData();

@@ -25,7 +25,9 @@ import commentboxstyle from './commentboxstyle';
 
 function Comment(props) {
   const { uid, pid, handleCommentState } = props;
-  const [username, setUsername] = React.useState('');
+  // const [canEditComment, setCanEdit] = React.useState(false);
+  // console.log(uid, pid);
+  // const [username, setUsername] = React.useState('');
   const [commentList, setCommentList] = React.useState([{
     timestamp: 'November 05, 2021 14:21:00',
     content: 'i love this post again',
@@ -71,7 +73,7 @@ function Comment(props) {
   const firstRendering = useRef(true);
   useEffect(() => {
     async function fetchCommentbyPostId(postid) {
-      const data = await commentService.getCommentBypostId(parseInt(postid, 10));
+      const data = await commentService.getCommentBypostId(postid);
       setCommentList(data);
     }
 
@@ -90,18 +92,20 @@ function Comment(props) {
       // console.log(taggingUsers);
     }
 
+    /*
     async function fetchuserinfo(id) {
       const params = { userId: id };
       const user = await userService.getUserById(params);
       setUsername(user.id);
     }
+    */
 
     if (firstRendering.current) {
       firstRendering.current = false;
       fetchCommentbyPostId(pid);
-      console.log(uid);
+      // console.log(uid);
       fetchFollowers(uid);
-      fetchuserinfo(uid);
+      // fetchuserinfo(uid);
     }
   });
 
@@ -132,13 +136,19 @@ function Comment(props) {
     event.preventDefault();
     async function addComment() {
       const temp = new Comments();
-      temp.postId = parseInt(pid, 10);
+      temp.postId = pid;
       temp.timestamp = newComment.timestamp;
       temp.content = newComment.content;
       temp.referredUser = newComment.referredUser;
-      temp.commentorid = newComment.commentorid;
+      temp.commentorid = uid;
       // console.log(temp);
-      await commentService.createComment(temp);
+      await commentService.createComment(JSON.stringify({
+        postId: pid,
+        timestamp: newComment.timestamp.toString(),
+        content: newComment.content,
+        referredUser: [],
+        commentorid: uid
+      }));
     }
     await addComment();
     firstRendering.current = true;
@@ -149,8 +159,9 @@ function Comment(props) {
   const handleEditComment = async (event) => {
     event.preventDefault();
     const commentId = (event.currentTarget.getAttribute('data-index'));
+    // console.log(commentId);
     const comm = await commentService.getCommentByCommentId(commentId);
-    // console.log(comm);
+    console.log(comm);
     setEditComment(comm);
     setupdateValue(comm.content);
     forceUpdate();
@@ -166,15 +177,20 @@ function Comment(props) {
   };
   const handlefinish = async (event) => {
     async function putData() {
+      /*
       const temp = new Comments();
-      temp.postId = parseInt(pid, 10);
+      temp.postId = pid;
       temp.timestamp = editComment.timestamp;
       temp.content = editComment.content;
       temp.referredUser = editComment.referredUser;
       temp.commentorid = editComment.commentorid;
       temp.id = editComment.id;
+      */
       // console.log(temp);
-      await commentService.updateComment(temp);
+      const updatefileds = {
+        content: editComment.content
+      };
+      await commentService.updateComment(editComment.id, JSON.stringify(updatefileds));
     }
     if (event.key === 'Enter') {
       await putData();
@@ -190,7 +206,7 @@ function Comment(props) {
     if (comm.id !== editComment.id) {
       ret = (
         <ListItemText
-          primary={username}
+          primary={comm.commentorid}
           secondary={(
             <Typography
               sx={{ display: 'inline' }}
@@ -277,14 +293,16 @@ function Comment(props) {
                   <Avatar key={comm.id} alt={comm.commentorid} src="/static/images/avatar/3.jpg" />
                 </ListItemAvatar>
                 {rendercomment(comm)}
-                <ListItemButton
-                  sx={{ float: 'right' }}
-                  data-index={comm.id}
-                  data-testid="test_edit"
-                  onClick={handleEditComment}
-                >
-                  <EditIcon />
-                </ListItemButton>
+                { comm.commentorid === uid && (
+                  <ListItemButton
+                    sx={{ float: 'right' }}
+                    data-index={comm.id}
+                    data-testid="test_edit"
+                    onClick={handleEditComment}
+                  >
+                    <EditIcon />
+                  </ListItemButton>
+                )}
                 <ListItemButton
                   aria-label="delete"
                   data-testid="test_delete"
