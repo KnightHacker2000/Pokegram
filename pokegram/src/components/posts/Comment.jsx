@@ -80,15 +80,11 @@ function Comment(props) {
       // const user = await userService.getUserById(JSON.parse(params));
       // const followerid = user.follows;
       // console.log(followerid);
-      const follower = [];
+      let follower = [];
       // console.log('Getting Followers');
       userService.getUserById(params).then((data) => {
         console.log(data);
-        data.follows.forEach(async (user) => {
-          const tmpparams = { userId: user };
-          const tmp = await userService.getUserById(tmpparams);
-          follower.push({ id: user, display: tmp.id });
-        });
+        follower = data.follows;
       });
       settaggingUsers(follower);
       // console.log(taggingUsers);

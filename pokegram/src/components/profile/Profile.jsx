@@ -82,6 +82,7 @@ function Profile(props) {
   };
   const handleFollow = async (event) => {
     event.preventDefault();
+    console.log(user);
     await userService.followUser(myUser, user);
     firstRendering.current = true;
     setIsFollow(true);
@@ -104,6 +105,8 @@ function Profile(props) {
     setShowFo(false);
     forceUpdate();
   };
+
+  const getFoList = () => myUser.follows;
 
   function ConditionalRender() {
     let usersection;
@@ -163,6 +166,7 @@ function Profile(props) {
           UID={homeStates.UID}
           handleShowFo={handleShowFo}
           homeStates={homeStates}
+          foList={getFoList()}
         />
         ) }
       <Container maxWidth="lg">
