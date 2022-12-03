@@ -69,9 +69,9 @@ Users can also mention people on the comment by starting typing @.
 
 ## How to Run Locally
 - Download the project
-- We use `json-server` to mock backend, running `json-server` outside the pokegram (the current directory) with command `json-server --watch db.json --port 8000`
+- To start the backend service, cd into server directory (we put all the backend related services there) and run `npm install` to download the dependencies needed and then run  `npm start` to start the backend service
 - cd into pokegram directory by using `cd pokegram` and run `npm install` to download dependencies needed (you should have node, npm installed on your local machine). And then run `npm start` to start the frontend view
-- We use `jest` for testing and please run `jest --coverage` inside the pokegram folder to see the test result (we also attach the screenshot of our coverage in wiki page).
+- We use `jest` for backend testing and please cd into the backend directory and run `npm test` to get the test rsult (we also attach the screenshot of our coverage in wiki page).
 
 ### running `json-server`
 cd ..
