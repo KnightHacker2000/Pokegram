@@ -9,7 +9,7 @@ class API {
 
   static COMMENTS = '/comments';
 
-  static SUG_TEST = '/getFoSugByUID';
+  static SUG = '/user/FoSug';
 }
 
 export default API;

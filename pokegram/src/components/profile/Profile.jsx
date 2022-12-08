@@ -37,6 +37,7 @@ function Profile(props) {
   const [myUser, setMyUser] = useState(new User());
   const [isFollow, setIsFollow] = useState(false);
   const [showFo, setShowFo] = useState(false);
+  const [foSug, setFoSug] = useState([]);
   const [, updateState] = React.useState();
   const [childchange, setchildchange] = React.useState(false);
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -54,6 +55,7 @@ function Profile(props) {
           setIsFollow(true);
         }
       });
+      await userService.getFoSug(homeStates.UID).then((d) => { setFoSug(d.data); });
 
       // Test code for update endpoint
       // await userService.getUserById(JSON.parse(params)).then((data) => {
@@ -108,7 +110,7 @@ function Profile(props) {
     forceUpdate();
   };
 
-  const getFoList = () => myUser.follows;
+  const getFoList = () => user.follows;
 
   function ConditionalRender() {
     let usersection;
@@ -165,7 +167,7 @@ function Profile(props) {
         && (
         <Follows
           showSug={homeStates.UID === homeStates.myUID}
-          UID={homeStates.UID}
+          foSug={foSug}
           handleShowFo={handleShowFo}
           homeStates={homeStates}
           foList={getFoList()}
