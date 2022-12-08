@@ -84,8 +84,32 @@ const getUserById = async (req, res) => {
   }
 };
 
+const getFoSug = async (req, res) => {
+  try {
+    if (req.params.uid === undefined) {
+      res.status(404).json({ error: 'user id missing' });
+      return;
+    }
+
+    const result = await usrSvc.getFoSug(req.params.uid);
+    if (result === undefined) {
+      console.log('[User -- Getting follow suggestions]');
+      res.status(404).json({ error: 'bad user id' });
+      return;
+    }
+    console.log('[User -- Getting follow suggestions Success]');
+    console.log(result);
+    res.status(200).json({ data: result });
+    return;
+  } catch (err) {
+    console.log('[User -- Getting user Failed]');
+    res.status(404).json({ error: err.message });
+  }
+};
+
 module.exports = {
   createNewUser,
   updateUserById,
   getUserById,
+  getFoSug
 };

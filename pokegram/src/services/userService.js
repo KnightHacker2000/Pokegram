@@ -53,7 +53,8 @@ const register = async (body) => {
  * @param UID
 */
 const getFoSug = async (UID) => {
-  const response = await client.get(`${API.SUG_TEST}/${UID.id}`);
+  // console.log(`${API.SUG}/${UID}`);
+  const response = await client.get(`${API.SUG}/${UID}`);
   return response;
 };
 
@@ -98,7 +99,6 @@ const updateUser = async (id, body) => {
  * @param postId: user liked post
 */
 const addlike = async (user, postId, targetUser) => {
-  console.log(user);
   user.likedPosts.push(postId);
   const response = await client.put(`${API.USER}/${user.id}`, user);
   const tmpAct = new Activity();
@@ -129,7 +129,6 @@ const removeLike = async (user, postId) => {
 */
 const followUser = async (currentUser, targetUser) => {
   const user = currentUser;
-  console.log(user);
   user.follows.push(targetUser.id);
   user.numFollows += 1;
   await client.put(`${API.USER}/${user.id}`, user);
