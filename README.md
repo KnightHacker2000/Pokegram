@@ -73,6 +73,10 @@ Users can also mention people on the comment by starting typing @.
 - cd into pokegram directory by using `cd pokegram` and run `npm install` to download dependencies needed (you should have node, npm installed on your local machine). And then run `npm start` to start the frontend view
 - We use `jest` for backend testing and please cd into the backend directory and run `npm test` to get the test rsult (we also attach the screenshot of our coverage in wiki page).
 
+## Login Information
+- Please try with username `test1` and password `password` for test purpose
+- or you can choose to sign up a new user and login with corresponding username and password
+
 ### running `json-server`
 cd ..
 json-server --watch db.json --port 8000
