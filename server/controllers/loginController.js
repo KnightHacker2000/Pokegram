@@ -1,29 +1,30 @@
 const loginSvc = require('../services/loginService');
 
+
 const authAndSession = async (req, res) => {
   console.log('[Login -- Authenticating and creating new user session]');
   try {
-    // check if body is legal
-    if (
-      !req.body.id
-      || !req.body.password) {
-      console.log('[Login -- Authentication Failed: invalid body -- missing fields]');
-      res.status(404).json({ error: 'missing required credential field!' });
-      return;
+    // check if username is provided
+    if (!req.body.id) {
+      console.log('[Login -- Authentication Failed: invalid body -- missing username]');
+      res.status(404).json({ error: 'missing required username field!' });
+      res.end();
     }
 
+    // sign jwt token send to frontend
+    
     // TODO: remove explicitly passed password
-    await loginSvc.authenticate(req.body.id, req.body.password);
-    const result = await loginSvc.createNewSession();
-    console.log('[Login -- Authenticating and creating new user session Success]');
-    res.status(201).json(result);
-    return;
+    const token = await loginSvc.authenticate(req.body.id);
+    // const result = await loginSvc.createNewSession();
+    console.log('[Login -- Authenticating and creating new token Success]');
+    res.status(201).json(token);
   } catch (err) {
-    if (err.message.indexOf('Not Found') !== -1) {
-      res.status(401).json({ error: 'Password or Username incorrect!!' });
-    } else {
-      res.status(404).json({ error: err.message });
-    }
+    // if (err.message.indexOf('Not Found') !== -1) {
+    console.log(err);
+    res.status(401).json({ error: err.message });
+    // } else {
+      // res.status(404).json({ error: err.message });
+    // }
     console.log('[Login -- Authenticating and creating new user session Failed]');
   }
 };

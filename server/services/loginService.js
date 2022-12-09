@@ -1,4 +1,6 @@
 const { ObjectId } = require('mongodb');
+const { KEYS } = require('../config');;
+const jwt = require('jsonwebtoken');
 
 const dbop = require('../db');
 
@@ -26,16 +28,19 @@ const createNewSession = async () => {
   }
 };
 
-const authenticate = async (id, password) => {
+const authenticate = async (id) => {
   if (!db) {
     db = dbop.getDB();
   }
   try {
-    const res = await db.collection('cred').find({ _id: id, pass: password }).toArray();
+    
+    // find user name and return session token
+    const res = await db.collection('user').find({ _id: id}).toArray();
     if (res.length === 0) {
       throw new Error('Not Found');
     }
-    return;
+    const token = jwt.sign({uid: id}, KEYS.secret, {expiresIn: '60s'});
+    return token;
   } catch (err) {
     console.log(`error: ${err.message}`);
     throw new Error(err);

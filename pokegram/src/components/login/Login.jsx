@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -16,21 +16,34 @@ const theme = createTheme();
 
 function Login(props) {
   const { parStates } = props;
+  const [connected, setConnected] = useState(sessionStorage.getItem('app-token') !== null);
   const [user, setUser] = useState({
     username: 'test1',
     password: undefined
   });
+
+  useEffect(() => {
+    if (connected && sessionStorage.getItem('logout') === 'false') {
+      parStates.handleSetStates(true, true, user.username);
+    }
+  });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
     // testing code for state manipulation
     // console.log(props);
     try {
-      await userService.login(
-        JSON.stringify({ id: user.username, password: user.password })
-      );
+      if (
+        await userService.login(
+          JSON.stringify({ id: user.username, password: user.password })
+        ) || connected
+      ) {
+        setConnected(true);
+        sessionStorage.setItem('logout', false);
+        parStates.handleSetStates(true, true, user.username);
+      }
       // console.log(res);
-      parStates.handleSetStates(true, true, user.username);
     } catch (err) {
       console.log(err);
     }

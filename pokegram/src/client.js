@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import axios from 'axios';
 
 class PokemonClient {
@@ -8,6 +7,7 @@ class PokemonClient {
    * Generic Get request method
   */
   async get(endpoint, params) {
+    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .get(this.BACKEND_URL + endpoint, {
         params,
@@ -31,6 +31,7 @@ class PokemonClient {
     body,
     axiosParams
   ) {
+    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .post(this.BACKEND_URL + endpoint, body, {
         ...axiosParams,
@@ -50,6 +51,7 @@ class PokemonClient {
     body,
     axiosParams
   ) {
+    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .put(this.BACKEND_URL + endpoint, body, {
         ...axiosParams,
@@ -68,6 +70,7 @@ class PokemonClient {
     endpoint,
     params
   ) {
+    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .delete(this.BACKEND_URL + endpoint, {
         params

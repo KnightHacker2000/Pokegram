@@ -17,7 +17,9 @@ const login = async (body) => {
   try {
     const response = await client.post(API.LOGIN, JSON.parse(body));
     currSession = response;
-    return response;
+    // console.log(currSession);
+    sessionStorage.setItem('app-token', currSession); // store jwt token
+    return currSession;
   } catch (err) {
     throw new Error(err.response.data);
   }
