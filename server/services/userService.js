@@ -1,7 +1,11 @@
-// const { ObjectId } = require('mongodb');
 const dbop = require('../db');
+const bcrypt = require ('bcryptjs')
 
 let db = null;
+let salt = null;
+bcrypt.genSalt(10).then((data) => {
+  salt = data;
+});
 
 const getUserById = async (uid) => {
   try {
@@ -70,7 +74,10 @@ const createNewUser = async (newUser, cred) => {
   }
   try {
     const res = await db.collection('user').insertOne(newUser);
-    await db.collection('cred').insertOne(cred);
+    console.log(cred);
+    const encrypt = cred;
+    encrypt.pass = await bcrypt.hash(encrypt.pass, salt);
+    await db.collection('cred').insertOne(encrypt);
     return res;
   } catch (err) {
     console.log(`error: ${err.message}`);

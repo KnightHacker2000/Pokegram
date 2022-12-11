@@ -1,45 +1,18 @@
 const { ObjectId } = require('mongodb');
 const { KEYS } = require('../config');;
 const jwt = require('jsonwebtoken');
+const bcrypt = require ('bcryptjs')
 
 const dbop = require('../db');
 
 let db = null;
 
-const createNewSession = async () => {
+const createNewSession = async (id) => {
   if (!db) {
     db = dbop.getDB();
   }
   try {
-    let id = '';
-    for (let i = 0; i < 5; i += 1) {
-      id += Math.floor(Math.random() * 10).toString();
-    }
-    // console.log(id);
-    const newSession = {
-      sessionId: id,
-    };
-    const res = await db.collection('session').insertOne(newSession);
-    newSession.id = res.insertedId;
-    return newSession;
-  } catch (err) {
-    console.log(`error: ${err.message}`);
-    throw new Error(err);
-  }
-};
-
-const authenticate = async (id) => {
-  if (!db) {
-    db = dbop.getDB();
-  }
-  try {
-    
-    // find user name and return session token
-    const res = await db.collection('user').find({ _id: id}).toArray();
-    if (res.length === 0) {
-      throw new Error('Not Found');
-    }
-    const token = jwt.sign({uid: id}, KEYS.secret, {expiresIn: '60s'});
+    const token = jwt.sign({uid: id}, KEYS.secret, {expiresIn: 60});
     return token;
   } catch (err) {
     console.log(`error: ${err.message}`);
@@ -47,41 +20,82 @@ const authenticate = async (id) => {
   }
 };
 
-const deleteSessionById = async (id) => {
+const checkPassword = async (id, password) => {
+  if (!db) {
+    db = dbop.getDB();
+  }
   try {
-    if (!db) {
-      db = dbop.getDB();
+    const res = await db.collection('cred').find({ _id: id}).toArray();
+    if (res.length === 0) {
+      throw new Error('Not Found');
     }
-    const res = await db.collection('session').deleteOne({ _id: new ObjectId(id) }); // delete by id
-    if (res.deletedCount === 1) {
-      console.log(res);
-      return;
-    }
-    if (res.deletedCount === 0) {
-      throw new Error('Unable to match activity record');
-    }
+    const val = await bcrypt.compare(password, res[0].pass);
+    return val;    
   } catch (err) {
-    console.log(`error: ${(err.message)}`);
+    console.log(`error: ${err.message}`);
     throw new Error(err);
   }
 };
 
-const clearSessions = async () => {
+
+const authenticate = async (token) => {
+  if (!db) {
+    db = dbop.getDB();
+  }
   try {
-    if (!db) {
-      db = dbop.getDB();
+    console.log(token);
+    if (token === null) {
+      return false;
     }
-    await db.collection('session').deleteMany({}); // delete by id
-    return;
+    const decoded = jwt.verify(token, KEYS.secret);
+    // find user name and return session token
+    const res = await db.collection('user').find({ _id: decoded.uid}).toArray();
+    if (res.length === 0) {
+      return false;
+    }
+    return true;
   } catch (err) {
-    console.log(`error: ${(err.message)}`);
-    throw new Error(err);
+    console.log(`error: ${err.message}`);
+    return false;
   }
 };
+
+// const deleteSessionById = async (id) => {
+//   try {
+//     if (!db) {
+//       db = dbop.getDB();
+//     }
+//     const res = await db.collection('session').deleteOne({ _id: new ObjectId(id) }); // delete by id
+//     if (res.deletedCount === 1) {
+//       console.log(res);
+//       return;
+//     }
+//     if (res.deletedCount === 0) {
+//       throw new Error('Unable to match activity record');
+//     }
+//   } catch (err) {
+//     console.log(`error: ${(err.message)}`);
+//     throw new Error(err);
+//   }
+// };
+
+// const clearSessions = async () => {
+//   try {
+//     if (!db) {
+//       db = dbop.getDB();
+//     }
+//     await db.collection('session').deleteMany({}); // delete by id
+//     return;
+//   } catch (err) {
+//     console.log(`error: ${(err.message)}`);
+//     throw new Error(err);
+//   }
+// };
 
 module.exports = {
   createNewSession,
-  deleteSessionById,
-  clearSessions,
+  // deleteSessionById,
+  // clearSessions,
+  checkPassword,
   authenticate,
 };

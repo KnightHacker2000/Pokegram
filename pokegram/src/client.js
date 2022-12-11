@@ -1,4 +1,5 @@
 import axios from 'axios';
+import reAuthenticate from './services/authHelper';
 
 class PokemonClient {
   BACKEND_URL = 'http://localhost:8080';
@@ -7,18 +8,19 @@ class PokemonClient {
    * Generic Get request method
   */
   async get(endpoint, params) {
-    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .get(this.BACKEND_URL + endpoint, {
         params,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT,REQUEST,PATCH'
+          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT,REQUEST,PATCH',
+          Authorization: (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null
         }
       })
       .then((response) => response.data)
       .catch((error) => {
+        reAuthenticate(error);
         throw error;
       });
   }
@@ -31,14 +33,19 @@ class PokemonClient {
     body,
     axiosParams
   ) {
-    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .post(this.BACKEND_URL + endpoint, body, {
         ...axiosParams,
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT,REQUEST,PATCH',
+          Authorization: (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null
+        }
       })
       .then((response) => response.data)
       .catch((error) => {
+        reAuthenticate(error);
         throw (error);
       });
   }
@@ -51,14 +58,17 @@ class PokemonClient {
     body,
     axiosParams
   ) {
-    axios.defaults.headers.common.Authorization = (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null;
     return axios
       .put(this.BACKEND_URL + endpoint, body, {
         ...axiosParams,
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null
+        }
       })
       .then((response) => response.data)
       .catch((error) => {
+        reAuthenticate(error);
         throw (error);
       });
   }
@@ -77,6 +87,7 @@ class PokemonClient {
       })
       .then((response) => response.data)
       .catch((error) => {
+        reAuthenticate(error);
         throw (error);
       });
   }
