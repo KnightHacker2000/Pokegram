@@ -50,6 +50,7 @@ function ResponsiveAppBar(props) {
         break;
       // set logout
       case pages[2]:
+        sessionStorage.setItem('logout', true);
         homeStates.handleHomeStates(true, false, false, false, false, homeStates.myUID);
         break;
       default:

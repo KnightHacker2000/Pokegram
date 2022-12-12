@@ -1,102 +1,59 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-// import {
-//   useEffect, useRef
-// } from 'react';
 import {
   Box, Container
 } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-// import Divider from '@mui/material/Divider';
+import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import ClearIcon from '@mui/icons-material/Clear';
-// import userService from '../../services/userService';
 import HomeState from '../../models/homeState';
 
 function Follows(props) {
   const {
-    showSug, UID, handleShowFo, homeStates, foList
+    showSug, handleShowFo, foSug, homeStates, foList
   } = props;
-  console.log(showSug, UID, homeStates);
-  // const [, setFoList] = useState(false);
-  // const [sugObj, setSugObj] = useState({});
-  // const [sugObj] = useState({});
-
-  // const firstRendering = useRef(true);
-  // useEffect(async () => {
-  //   // async function fetchFoSugbyUID(id) {
-  //   //   let params = { userId: id };
-  //   //   // const foList = await userService.getUserById((params));
-  //   //   // console.log(foList.follows);
-  //   //   // params = `{"id":${id} }`;
-  //   //   // const arr = [];
-  //   //   // await userService.getFoSug(JSON.parse(params)).then((data) => {
-  //   //   //   data.users.forEach(async (user) => {
-  //   //   //     // console.log(user);
-  //   //   //     params = { userId: user };
-  //   //   //     const tmp = await userService.getUserById((params));
-  //   //   //     arr.push(tmp.username);
-  //   //   //   });
-  //   //   //   setSugObj({ id: data.users, usernames: arr, foList: foList.follows });
-  //   //   // });
-
-  //   //   // tempo fosug
-  //   //   const tmp = sugObj;
-  //   //   tmp.foList = foList.follows;
-  //   //   setSugObj(tmp);
-  //   // }
-
-  //   if (firstRendering.current) {
-  //     firstRendering.current = false;
-  //     // hardcoded UID, use UID prop in the fut
-  //     // await fetchFoSugbyUID(UID);
-  //     // setFoList(true);
-  //   }
-  // });
 
   const handleClear = () => {
     handleShowFo();
   };
 
-  // const handleClick = (event) => {
-  //   event.preventDefault();
-  //   const otherUID = event.currentTarget.getAttribute('data-index');
-  //   homeStates.handleHomeStates(false, true, false, false, false, otherUID);
-  //   handleClear();
-  // };
+  const handleClick = (event) => {
+    event.preventDefault();
+    const otherUID = event.currentTarget.getAttribute('data-index');
+    homeStates.handleHomeStates(false, true, false, false, false, otherUID);
+    handleClear();
+  };
 
-  // const foSug = (s) => {
-  //   const prompt = <p>Follower Suggestions For You:</p>;
-  //   let listing;
-  //   console.log(sugObj);
-  //   if (s.id.length === 0) {
-  //     listing = <p>No Suggestions</p>;
-  //   } else {
-  //     listing = s.id.map((ele, i) => (
-  //       <ListItem key={Math.random()}>
-  //         <ListItemAvatar key={Math.random()} onClick={handleClick} data-index={ele}>
-  //           <Avatar alt={s.usernames[i]} src="/static/images/avatar/3.jpg" />
-  //         </ListItemAvatar>
-  //         <ListItemText
-  //           primary={ele}
-  //         />
-  //       </ListItem>
-  //     ));
-  //   }
-  //   return (
-  //     <div>
-  //       {prompt}
-  //       {listing}
-  //     </div>
-  //   );
-  // };
+  const renderFoSug = () => {
+    const prompt = <p>Follower Suggestions For You:</p>;
+    let listing;
+    if (foSug.length === 0) {
+      listing = <p>No Suggestions</p>;
+    } else {
+      listing = foSug.map((ele) => (
+        <ListItem key={Math.random()}>
+          <ListItemAvatar key={Math.random()} onClick={handleClick} data-index={ele}>
+            <Avatar alt={ele} src="/static/images/avatar/3.jpg" />
+          </ListItemAvatar>
+          <ListItemText
+            primary={ele}
+          />
+        </ListItem>
+      ));
+    }
+    return (
+      <div>
+        {prompt}
+        {listing}
+      </div>
+    );
+  };
 
   const getfoList = () => {
-    // console.log(sugObj.foList);
-
     const prompt = <p>Following: </p>;
     let listing;
     if (foList.length === 0) {
@@ -154,8 +111,8 @@ function Follows(props) {
             <ClearIcon sx={{ width: '200%' }} onClick={handleClear} />
           </Box>
           <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            {/* {showSug && sugObj.foList.length > 0 && foSug(sugObj)} */}
-            {/* <Divider /> */}
+            {showSug && renderFoSug()}
+            <Divider />
             {getfoList()}
           </List>
         </Container>
@@ -166,18 +123,18 @@ function Follows(props) {
 
 Follows.propTypes = {
   showSug: PropTypes.bool,
-  UID: PropTypes.string,
   handleShowFo: PropTypes.func,
   homeStates: PropTypes.instanceOf(HomeState),
-  foList: PropTypes.arrayOf(PropTypes.string)
+  foList: PropTypes.arrayOf(PropTypes.string),
+  foSug: PropTypes.arrayOf(PropTypes.string)
 };
 
 Follows.defaultProps = {
   showSug: false,
-  UID: -1,
   handleShowFo: null,
   homeStates: null,
-  foList: null
+  foList: null,
+  foSug: null
 };
 
 export default Follows;

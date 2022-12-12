@@ -1,4 +1,5 @@
 const usrSvc = require('../services/userService');
+const loginSvc = require('../services/loginService');
 
 const createNewUser = async (req, res) => {
   console.log('[User -- Registration/Creating new user]');
@@ -34,8 +35,12 @@ const createNewUser = async (req, res) => {
     );
     console.log('[User -- Creating new User Success]');
     console.log(`id: ${JSON.stringify(result)}`);
-
-    res.status(201).json(newUser);
+    const token = await loginSvc.createNewSession(req.body.id);
+    
+    res.status(201).json({
+      user: newUser,
+      token
+    });
   } catch (err) {
     if (err.message.indexOf('11000') !== -1) {
       res.status(409).json({ error: `A user already exists with username '${req.body.id}'` });
@@ -84,8 +89,32 @@ const getUserById = async (req, res) => {
   }
 };
 
+const getFoSug = async (req, res) => {
+  try {
+    if (req.params.uid === undefined) {
+      res.status(404).json({ error: 'user id missing' });
+      return;
+    }
+
+    const result = await usrSvc.getFoSug(req.params.uid);
+    if (result === undefined) {
+      console.log('[User -- Getting follow suggestions]');
+      res.status(404).json({ error: 'bad user id' });
+      return;
+    }
+    console.log('[User -- Getting follow suggestions Success]');
+    console.log(result);
+    res.status(200).json({ data: result });
+    return;
+  } catch (err) {
+    console.log('[User -- Getting user Failed]');
+    res.status(404).json({ error: err.message });
+  }
+};
+
 module.exports = {
   createNewUser,
   updateUserById,
   getUserById,
+  getFoSug
 };

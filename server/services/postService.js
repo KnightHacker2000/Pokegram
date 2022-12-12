@@ -38,7 +38,7 @@ const getAllPosts = async () => {
       db = dbop.getDB();
     }
     const posts = await db.collection('posts').find({}).toArray();
-    console.log(posts);
+    // console.log(posts);
     return posts;
   } catch (err) {
     console.log(`error: ${err.message}`);
