@@ -8,7 +8,6 @@ import Posts from '../posts/Post';
 import Upload from '../posts/Upload';
 import RootState from '../../models/rootState';
 import HomeState from '../../models/homeState';
-import userService from '../../services/userService';
 import ActivityService from '../../services/activityService';
 
 function Home(props) {
@@ -45,7 +44,7 @@ function Home(props) {
 
     // handle log out
     if (isLogOut) {
-      userService.logout();
+      // userService.logout();
       parStates.handleSetStates(false, true, '');
     }
   };

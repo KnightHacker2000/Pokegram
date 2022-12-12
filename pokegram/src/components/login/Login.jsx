@@ -18,7 +18,7 @@ function Login(props) {
   const { parStates } = props;
   const [connected, setConnected] = useState(sessionStorage.getItem('app-token') !== null);
   const [user, setUser] = useState({
-    username: 'test1',
+    username: sessionStorage.getItem('uid') == null ? 'test1' : sessionStorage.getItem('uid'),
     password: undefined
   });
 
@@ -35,9 +35,9 @@ function Login(props) {
     // console.log(props);
     try {
       if (
-        await userService.login(
+        connected || await userService.login(
           JSON.stringify({ id: user.username, password: user.password })
-        ) || connected
+        )
       ) {
         setConnected(true);
         sessionStorage.setItem('logout', false);

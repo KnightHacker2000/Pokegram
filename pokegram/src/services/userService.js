@@ -15,9 +15,11 @@ let currSession = null;
 */
 const login = async (body) => {
   try {
-    const response = await client.post(API.LOGIN, JSON.parse(body));
+    const newBody = JSON.parse(body);
+    const response = await client.post(API.LOGIN, newBody);
     currSession = response;
     sessionStorage.setItem('app-token', currSession); // store jwt token
+    sessionStorage.setItem('uid', newBody.id);
     return currSession;
   } catch (err) {
     console.log(err);
@@ -31,6 +33,8 @@ const login = async (body) => {
 */
 const logout = async () => {
   sessionStorage.removeItem('app-token');
+  sessionStorage.setItem('logout', true);
+  sessionStorage.removeItem('uid');
   return sessionStorage;
 };
 
