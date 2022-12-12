@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "aws-sdk": "^2.1270.0",
     "axios": "^1.1.2",
     "axios-mock-adapter": "^1.21.2",
     "bcryptjs": "^2.4.3",
@@ -64,6 +65,9 @@
     "react-router-dom": "^6.4.2"
   },
   "browser": {
-      "crypto": false
+    "fs": false,
+    "os": false,
+    "path": false,
+    "crypto": false
   }
 }

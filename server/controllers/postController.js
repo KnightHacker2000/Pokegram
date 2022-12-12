@@ -89,6 +89,7 @@ const createNewPost = async (req, res) => {
     description: req.body.description,
     commentRefs: req.body.commentRefs,
     users: req.body.users,
+    hide: req.body.hide
   };
   try {
     const result = await postSvc.createPost(newPost);
