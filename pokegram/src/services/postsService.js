@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
+import uploadservice from './s3filestorage';
 import PokemonClient from '../client';
 import API from '../endpoints';
 import Posts from '../models/post';
@@ -77,13 +79,41 @@ const getAllPosts = async () => {
   return postsLst;
 };
 
+const getFile = (file) => new Promise((resolve) => {
+  const fileReader = new FileReader();
+  /*
+  fileReader.readAsBinaryString(file);
+  fileReader.onloadend = () => {
+    const testResult = fileReader.result.toString();
+    resolve(testResult);
+  };
+  */
+  fileReader.onload = (event) => {
+    const arrayBuffer = event.target.result;
+    resolve(arrayBuffer);
+  };
+  fileReader.readAsArrayBuffer(file);
+});
+
 /**
  * register user API endpoint
  * @param none
 */
 const createPost = async (body) => {
-  const response = await client.post(`${API.POSTS}`, JSON.parse(body));
+  const jsonbody = JSON.parse(body);
+  const response = await client.post(`${API.POSTS}`, jsonbody);
   return response;
+};
+
+const uploadtoS3 = async (body) => {
+  const jsonbody = JSON.parse(body);
+  const blobfile = await fetch(jsonbody.content_url).then(
+    (r) => r.blob()
+  ).then(
+    (blobFile) => new File([blobFile], 'test', { type: 'image/png' })
+  );
+  const content = await getFile(blobfile);
+  uploadservice.uploadFile('test', content);
 };
 
 /**
@@ -112,5 +142,6 @@ export default {
   getAllPosts,
   createPost,
   updatePost,
-  deletePost
+  deletePost,
+  uploadtoS3
 };
