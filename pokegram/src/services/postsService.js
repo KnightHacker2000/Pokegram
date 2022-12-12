@@ -13,7 +13,7 @@ const client = new PokemonClient();
  * @param param: post id
 */
 const getPostsById = async (postId) => {
-  console.log(postId);
+  // console.log(postId);
   const response = await client.get(`${API.POSTS}/${postId}`);
   const pos = response.data;
   // const posts = response.posts;
@@ -26,7 +26,8 @@ const getPostsById = async (postId) => {
     pos.numLike,
     pos.description,
     pos.commentRefs,
-    pos.users
+    pos.users,
+    pos.hide
   );
   return newPost;
 };
@@ -48,7 +49,8 @@ const getPostsByUserName = async (userName) => {
       pos.numLike,
       pos.description,
       pos.commentRefs,
-      pos.users
+      pos.users,
+      pos.hide
     );
     return newPost;
   });
@@ -63,20 +65,27 @@ const getAllPosts = async () => {
   // console.log(response);
   // const posts = response.posts;
   const postsLst = response.data.map((pos) => {
-    const newPost = new Posts(
-      pos._id,
-      pos.username,
-      new Date(pos.timestamp),
-      pos.type,
-      pos.content_url,
-      pos.numLike,
-      pos.description,
-      pos.commentRefs,
-      pos.users
-    );
-    return newPost;
+    // console.log(pos);
+    if (pos.hide === false) {
+      const newPost = new Posts(
+        pos._id,
+        pos.username,
+        new Date(pos.timestamp),
+        pos.type,
+        pos.content_url,
+        pos.numLike,
+        pos.description,
+        pos.commentRefs,
+        pos.users,
+        pos.hide
+      );
+      return newPost;
+    }
+    return null;
   });
-  return postsLst;
+  // console.log(postsLst);
+  const results = postsLst.filter((element) => element !== null);
+  return results;
 };
 
 const getFile = (file) => new Promise((resolve) => {

@@ -16,6 +16,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditIcon from '@mui/icons-material/Edit';
+import HideSourceIcon from '@mui/icons-material/HideSource';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -32,8 +33,8 @@ const theme = createTheme();
 function Posts(props) {
   const { homeStates, ischange } = props;
   // console.log(homeStates);
-  // console.log(homeStates.myUID);
-  // console.log(homeStates.UID);
+  console.log(homeStates.myUID);
+  console.log(homeStates.UID);
   const [postList, setPostList] = useState([{
     id: 1,
     username: 'Rachel',
@@ -51,7 +52,8 @@ function Posts(props) {
       1234,
       5678,
       9101
-    ]
+    ],
+    hide: false
   }]);
   // const [postList, setPostList] = useState([]);
   const [numposts, setNumposts] = useState(0);
@@ -243,6 +245,46 @@ function Posts(props) {
     return ret;
   }
 
+  const handleHideClick = async (event) => {
+    // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
+    event.preventDefault();
+    const postid = event.currentTarget.getAttribute('data-index');
+    const post = await postsService.getPostsById(postid);
+    const updatehide = !post.hide;
+    const updatefileds = { hide: updatehide };
+    await postsService.updatePost(postid, JSON.stringify(updatefileds));
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
+  function clickbutton(hideflag, postId) {
+    console.log(hideflag);
+    let ret;
+    if (hideflag === false) {
+      ret = (
+        <IconButton
+          aria-label="click to hide"
+          onClick={handleHideClick}
+          data-index={postId}
+        >
+          <HideSourceIcon />
+        </IconButton>
+      );
+    } else {
+      ret = (
+        <IconButton
+          sx={{ color: 'red' }}
+          aria-label="click to hide"
+          onClick={handleHideClick}
+          data-index={postId}
+        >
+          <HideSourceIcon />
+        </IconButton>
+      );
+    }
+    return ret;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
@@ -304,6 +346,7 @@ function Posts(props) {
                       <DeleteIcon />
                     </IconButton>
                   )}
+                  { post.username === homeStates.myUID && clickbutton(post.hide, post.id)}
                 </CardActions>
               </Card>
             </Grid>
