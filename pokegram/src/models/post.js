@@ -17,7 +17,9 @@ class Posts {
 
   users;
 
-  constructor(id, user, time, type, url, likes, desc, comment, tag) {
+  hide;
+
+  constructor(id, user, time, type, url, likes, desc, comment, tag, hide) {
     this.id = id;
     this.username = user;
     this.timestamp = time;
@@ -27,6 +29,7 @@ class Posts {
     this.description = desc;
     this.commentRefs = comment;
     this.users = tag;
+    this.hide = hide;
   }
 }
 

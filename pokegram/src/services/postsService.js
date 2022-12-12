@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
+import uploadservice from './s3filestorage';
 import PokemonClient from '../client';
 import API from '../endpoints';
 import Posts from '../models/post';
@@ -11,7 +13,7 @@ const client = new PokemonClient();
  * @param param: post id
 */
 const getPostsById = async (postId) => {
-  console.log(postId);
+  // console.log(postId);
   const response = await client.get(`${API.POSTS}/${postId}`);
   const pos = response.data;
   // const posts = response.posts;
@@ -24,7 +26,8 @@ const getPostsById = async (postId) => {
     pos.numLike,
     pos.description,
     pos.commentRefs,
-    pos.users
+    pos.users,
+    pos.hide
   );
   return newPost;
 };
@@ -46,7 +49,8 @@ const getPostsByUserName = async (userName) => {
       pos.numLike,
       pos.description,
       pos.commentRefs,
-      pos.users
+      pos.users,
+      pos.hide
     );
     return newPost;
   });
@@ -61,29 +65,64 @@ const getAllPosts = async () => {
   // console.log(response);
   // const posts = response.posts;
   const postsLst = response.data.map((pos) => {
-    const newPost = new Posts(
-      pos._id,
-      pos.username,
-      new Date(pos.timestamp),
-      pos.type,
-      pos.content_url,
-      pos.numLike,
-      pos.description,
-      pos.commentRefs,
-      pos.users
-    );
-    return newPost;
+    // console.log(pos);
+    if (pos.hide === false) {
+      const newPost = new Posts(
+        pos._id,
+        pos.username,
+        new Date(pos.timestamp),
+        pos.type,
+        pos.content_url,
+        pos.numLike,
+        pos.description,
+        pos.commentRefs,
+        pos.users,
+        pos.hide
+      );
+      return newPost;
+    }
+    return null;
   });
-  return postsLst;
+  // console.log(postsLst);
+  const results = postsLst.filter((element) => element !== null);
+  return results;
 };
+
+const getFile = (file) => new Promise((resolve) => {
+  const fileReader = new FileReader();
+  /*
+  fileReader.readAsBinaryString(file);
+  fileReader.onloadend = () => {
+    const testResult = fileReader.result.toString();
+    resolve(testResult);
+  };
+  */
+  fileReader.onload = (event) => {
+    const arrayBuffer = event.target.result;
+    resolve(arrayBuffer);
+  };
+  fileReader.readAsArrayBuffer(file);
+});
 
 /**
  * register user API endpoint
  * @param none
 */
 const createPost = async (body) => {
-  const response = await client.post(`${API.POSTS}`, JSON.parse(body));
+  const jsonbody = JSON.parse(body);
+  const response = await client.post(`${API.POSTS}`, jsonbody);
   return response;
+};
+
+const uploadtoS3 = async (body) => {
+  const jsonbody = JSON.parse(body);
+  const blobfile = await fetch(jsonbody.content_url).then(
+    (r) => r.blob()
+  ).then(
+    (blobFile) => new File([blobFile], 'test', { type: 'image/png' })
+  );
+  const content = await getFile(blobfile);
+  uploadservice.uploadFile('test', content);
 };
 
 /**
@@ -112,5 +151,6 @@ export default {
   getAllPosts,
   createPost,
   updatePost,
-  deletePost
+  deletePost,
+  uploadtoS3
 };

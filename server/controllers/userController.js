@@ -1,4 +1,5 @@
 const usrSvc = require('../services/userService');
+const loginSvc = require('../services/loginService');
 
 const createNewUser = async (req, res) => {
   console.log('[User -- Registration/Creating new user]');
@@ -34,8 +35,12 @@ const createNewUser = async (req, res) => {
     );
     console.log('[User -- Creating new User Success]');
     console.log(`id: ${JSON.stringify(result)}`);
-
-    res.status(201).json(newUser);
+    const token = await loginSvc.createNewSession(req.body.id);
+    
+    res.status(201).json({
+      user: newUser,
+      token
+    });
   } catch (err) {
     if (err.message.indexOf('11000') !== -1) {
       res.status(409).json({ error: `A user already exists with username '${req.body.id}'` });

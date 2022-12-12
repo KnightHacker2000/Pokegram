@@ -15,10 +15,14 @@ let currSession = null;
 */
 const login = async (body) => {
   try {
-    const response = await client.post(API.LOGIN, JSON.parse(body));
+    const newBody = JSON.parse(body);
+    const response = await client.post(API.LOGIN, newBody);
     currSession = response;
-    return response;
+    sessionStorage.setItem('app-token', currSession); // store jwt token
+    sessionStorage.setItem('uid', newBody.id);
+    return currSession;
   } catch (err) {
+    console.log(err);
     throw new Error(err.response.data);
   }
 };
@@ -28,11 +32,10 @@ const login = async (body) => {
  * @param none
 */
 const logout = async () => {
-  await client.delete(`${API.LOGIN}/${currSession.id}`);
-  // const sessionsIdsArray = (sessions.map((session) => session.id));
-  // console.log(sessionsIdsArray);
-  // sessionsIdsArray.forEach(async (id) => client.delete(`${API.LOGIN}/${id}`));
-  return '200';
+  sessionStorage.removeItem('app-token');
+  sessionStorage.setItem('logout', true);
+  sessionStorage.removeItem('uid');
+  return sessionStorage;
 };
 
 /**
@@ -42,6 +45,7 @@ const logout = async () => {
 const register = async (body) => {
   try {
     const response = await client.post(`${API.USER}`, JSON.parse(body));
+    sessionStorage.setItem('app-token', response.token); // store jwt token
     return response;
   } catch (err) {
     throw new Error(err.response.data.error);

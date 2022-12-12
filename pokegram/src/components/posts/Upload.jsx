@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import {
@@ -30,7 +29,8 @@ function Upload(props) {
     numLike: 0,
     description: '',
     commentRefs: [],
-    users: []
+    users: [],
+    hide: false
   });
   const inputRef = useRef();
   const firstRendering = useRef(true);
@@ -159,6 +159,7 @@ function Upload(props) {
       temp.commentRefs = newpost.commentRefs;
       temp.users = newpost.users;
       temp.timestamp = temp.timestamp.toString();
+      temp.hide = false;
       await postsService.createPost(JSON.stringify({
         username: homeStates.myUID,
         timestamp: newpost.timestamp.toString(),
@@ -167,7 +168,8 @@ function Upload(props) {
         numLike: 0,
         description: newpost.description,
         commentRefs: newpost.commentRefs,
-        users: newpost.users
+        users: newpost.users,
+        hide: false
       }));
       const updatefileds = { numPosts: numposts + 1 };
       await userService.updateUser(homeStates.myUID, updatefileds);
