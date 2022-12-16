@@ -8,6 +8,7 @@ const SECRET = 'OwD9zx0QRqd4GKqag2wu3pNn8cJPYofKREv59Ntw';
 const BUCKET_NAME = '557pokemonstorage';
 
 const s3 = new AWS.S3({
+  
   accessKeyId: ID,
   secretAccessKey: SECRET
 });

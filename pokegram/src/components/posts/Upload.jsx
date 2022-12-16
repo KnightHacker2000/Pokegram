@@ -11,6 +11,7 @@ import Posts from '../../models/post';
 import postsService from '../../services/postsService';
 import HomeState from '../../models/homeState';
 import userService from '../../services/userService';
+import loading from '../../images/loading2.gif';
 
 // const theme = createTheme();
 function Upload(props) {
@@ -18,6 +19,7 @@ function Upload(props) {
   // console.log(homeStates);
   const [type, setType] = useState('photo');
   const [source, setSource] = useState();
+  const [uploading, setUploading] = useState(false);
   const [foList, setFoList] = useState([]);
   const [numposts, setNumposts] = useState(0);
   const [taggedUsers, settaggedUsers] = useState([]);
@@ -177,6 +179,7 @@ function Upload(props) {
     event.preventDefault();
     // console.log('entered create post');
     async function putData() {
+      setUploading(true);
       const ts3url = `https://557pokemonstorage.s3.amazonaws.com/${selectedFile.name}`;
       await postsService.uploadtoS3(selectedFile);
       const temp = new Posts();
@@ -237,6 +240,38 @@ function Upload(props) {
 
   return (
     <Container maxWidth="lg">
+      { uploading && (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        background: 'rgba(90, 90, 90, 0.2)',
+        zIndex: 99
+      }}
+      >
+        <div style={{
+          zIndex: 99,
+          display: 'flex',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginTop: 'auto',
+          marginBottom: 'auto',
+          alignItems: 'center',
+          background: 'transparent',
+          border: '1px solid rgba(0, 0, 0, 0.05)',
+          borderRadius: '10px',
+          height: 'max-content'
+        }}
+        >
+          <img src={loading} alt="loading..." />
+        </div>
+      </div>
+      )}
       <Box
         sx={{
           mx: 2, p: 1, alignItems: 'center'

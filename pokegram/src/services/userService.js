@@ -22,8 +22,11 @@ const login = async (body) => {
     sessionStorage.setItem('uid', newBody.id);
     return currSession;
   } catch (err) {
-    console.log(err);
-    throw new Error(err.response.data);
+    if (err.response.data.error === 'failed authentication') {
+      throw new Error('bad auth');
+    } else {
+      throw new Error(err);
+    }
   }
 };
 

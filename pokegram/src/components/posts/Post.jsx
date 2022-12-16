@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import {
+  useState, useEffect, useRef
+} from 'react';
 // import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -20,6 +22,8 @@ import HideSourceIcon from '@mui/icons-material/HideSource';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import postsService from '../../services/postsService';
 import userService from '../../services/userService';
 // import pokemon from '../../images/pikachu.jpg';
@@ -29,12 +33,13 @@ import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
 
 const theme = createTheme();
+const MySwal = withReactContent(Swal);
 
 function Posts(props) {
   const { homeStates, ischange } = props;
   // console.log(homeStates);
-  console.log(homeStates.myUID);
-  console.log(homeStates.UID);
+  // console.log(homeStates.myUID);
+  // console.log(homeStates.UID);
   const [postList, setPostList] = useState([{
     id: 1,
     username: 'Rachel',
@@ -55,6 +60,7 @@ function Posts(props) {
     ],
     hide: false
   }]);
+
   // const [postList, setPostList] = useState([]);
   const [numposts, setNumposts] = useState(0);
   const [renderEdit, setrenderEdit] = useState(false);
@@ -91,6 +97,21 @@ function Posts(props) {
       setNumposts(user.numPosts);
     }
 
+    async function polling() {
+      firstRendering.current = false;
+      if (homeStates.UID === -1) {
+        await fetchallpostsData();
+      } else {
+        try {
+          await fetchpostsbyusername(homeStates.UID);
+        } catch (err) {
+          MySwal.fire('Unexpected error, please try again!');
+        }
+      }
+      await getUser();
+      setTimeout(polling, 5000);
+    }
+
     if (firstRendering.current) {
       firstRendering.current = false;
       if (homeStates.UID === -1) {
@@ -99,24 +120,35 @@ function Posts(props) {
         fetchpostsbyusername(homeStates.UID);
       }
       getUser();
+      setTimeout(polling, 5000);
+      // useInterval(fetchallpostsData, 5000);
       // putData();
     }
-    /*
-    let timesRun = 0;
-    const interval = setInterval(() => {
-      timesRun += 1;
-      if (timesRun === 60) {
-        clearInterval(interval);
-      }
-      firstRendering.current = false;
-      if (homeStates.UID === -1) {
-        fetchallpostsData();
-      } else {
-        fetchpostsbyusername(homeStates.UID);
-      }
-      getUser();
-    }, 5000);
-    */
+
+    // let timesRun = 0;
+    // const interval = setInterval(() => {
+    //   timesRun += 1;
+    //   if (timesRun === 60) {
+    //     clearInterval(interval);
+    //   }
+    //   console.log(timesRun);
+    //   try {
+    //     fetchallpostsData();
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // firstRendering.current = false;
+    // if (homeStates.UID === -1) {
+    //   fetchallpostsData();
+    // } else {
+    //   try {
+    //     fetchpostsbyusername(homeStates.UID);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    // getUser();
+    // }, 5000);
   });
 
   function rendermedia(post) {
@@ -274,7 +306,7 @@ function Posts(props) {
   };
 
   function clickbutton(hideflag, postId) {
-    console.log(hideflag);
+    // console.log(hideflag);
     let ret;
     if (hideflag === false) {
       ret = (
