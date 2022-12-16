@@ -209,9 +209,12 @@ function Upload(props) {
     }
     await putData();
     // frontendUploads3();
+    /*
     setTimeout(() => {
       homeStates.handleHomeStates(false, false, false, false, true, -1);
     }, 5000);
+    */
+    homeStates.handleHomeStates(false, false, false, false, true, -1);
   };
 
   const handleContent = (event) => {

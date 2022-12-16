@@ -1,6 +1,7 @@
 const postSvc = require('../services/postService');
 const uploadSvc = require('../services/s3filestorage.js');
 const formidable = require('formidable');
+const jwt = require('jsonwebtoken');
 
 const getPostByPostId = async (req, res) => {
   console.log('[Post -- Getting post by post id]');
