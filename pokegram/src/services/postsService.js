@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
-import uploadservice from './s3filestorage';
 import PokemonClient from '../client';
 import API from '../endpoints';
 import Posts from '../models/post';
@@ -88,22 +86,6 @@ const getAllPosts = async () => {
   return results;
 };
 
-const getFile = (file) => new Promise((resolve) => {
-  const fileReader = new FileReader();
-  /*
-  fileReader.readAsBinaryString(file);
-  fileReader.onloadend = () => {
-    const testResult = fileReader.result.toString();
-    resolve(testResult);
-  };
-  */
-  fileReader.onload = (event) => {
-    const arrayBuffer = event.target.result;
-    resolve(arrayBuffer);
-  };
-  fileReader.readAsArrayBuffer(file);
-});
-
 /**
  * register user API endpoint
  * @param none
@@ -115,14 +97,29 @@ const createPost = async (body) => {
 };
 
 const uploadtoS3 = async (body) => {
-  const jsonbody = JSON.parse(body);
-  const blobfile = await fetch(jsonbody.content_url).then(
-    (r) => r.blob()
-  ).then(
-    (blobFile) => new File([blobFile], 'test', { type: 'image/png' })
-  );
-  const content = await getFile(blobfile);
-  uploadservice.uploadFile('test', content);
+  // console.log('entered uploadtoS3 front-to-backend');
+  const formData = new FormData();
+  formData.append(`${body.name}`, body);
+  // console.log(...formData);
+  const res = await client.posts3(`${API.POSTS}/uploads3`, formData);
+  /*
+  const res = await axios.post(
+    'http://localhost:8080/posts/uploads3',
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: (sessionStorage.getItem('app-token') !== null) ?
+         sessionStorage.getItem('app-token') : null
+      }
+    }
+  ).then((response) => response.data)
+    .catch((error) => {
+      reAuthenticate(error);
+      throw (error);
+    });
+  */
+  return res;
 };
 
 /**

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+// import AWS from 'aws-sdk';
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Button, Box, Container, FormControl, InputLabel, MenuItem, TextField
@@ -20,6 +21,7 @@ function Upload(props) {
   const [foList, setFoList] = useState([]);
   const [numposts, setNumposts] = useState(0);
   const [taggedUsers, settaggedUsers] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [newpost, setPost] = useState({
     id: 5,
     username: 'Abby',
@@ -35,6 +37,7 @@ function Upload(props) {
   const inputRef = useRef();
   const firstRendering = useRef(true);
   // <track src="" kind="captions" srcLang="en" label="english_captions" />
+  // const forceUpdate = React.useCallback(() => updateState({}), []);
   useEffect(() => {
     async function fetchFollows(id) {
       const userparams = { userId: id };
@@ -58,10 +61,34 @@ function Upload(props) {
     }));
     setSource();
   };
+  /*
+  const uploadFile = (file) => {
+    // console.log('entered uploadfile');
+    // console.log(file);
+    const params = {
+      Body: file,
+      Bucket: S3_BUCKET,
+      Key: file.name
+    };
+    myBucket.putObject(params)
+      .on('httpUploadProgress', (evt) => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100));
+      })
+      .send((err) => {
+        if (err) console.log(err);
+      });
+    // const url = myBucket.getSignedUrl('getObject', { Key: params.Key });
+    // console.log('try to fetch url');
+    // console.log(url);
+    const url = `https://557pokemonstorage.s3.amazonaws.com/${file.name}`;
+    return url;
+  };
+  */
 
   function uploadVideo() {
     const handleFileChange = (event) => {
       const file = event.target.files[0];
+      setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setSource(url);
       setPost((prevState) => ({
@@ -101,6 +128,8 @@ function Upload(props) {
     // const { width, height } = props;
     const handleFileChange = (event) => {
       const file = event.target.files[0];
+      setSelectedFile(file);
+      // forceUpdate();
       const url = URL.createObjectURL(file);
       setSource(url);
       setPost((prevState) => ({
@@ -115,7 +144,7 @@ function Upload(props) {
       <div className="PhotoInput">
         <input
           ref={inputRef}
-          className="PhotoInput_input"
+          name="uploads3_photo"
           type="file"
           onChange={handleFileChange}
           accept=".jpg,.jpeg,.png"
@@ -144,11 +173,12 @@ function Upload(props) {
     // const ret = uploadVideo({ width: 400, height: 300 });
     return ret;
   }
-  const handleCreatePost = (event) => {
+  const handleCreatePost = async (event) => {
     event.preventDefault();
     // console.log('entered create post');
-    // console.log(newpost);
     async function putData() {
+      const ts3url = `https://557pokemonstorage.s3.amazonaws.com/${selectedFile.name}`;
+      await postsService.uploadtoS3(selectedFile);
       const temp = new Posts();
       temp.username = homeStates.myUID;
       temp.timestamp = newpost.timestamp;
@@ -164,7 +194,7 @@ function Upload(props) {
         username: homeStates.myUID,
         timestamp: newpost.timestamp.toString(),
         type: newpost.type,
-        content_url: newpost.content_url,
+        content_url: ts3url,
         numLike: 0,
         description: newpost.description,
         commentRefs: newpost.commentRefs,
@@ -174,8 +204,11 @@ function Upload(props) {
       const updatefileds = { numPosts: numposts + 1 };
       await userService.updateUser(homeStates.myUID, updatefileds);
     }
-    putData();
-    homeStates.handleHomeStates(false, false, false, false, true, -1);
+    await putData();
+    // frontendUploads3();
+    setTimeout(() => {
+      homeStates.handleHomeStates(false, false, false, false, true, -1);
+    }, 5000);
   };
 
   const handleContent = (event) => {
