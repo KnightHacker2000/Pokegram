@@ -1,4 +1,6 @@
 const postSvc = require('../services/postService');
+const uploadSvc = require('../services/s3filestorage.js');
+const formidable = require('formidable');
 
 const getPostByPostId = async (req, res) => {
   console.log('[Post -- Getting post by post id]');
@@ -64,7 +66,7 @@ const getPostByUsername = async (req, res) => {
 
 const createNewPost = async (req, res) => {
   console.log('[Post -- Creating new post]');
-  console.log(req.body);
+  // console.log(req.body);
   if (
     !req.body.username
     || !req.body.timestamp
@@ -104,9 +106,44 @@ const createNewPost = async (req, res) => {
   }
 };
 
+const backendUploads3 = async (req, res) => {
+  console.log('upload a file');
+  const form = new formidable.IncomingForm();
+  // configure upload folder
+  // const uploadFolder = path.join(__dirname, 'files');
+  form.multiples = true;
+  form.maxFileSize = 20 * 1024 * 1024; // 2MB
+  // form.uploadDir = uploadFolder;
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      res.status(404).json({ error: err.message });
+      return;
+    }
+
+    // we add each file to the DB
+    Object.keys(files).forEach(async (key) => {
+      const value = files[key];
+      try {
+        console.log('entered!');
+        console.log(value);
+        const filename = value.originalFilename;
+        const path = value.filepath;
+        console.log(filename);
+        console.log(path);
+        uploadSvc.uploadFile(filename, path);
+      } catch (error) {
+        console.log(error.message);
+      }
+    });
+
+    res.status(201).json({ message: 'files uploaded' });
+  });
+};
+
 const updatePostById = async (req, res) => {
   console.log('[Post -- Updating Post]');
-  console.log(req.body);
   try {
     const result = await postSvc.updatePostById(req.params.postId, req.body);
     console.log('[Post -- Updating Post Success]');
@@ -143,4 +180,5 @@ module.exports = {
   createNewPost,
   updatePostById,
   deletePostById,
+  backendUploads3,
 };

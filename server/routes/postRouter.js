@@ -8,6 +8,7 @@ postRouter.get('/:postId', auth, postController.getPostByPostId);
 postRouter.get('/user/:username', auth, postController.getPostByUsername);
 postRouter.get('/all/:postId', auth, postController.getAllPosts);
 postRouter.post('/', auth, postController.createNewPost);
+postRouter.post('/uploads3', auth, postController.backendUploads3);
 postRouter.put('/:postId', auth, postController.updatePostById);
 postRouter.delete('/:postId', auth, postController.deletePostById);
 

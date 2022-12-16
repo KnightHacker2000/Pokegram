@@ -51,6 +51,29 @@ class PokemonClient {
   }
 
   /**
+   * Generic Post request method
+  */
+  async posts3(
+    endpoint,
+    body,
+    axiosParams
+  ) {
+    return axios
+      .post(this.BACKEND_URL + endpoint, body, {
+        ...axiosParams,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: (sessionStorage.getItem('app-token') !== null) ? sessionStorage.getItem('app-token') : null
+        }
+      })
+      .then((response) => response.data)
+      .catch((error) => {
+        reAuthenticate(error);
+        throw (error);
+      });
+  }
+
+  /**
    * Generic Put request method
   */
   async put(

@@ -15,6 +15,7 @@ function UpdatePost(props) {
   const [source, setSource] = useState();
   const firstRendering = useRef(true);
   const inputRef = useRef();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const MenuProps = {
     PaperProps: {
@@ -35,7 +36,7 @@ function UpdatePost(props) {
 
     if (firstRendering.current) {
       firstRendering.current = false;
-      console.log(pid);
+      // console.log(pid);
       fetchData();
     }
   });
@@ -59,11 +60,13 @@ function UpdatePost(props) {
       temp.timestamp = Date.now().toString();
       // console.log(temp);
       */
+      const ts3url = `https://557pokemonstorage.s3.amazonaws.com/${selectedFile.name}`;
+      await postsService.uploadtoS3(selectedFile);
       const updatefileds = {
         username: post.username,
         timestamp: Date.now(),
         type: post.type,
-        content_url: post.content_url,
+        content_url: ts3url,
         numLike: post.numLike,
         description: post.description,
         commentRefs: post.commentRefs,
@@ -78,6 +81,7 @@ function UpdatePost(props) {
   function uploadVideo() {
     const handleFileChange = (event) => {
       const file = event.target.files[0];
+      setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setSource(url);
       const updatepost = {
@@ -125,6 +129,7 @@ function UpdatePost(props) {
     // const { width, height } = props;
     const handleFileChange = (event) => {
       const file = event.target.files[0];
+      setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setSource(url);
       const updatepost = {

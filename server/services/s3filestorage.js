@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-// const fs = require('fs');
+const fs = require('fs');
 // The access ID and secret key of the S3 bucket
 const ID = 'AKIAXT4OCR7TYUYMJJ6S';
 const SECRET = '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';
@@ -11,28 +11,20 @@ const s3 = new AWS.S3({
   accessKeyId: ID,
   secretAccessKey: SECRET
 });
+// two steps: 1. send image to backend, backend to s3 storage
 
 // upload a file
-const uploadFile = async (filename, file) => {
-  // console.log('entered!');
-  // console.log(filename);
-  // console.log(file);
-  //  const test = new File(file, file.name);
-  /*
-  const read = new FileReader();
-  read.readAsBinaryString(file);
-  read.onloadend = () => {
-    testResult = fileReader.result.toString();
-    console.log(testResult);
-  };
-  */
+const uploadFile = async (filename, filepath) => {
+  console.log('entered s3 upload service !');
+  console.log(filename);
+  // image buffer
+  const fileContent = fs.readFileSync(filepath);
+  console.log(fileContent);
   const params = {
     Bucket: BUCKET_NAME,
     Key: filename, // File name we want to upload
-    Body: file
+    Body: fileContent
   };
-  // const fileContent = fs.readFileSync(fileName);
-  // console.log(fileName);
 
   // Uploading files to the bucket
   s3.upload(params, (err, data) => {
@@ -41,11 +33,8 @@ const uploadFile = async (filename, file) => {
     }
     console.log(`File uploaded successfully. ${data.Location}`);
     return data.Location;
-  });
+  })
 };
-
-// uploadFile('C:\\Users\\kexin\\OneDrive\\桌面\\ysy-557-final\\project
-// ---design-hw1-pokemon-go\\pokegram\\src\\images\\jieni.jpg');
 
 // read a file
 
@@ -71,9 +60,6 @@ const readFile = (fileName) => {
   });
 };
 
-// readFile('C:\\Users\\kexin\\OneDrive\\桌面\\ysy-557-final\\project--
-// -design-hw1-pokemon-go\\pokegram\\src\\images\\jieni.jpg');
-
 // delete a file
 const deleteFile = (fileName) => {
   // Setting up S3 delete parameters
@@ -91,6 +77,8 @@ const deleteFile = (fileName) => {
   });
 };
 
-// deleteFile('C:\\Users\\kexin\\OneDrive\\桌面\\ysy-557-final\\project
-// ---design-hw1-pokemon-go\\pokegram\\src\\images\\jieni.jpg');
-export default { uploadFile, readFile, deleteFile };
+module.exports = {
+  uploadFile,
+  readFile,
+  deleteFile
+};
