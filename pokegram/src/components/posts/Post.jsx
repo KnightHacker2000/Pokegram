@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import {
+  useState, useEffect, useRef
+} from 'react';
 // import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -33,8 +35,8 @@ const theme = createTheme();
 function Posts(props) {
   const { homeStates, ischange } = props;
   // console.log(homeStates);
-  console.log(homeStates.myUID);
-  console.log(homeStates.UID);
+  // console.log(homeStates.myUID);
+  // console.log(homeStates.UID);
   const [postList, setPostList] = useState([{
     id: 1,
     username: 'Rachel',
@@ -55,6 +57,7 @@ function Posts(props) {
     ],
     hide: false
   }]);
+
   // const [postList, setPostList] = useState([]);
   const [numposts, setNumposts] = useState(0);
   const [renderEdit, setrenderEdit] = useState(false);
@@ -91,6 +94,21 @@ function Posts(props) {
       setNumposts(user.numPosts);
     }
 
+    async function polling() {
+      firstRendering.current = false;
+      if (homeStates.UID === -1) {
+        await fetchallpostsData();
+      } else {
+        try {
+          await fetchpostsbyusername(homeStates.UID);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      await getUser();
+      setTimeout(polling, 5000);
+    }
+
     if (firstRendering.current) {
       firstRendering.current = false;
       if (homeStates.UID === -1) {
@@ -99,8 +117,35 @@ function Posts(props) {
         fetchpostsbyusername(homeStates.UID);
       }
       getUser();
+      setTimeout(polling, 5000);
+      // useInterval(fetchallpostsData, 5000);
       // putData();
     }
+
+    // let timesRun = 0;
+    // const interval = setInterval(() => {
+    //   timesRun += 1;
+    //   if (timesRun === 60) {
+    //     clearInterval(interval);
+    //   }
+    //   console.log(timesRun);
+    //   try {
+    //     fetchallpostsData();
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // firstRendering.current = false;
+    // if (homeStates.UID === -1) {
+    //   fetchallpostsData();
+    // } else {
+    //   try {
+    //     fetchpostsbyusername(homeStates.UID);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    // getUser();
+    // }, 5000);
   });
 
   function rendermedia(post) {
@@ -258,7 +303,7 @@ function Posts(props) {
   };
 
   function clickbutton(hideflag, postId) {
-    console.log(hideflag);
+    // console.log(hideflag);
     let ret;
     if (hideflag === false) {
       ret = (
