@@ -101,6 +101,22 @@ function Posts(props) {
       getUser();
       // putData();
     }
+    /*
+    let timesRun = 0;
+    const interval = setInterval(() => {
+      timesRun += 1;
+      if (timesRun === 60) {
+        clearInterval(interval);
+      }
+      firstRendering.current = false;
+      if (homeStates.UID === -1) {
+        fetchallpostsData();
+      } else {
+        fetchpostsbyusername(homeStates.UID);
+      }
+      getUser();
+    }, 5000);
+    */
   });
 
   function rendermedia(post) {
