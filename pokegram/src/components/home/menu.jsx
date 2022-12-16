@@ -50,7 +50,6 @@ function ResponsiveAppBar(props) {
         break;
       // set logout
       case pages[2]:
-        console.log('removing');
         sessionStorage.removeItem('app-token');
         sessionStorage.setItem('logout', true);
         sessionStorage.removeItem('uid');

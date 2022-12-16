@@ -74,6 +74,9 @@ function Profile(props) {
   const handleLogout = (event) => {
     // console.log(props);
     event.preventDefault();
+    sessionStorage.removeItem('app-token');
+    sessionStorage.setItem('logout', true);
+    sessionStorage.removeItem('uid');
     homeStates.handleHomeStates(
       true,
       homeStates.isProf,
