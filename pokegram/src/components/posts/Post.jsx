@@ -22,6 +22,8 @@ import HideSourceIcon from '@mui/icons-material/HideSource';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import postsService from '../../services/postsService';
 import userService from '../../services/userService';
 // import pokemon from '../../images/pikachu.jpg';
@@ -31,6 +33,7 @@ import HomeState from '../../models/homeState';
 import Edit from '../update_post/update_post';
 
 const theme = createTheme();
+const MySwal = withReactContent(Swal);
 
 function Posts(props) {
   const { homeStates, ischange } = props;
@@ -102,7 +105,7 @@ function Posts(props) {
         try {
           await fetchpostsbyusername(homeStates.UID);
         } catch (err) {
-          console.log(err);
+          MySwal.fire('Unexpected error, please try again!');
         }
       }
       await getUser();

@@ -8,11 +8,13 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TextField } from '@mui/material';
-// import pokemon from '../../images/pikachu.jpg';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import userService from '../../services/userService';
 import RootState from '../../models/rootState';
 
 const theme = createTheme();
+const MySwal = withReactContent(Swal);
 
 function Login(props) {
   const { parStates } = props;
@@ -21,6 +23,7 @@ function Login(props) {
     username: sessionStorage.getItem('uid') == null ? 'test1' : sessionStorage.getItem('uid'),
     password: undefined
   });
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     if (connected && sessionStorage.getItem('logout') === 'false') {
@@ -28,12 +31,20 @@ function Login(props) {
     }
   });
 
+  const handleUnlock = () => {
+    setFailed(0);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     // alert('current state is: ' + user.username + ' ' + user.password);
     // testing code for state manipulation
     // console.log(props);
     try {
+      if (failed >= 5) {
+        MySwal.fire('Please try again latter!');
+        return;
+      }
       if (
         connected || await userService.login(
           JSON.stringify({ id: user.username, password: user.password })
@@ -45,7 +56,15 @@ function Login(props) {
       }
       // console.log(res);
     } catch (err) {
-      console.log(err);
+      if (err.message && err.message === 'bad auth') {
+        if (failed + 1 >= 5) {
+          setFailed(failed + 1);
+          setTimeout(handleUnlock, 50000);
+        } else {
+          MySwal.fire('Incorrect password or username!');
+          setFailed(failed + 1);
+        }
+      }
     }
   };
   const handleUsername = (event) => {
