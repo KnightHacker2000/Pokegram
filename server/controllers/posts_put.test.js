@@ -10,11 +10,19 @@ describe('Update a post endpoint integration test', () => {
   let res;
   let db;
   let testpostID; // will store the id of the test post
+  let token;
 
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    res = await request(webapp).post('/posts').send('username=testforbackendonly&timestamp=Monday&type=video');
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    res = await request(webapp)
+      .post('/posts')
+      .set('Authorization', token)
+      .send('username=testforbackendonly&timestamp=Monday&type=video');
     // get the id of the test post
     // eslint-disable-next-line no-underscore-dangle
     testPostID = JSON.parse(res.text).post._id;
@@ -24,6 +32,8 @@ describe('Update a post endpoint integration test', () => {
   const clearDatabase = async () => {
     try {
       await db.collection('posts').deleteMany({ username: 'testforbackendonly' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
     } catch (err) {
       console.log('error', err.message);
     }
@@ -43,7 +53,10 @@ describe('Update a post endpoint integration test', () => {
   });
 
   test('Endpoint status code and response async/await', async () => {
-    const resp = await request(webapp).put(`/posts/${testPostID}`).send("type=photo");
+    const resp = await request(webapp)
+      .put(`/posts/${testPostID}`)
+      .set('Authorization', token)
+      .send("type=photo");
     expect(resp.status).toEqual(201);
     expect(resp.type).toBe('application/json');
 
@@ -54,7 +67,9 @@ describe('Update a post endpoint integration test', () => {
   });
 
   test('missing major 404', async () => {
-    res = await request(webapp).put(`/posts/${testpostID}`)
+    res = await request(webapp)
+      .put(`/posts/${testpostID}`)
+      .set('Authorization', token)
       .send('name=music');
     expect(res.status).toEqual(404);
   });

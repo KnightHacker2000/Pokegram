@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { closeMongoDBConnection, connect } = require('../db');
 const webapp = require('../server');
+const auth = require('../middleware/auth');
 
 let mongo;
 describe('GET posts endpoint integration test', () => {
@@ -13,20 +14,33 @@ describe('GET posts endpoint integration test', () => {
   let testPostID;
   
   const testPost = { username: 'testforbackendonly', timestamp: 'Monday', type: 'video' };
+  let token;
 
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    const res = await request(webapp).post('/posts').send('username=testforbackendonly&timestamp=Monday&type=video');
+    // const token = await request(webapp).
+    const response = await request(webapp).post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(response.text).token;
+    console.log('get a user!');
+    console.log(JSON.parse(response.text));
+    const res = await request(webapp)
+      .post('/posts', auth)
+      .set('Authorization', token)
+      .send('username=testforbackendonly&timestamp=Monday&type=video');
     // eslint-disable-next-line no-underscore-dangle
-    // console.log(res._body.post);
+    console.log('before-all');
+    console.log(res._body.post);
     testPostID = res._body.post._id;
   });
 
   const clearDatabase = async () => {
     try {
       const result = await db.collection('posts').deleteMany({ username: 'testforbackendonly' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
       const { deletedCount } = result;
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
       if (deletedCount === 1) {
         console.log('info', 'Successfully deleted test Post');
       } else {
@@ -52,7 +66,7 @@ describe('GET posts endpoint integration test', () => {
 
   
   test('Get all Posts endpoint status code and data', async () => {
-    const resp = await request(webapp).get('/posts/all/t');
+    const resp = await request(webapp).get('/posts/all/t').set('Authorization', token);
     expect(resp.status).toEqual(200);
     expect(resp.type).toBe('application/json');
     // const studArr = JSON.parse(resp.text).data;
@@ -60,7 +74,7 @@ describe('GET posts endpoint integration test', () => {
   });
   
   test('Get a Post endpoint status code and data', async () => {
-    const resp = await request(webapp).get(`/posts/${testPostID}`);
+    const resp = await request(webapp).get(`/posts/${testPostID}`).set('Authorization', token);
     expect(resp.status).toEqual(200);
     expect(resp.type).toBe('application/json');
     // const studArr = JSON.parse(resp.text).data;
@@ -69,7 +83,7 @@ describe('GET posts endpoint integration test', () => {
   });
 
   test('user not in db status code 404', async () => {
-    const resp = await request(webapp).get('/posts/1');
+    const resp = await request(webapp).get('/posts/1').set('Authorization', token);
     expect(resp.status).toEqual(404);
     expect(resp.type).toBe('application/json');
   });

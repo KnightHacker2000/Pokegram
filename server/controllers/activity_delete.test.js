@@ -13,8 +13,14 @@ describe('Delete an activity endpoint integration test', () => {
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    res = await request(webapp).post('/activity')
-      .send('initiatorId=testbackend&targetId=testtarget&activityType=Comment&timestamp=testMonday');
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    res = await request(webapp)
+      .post('/activity')
+      .set('Authorization', token)
+      .send('initiatorId=testforbackendonly&targetId=testtarget&activityType=Comment&timestamp=testMonday');
     // get the id of the test activity
     // eslint-disable-next-line no-underscore-dangle
     testactivityID = JSON.parse(res.text).activity._id;
@@ -23,8 +29,9 @@ describe('Delete an activity endpoint integration test', () => {
 
   const clearDatabase = async () => {
     try {
-      const result = await db.collection('activity').deleteMany({ initiatorId: 'testbackend' });
-
+      const result = await db.collection('activity').deleteMany({ initiatorId: 'testforbackendonly' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
       console.log('info', result);
     } catch (err) {
       console.log('error', err.message);
@@ -46,7 +53,7 @@ describe('Delete an activity endpoint integration test', () => {
 
   test('Endpoint response: status code, type and content', async () => {
     // successful deletion returns 200 status code
-    const resp = await request(webapp).delete(`/activity/${testactivityID}`);
+    const resp = await request(webapp).delete(`/activity/${testactivityID}`).set('Authorization', token);
     expect(resp.status).toEqual(200);
     expect(resp.type).toBe('application/json');
     // the user is not in the database
@@ -55,12 +62,12 @@ describe('Delete an activity endpoint integration test', () => {
   });
 
   test('wrong user id format/exception - response 404', async () => {
-    const resp = await request(webapp).delete('/activity/1');
+    const resp = await request(webapp).delete('/activity/1').set('Authorization', token);
     expect(resp.status).toEqual(404);
   });
 
   test('user id not in system (correct id format) - response 404', async () => {
-    const resp = await request(webapp).delete('/activity/63738b602fe72e59d4a72ccc');
+    const resp = await request(webapp).delete('/activity/63738b602fe72e59d4a72ccc').set('Authorization', token);
     expect(resp.status).toEqual(404);
   });
 });

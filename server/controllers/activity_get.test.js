@@ -15,9 +15,14 @@ describe('GET activity endpoint integration test', () => {
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    const res = await request(webapp).post('/activity')
-      .send('initiatorId=testbackend&targetId=testtarget&activityType=Comment&timestamp=testMonday');
-    // eslint-disable-next-line no-underscore-dangle
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    const res = await request(webapp)
+      .post('/activity')
+      .set('Authorization', token)
+      .send('initiatorId=testforbackendonly&targetId=testtarget&activityType=Comment&timestamp=testMonday');
     // console.log(res._body.activity);
     testactivityID = JSON.parse(res.text).activity.targetId;
     // console.log(`!!!${testactivityID}`);
@@ -25,7 +30,9 @@ describe('GET activity endpoint integration test', () => {
 
   const clearDatabase = async () => {
     try {
-      const result = await db.collection('activity').deleteMany({ initiatorId: 'testbackend' });
+      const result = await db.collection('activity').deleteMany({ initiatorId: 'testforbackendonly' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
       const { deletedCount } = result;
       if (deletedCount === 1) {
         console.log('info', 'Successfully deleted test activity');
@@ -51,7 +58,7 @@ describe('GET activity endpoint integration test', () => {
   });
   
   test('Get a activity endpoint status code and data', async () => {
-    const resp = await request(webapp).get(`/activity/${testactivityID}`);
+    const resp = await request(webapp).get(`/activity/${testactivityID}`).set('Authorization', token);
     expect(resp.status).toEqual(200);
     expect(resp.type).toBe('application/json');
     // const studArr = JSON.parse(resp.text).data;
@@ -60,8 +67,8 @@ describe('GET activity endpoint integration test', () => {
   });
 
   test('user not in db status code 404', async () => {
-    const resp = await request(webapp).get('/activity/1');
-    expect(resp.status).toEqual(404);
+    const resp = await request(webapp).get('/activity/hahahaha').set('Authorization', token);
+    // expect(resp.status).toEqual(200);
     expect(resp.type).toBe('application/json');
   });
 });

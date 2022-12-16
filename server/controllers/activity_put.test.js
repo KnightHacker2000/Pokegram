@@ -14,8 +14,14 @@ describe('Update a activity endpoint integration test', () => {
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    res = await request(webapp).post('/activity')
-      .send('initiatorId=testbackend&targetId=testtarget&activityType=Comment&timestamp=testMonday');
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    res = await request(webapp)
+      .post('/activity')
+      .set('Authorization', token)
+      .send('initiatorId=testforbackendonly&targetId=testtarget&activityType=Comment&timestamp=testMonday');
     // get the id of the test activity
     // eslint-disable-next-line no-underscore-dangle
     testactivityID = JSON.parse(res.text).activity._id;
@@ -24,7 +30,9 @@ describe('Update a activity endpoint integration test', () => {
 
   const clearDatabase = async () => {
     try {
-      await db.collection('activity').deleteMany({ initiatorId: 'testbackend' });
+      await db.collection('activity').deleteMany({ initiatorId: 'testforbackendonly' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
     } catch (err) {
       console.log('error', err.message);
     }
@@ -44,7 +52,10 @@ describe('Update a activity endpoint integration test', () => {
   });
 
   test('Endpoint status code and response async/await', async () => {
-    const resp = await request(webapp).put(`/activity/${testactivityID}`).send("activityType=Like");
+    const resp = await request(webapp)
+      .put(`/activity/${testactivityID}`)
+      .set('Authorization', token)
+      .send("activityType=Like");
     expect(resp.status).toEqual(201);
     expect(resp.type).toBe('application/json');
 
@@ -55,7 +66,9 @@ describe('Update a activity endpoint integration test', () => {
   });
 
   test('missing major 404', async () => {
-    res = await request(webapp).put(`/activity/1`)
+    res = await request(webapp)
+      .put(`/activity/1`)
+      .set('Authorization', token)
       .send('name=music');
     expect(res.status).toEqual(404);
   });
