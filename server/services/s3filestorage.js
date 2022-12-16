@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
 // The access ID and secret key of the S3 bucket
-const ID = 'AKIAXT4OCR7TYUYMJJ6S';
-const SECRET = 'OwD9zx0QRqd4GKqag2wu3pNn8cJPYofKREv59Ntw';
+const ID = 'your own';
+const SECRET = 'your own';
 
 // The name of the bucket that you have created
 const BUCKET_NAME = '557pokemonstorage';
