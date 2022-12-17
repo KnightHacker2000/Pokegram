@@ -60,9 +60,14 @@ function UpdatePost(props) {
       temp.timestamp = Date.now().toString();
       // console.log(temp);
       */
-      console.log(selectedFile);
-      const ts3url = `https://557pokemonstorage.s3.amazonaws.com/${selectedFile.name}`;
-      await postsService.uploadtoS3(selectedFile);
+      // console.log(selectedFile);
+      let ts3url;
+      if (selectedFile === null) {
+        ts3url = post.content_url;
+      } else {
+        ts3url = `https://557pokemonstorage.s3.amazonaws.com/${selectedFile.name}`;
+        await postsService.uploadtoS3(selectedFile);
+      }
       const updatefileds = {
         username: post.username,
         timestamp: Date.now(),
