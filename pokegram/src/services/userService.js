@@ -86,7 +86,8 @@ const getUserById = async (userId) => {
     userRes.numFollows,
     userRes.subscribers,
     userRes.numSubs,
-    userRes.fullname
+    userRes.fullname,
+    userRes.blacklists
   );
   // console.log(user);
   return user;

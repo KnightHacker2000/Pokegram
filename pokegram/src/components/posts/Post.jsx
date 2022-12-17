@@ -19,6 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditIcon from '@mui/icons-material/Edit';
 import HideSourceIcon from '@mui/icons-material/HideSource';
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -150,11 +151,15 @@ function Posts(props) {
 
     async function fetchallpostsData() {
       const data = await postsService.getAllPosts();
+      const userparams = { userId: homeStates.myUID };
+      const user = await userService.getUserById(userparams);
+      const blacklistpost = user.blacklists;
       if (data.length === 0) {
         setcurrRange([-1, -1]);
         setcurrPosts([]);
       }
-      setPostList(data);
+      const update = data.filter((item) => blacklistpost.indexOf(item.id.toString()) === -1);
+      setPostList(update);
     }
 
     async function fetchpostsbyusername(userName) {
@@ -407,6 +412,20 @@ function Posts(props) {
     return ret;
   }
 
+  const handleBlackPost = async (event) => {
+    // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
+    event.preventDefault();
+    const postid = event.currentTarget.getAttribute('data-index');
+    const userparams = { userId: homeStates.myUID };
+    const user = await userService.getUserById(userparams);
+    const blacklistpost = user.blacklists;
+    blacklistpost.push(postid);
+    const updatefileds = { blacklists: blacklistpost };
+    await userService.updateUser(homeStates.myUID, updatefileds);
+    firstRendering.current = true;
+    forceUpdate();
+  };
+
   return (
     <div>
       <NotificationContainer />
@@ -477,6 +496,15 @@ function Posts(props) {
                       </IconButton>
                     )}
                     { post.username === homeStates.myUID && clickbutton(post.hide, post.id)}
+                    { homeStates.UID === -1 && (
+                      <IconButton
+                        aria-label="blacklist"
+                        onClick={handleBlackPost}
+                        data-index={post.id}
+                      >
+                        <BookmarkRemoveIcon />
+                      </IconButton>
+                    )}
                   </CardActions>
                 </Card>
               </Grid>
