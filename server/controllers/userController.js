@@ -26,6 +26,7 @@ const createNewUser = async (req, res) => {
     fullname: req.body.fullname,
     likedPosts: [],
     numPosts: 0,
+    blacklists: []
   };
 
   try {

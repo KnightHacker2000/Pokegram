@@ -21,6 +21,8 @@ class User {
 
   fullname;
 
+  blacklists;
+
   constructor(
     id,
     email,
@@ -31,7 +33,8 @@ class User {
     numFollows,
     subscribers,
     numSubs,
-    fullname
+    fullname,
+    blacklists
   ) {
     this.id = id;
     this.email = email;
@@ -44,6 +47,7 @@ class User {
     this.subscribers = subscribers;
     this.numSubs = numSubs;
     this.fullname = fullname;
+    this.blacklists = blacklists;
   }
 }
 
