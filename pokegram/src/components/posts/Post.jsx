@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import * as React from 'react';
@@ -24,6 +25,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import loading from '../../images/loading2.gif';
 import postsService from '../../services/postsService';
 import userService from '../../services/userService';
 // import pokemon from '../../images/pikachu.jpg';
@@ -40,28 +42,9 @@ function Posts(props) {
   // console.log(homeStates);
   // console.log(homeStates.myUID);
   // console.log(homeStates.UID);
-  const [postList, setPostList] = useState([{
-    id: 1,
-    username: 'Rachel',
-    timestamp: 'Wed Dec 01 2021 03:24:00 GMT-0500 (Eastern Standard Time)',
-    type: 'photo',
-    content_url: 'http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png',
-    numLike: 10,
-    description: 'pikapika!',
-    commentRefs: [
-      1234,
-      5678,
-      9101
-    ],
-    users: [
-      1234,
-      5678,
-      9101
-    ],
-    hide: false
-  }]);
-
-  // const [postList, setPostList] = useState([]);
+  const [postList, setPostList] = useState([]);
+  const [currPosts, setcurrPosts] = useState([]);
+  const [currRange, setcurrRange] = useState([-1, -1]);
   const [numposts, setNumposts] = useState(0);
   const [renderEdit, setrenderEdit] = useState(false);
   const [renderComment, setrenderComment] = useState(false);
@@ -74,19 +57,62 @@ function Posts(props) {
   const [tagPostId, settagPostId] = useState(-1);
   // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
+  const loader = useRef(null);
   const canEdit = homeStates.UID === homeStates.myUID;
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
-    // const params = '{"userId": 1}';
+    // console.log(currPosts);
+    const handleObserver = async (entries) => {
+      for (const entry of entries) {
+        if (entry.intersectionRatio > 0.9) {
+          // console.log('here');
+          if ((postList.length) > 0) {
+            if (currRange[0] === -1 && currRange[1] === -1) {
+              const tmpList = currRange;
+              tmpList[0] = 0;
+              tmpList[1] = postList.length >= 6 ? 5 : postList.length - 1;
+              setcurrRange(tmpList);
+              setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+            } else {
+              if (currRange[1] === postList.length - 1) {
+                break;
+              }
+              const tmpList = currRange;
+              tmpList[1] = tmpList[1] + 7 > postList.length ? postList.length - 1 : tmpList[1] + 6;
+              setcurrRange(tmpList);
+              setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+            }
+          }
+          break;
+        }
+      }
+    };
+    const option = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1
+    };
+
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+
     async function fetchallpostsData() {
       const data = await postsService.getAllPosts();
       // console.log(data);
+      if (data.length === 0) {
+        setcurrRange([-1, -1]);
+        setcurrPosts([]);
+      }
       setPostList(data);
     }
 
     async function fetchpostsbyusername(userName) {
       const data = await postsService.getPostsByUserName(userName);
+      if (data.length === 0) {
+        setcurrRange([-1, -1]);
+        setcurrPosts([]);
+      }
       setPostList(data);
     }
 
@@ -340,7 +366,7 @@ function Posts(props) {
       {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
-          {postList.map((post) => (
+          {currPosts.map((post) => (
             <Grid item key={post.id} xs={12} sm={6} md={4}>
               <Card
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -401,6 +427,22 @@ function Posts(props) {
           ))}
         </Grid>
       </Container>
+      <div style={{
+        // position: 'fixed',
+        // top: 0,
+        // bottom: 0,
+        // left: 0,
+        // right: 0,
+        marginTop: '-px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        background: 'transparent',
+        zIndex: 99
+      }}
+      >
+        <img src={loading} ref={loader} alt="loading..." style={{ width: '200px', height: '150px' }} />
+      </div>
     </ThemeProvider>
   );
 }
