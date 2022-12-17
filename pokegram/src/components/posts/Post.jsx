@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable max-len */
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import {
@@ -25,7 +24,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-// import { NotificationContainer, NotificationManager } from 'react-notifications';
+import useStateWithCallback from 'use-state-with-callback';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 import loading from '../../images/loading2.gif';
 import postsService from '../../services/postsService';
 import userService from '../../services/userService';
@@ -38,13 +39,28 @@ const theme = createTheme();
 const MySwal = withReactContent(Swal);
 
 function Posts(props) {
-  const { homeStates, ischange } = props;
+  const { homeStates } = props;
   // console.log(homeStates);
   // console.log(homeStates.myUID);
-  // console.log(homeStates.UID);
-  const [postList, setPostList] = useState([]);
-  const [currPosts, setcurrPosts] = useState([]);
-  // const [notification, setNotification] = useState(null);
+  const oldPostNum = useRef(-1);
+  const numLoad = useRef(0);
+  const [currPosts, setcurrPosts] = useStateWithCallback([], (newList) => {
+    // console.trace();
+    console.log(newList);
+  });
+  const [postList, setPostList] = useStateWithCallback(null, (newList) => {
+    console.log(newList);
+    if (!newList) { return; }
+    const diff = newList.length - oldPostNum.current;
+    if (diff > 0 && numLoad.current !== 0 && oldPostNum.current !== -1) {
+      // console.log(diff);
+      // console.log(numLoad.current);
+      // console.log(oldPostNum.current);
+      NotificationManager.info('New Post!');
+    }
+    oldPostNum.current = newList.length;
+    numLoad.current += 1;
+  });
   const [currRange, setcurrRange] = useState([-1, -1]);
   const [numposts, setNumposts] = useState(0);
   const [renderEdit, setrenderEdit] = useState(false);
@@ -56,37 +72,73 @@ function Posts(props) {
   const [editPostId, setEditPostId] = useState(-1);
   const [commentPostId, setcommentPostId] = useState(-1);
   const [tagPostId, settagPostId] = useState(-1);
-  // const [deletePostId, setdeletePostId] = useState(-1);
   const firstRendering = useRef(true);
   const loader = useRef(null);
   const canEdit = homeStates.UID === homeStates.myUID;
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  // const forceUpdateCP = React.useCallback(() => setcurrPosts([]), []);
+
+  const handleObserver = React.useCallback((entries) => {
+    for (const entry of entries) {
+      if (entry.intersectionRatio > 0.9) {
+        // console.log(postList.length);
+        // console.log(numLoad.current);
+        if (postList && (postList.length) > 0) {
+          if (currRange[0] === -1 && currRange[1] === -1) {
+            const tmpList = currRange;
+            tmpList[0] = 0;
+            tmpList[1] = postList.length >= 6 ? 5 : postList.length - 1;
+            setcurrRange(tmpList);
+            setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+          } else {
+            // console.log(currPosts);
+            if (currRange[1] === postList.length - 1) {
+              break;
+            }
+            const tmpList = currRange;
+            tmpList[1] = tmpList[1] + 7 > postList.length ? postList.length - 1 : tmpList[1] + 6;
+            setcurrRange(tmpList);
+            // console.log(tmpList);
+            // console.log(postList.slice(tmpList[0], tmpList[1] + 1));
+            setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+          }
+        }
+        // forceUpdate();
+        break;
+      }
+    }
+  });
 
   useEffect(() => {
-    const handleObserver = async (entries) => {
-      for (const entry of entries) {
-        if (entry.intersectionRatio > 0.9) {
-          if ((postList.length) > 0) {
-            if (currRange[0] === -1 && currRange[1] === -1) {
-              const tmpList = currRange;
-              tmpList[0] = 0;
-              tmpList[1] = postList.length >= 6 ? 5 : postList.length - 1;
-              setcurrRange(tmpList);
-              setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
-            } else {
-              if (currRange[1] === postList.length - 1) {
-                break;
-              }
-              const tmpList = currRange;
-              tmpList[1] = tmpList[1] + 7 > postList.length ? postList.length - 1 : tmpList[1] + 6;
-              setcurrRange(tmpList);
-              setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
-            }
-          }
-          break;
-        }
-      }
-    };
+    // const handleObserver = async (entries) => {
+    //   for (const entry of entries) {
+    //     if (entry.intersectionRatio > 0.9) {
+    //       console.log(postList.length);
+    //       console.log(numLoad.current);
+    //       if (postList && (postList.length) > 0) {
+    //         if (currRange[0] === -1 && currRange[1] === -1) {
+    //           const tmpList = currRange;
+    //           tmpList[0] = 0;
+    //           tmpList[1] = postList.length >= 6 ? 5 : postList.length - 1;
+    //           setcurrRange(tmpList);
+    //           setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+    //         } else {
+    //           if (currRange[1] === postList.length - 1) {
+    //             break;
+    //           }
+    //           const tmpList = currRange;
+    // eslint-disable-next-line max-len
+    //           tmpList[1] = tmpList[1] + 7 > postList.length ? postList.length - 1 : tmpList[1] + 6;
+    //           setcurrRange(tmpList);
+    //           // console.log(tmpList);
+    //           console.log(postList.slice(tmpList[0], tmpList[1] + 1));
+    //           setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+    //         }
+    //       }
+    //       break;
+    //     }
+    //   }
+    // };
     const option = {
       root: null,
       rootMargin: '0px',
@@ -106,12 +158,17 @@ function Posts(props) {
     }
 
     async function fetchpostsbyusername(userName) {
-      const data = await postsService.getPostsByUserName(userName);
-      if (data.length === 0) {
-        setcurrRange([-1, -1]);
-        setcurrPosts([]);
-      }
-      setPostList(data);
+      await postsService.getPostsByUserName(userName).then((val) => {
+        setPostList(val);
+        if (val.length === 0) {
+          setcurrRange([-1, -1]);
+          // forceUpdateCP();
+          setcurrPosts([]);
+          // setTimeout(setcurrPosts, [], 5000);
+        }
+      });
+      // console.log(currPosts);
+      // setPostList(data);
     }
 
     async function getUser() {
@@ -126,7 +183,6 @@ function Posts(props) {
       if (homeStates.UID === -1) {
         // const oldNumPost = postList.length;
         await fetchallpostsData();
-        // console.log(oldNumPost);
         // if (postList.length > oldNumPost) {
         //   console.log('new posts');
         //   setNotification(NotificationManager.info('New Post!'));
@@ -143,7 +199,12 @@ function Posts(props) {
     }
 
     if (firstRendering.current) {
+      // console.log(NotificationManager.listNotify);
+      // console.log(numLoad);
+      oldPostNum.current = -1;
+      numLoad.current = 0;
       firstRendering.current = false;
+      NotificationManager.listNotify.forEach((n) => NotificationManager.remove({ id: n.id }));
       if (homeStates.UID === -1) {
         fetchallpostsData();
       } else {
@@ -151,34 +212,7 @@ function Posts(props) {
       }
       getUser();
       setTimeout(polling, 5000);
-      // useInterval(fetchallpostsData, 5000);
-      // putData();
     }
-
-    // let timesRun = 0;
-    // const interval = setInterval(() => {
-    //   timesRun += 1;
-    //   if (timesRun === 60) {
-    //     clearInterval(interval);
-    //   }
-    //   console.log(timesRun);
-    //   try {
-    //     fetchallpostsData();
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // firstRendering.current = false;
-    // if (homeStates.UID === -1) {
-    //   fetchallpostsData();
-    // } else {
-    //   try {
-    //     fetchpostsbyusername(homeStates.UID);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-    // getUser();
-    // }, 5000);
   });
 
   function rendermedia(post) {
@@ -284,13 +318,23 @@ function Posts(props) {
     await postsService.deletePost(postId);
     const updatefileds = { numPosts: numposts - 1 };
     await userService.updateUser(homeStates.myUID, updatefileds);
-    ischange();
-    firstRendering.current = true;
-    forceUpdate();
+    await postsService.getPostsByUserName(homeStates.myUID).then((val) => {
+      setPostList(val);
+      if (val.length === 0) {
+        setcurrRange([-1, -1]);
+        setcurrPosts([]);
+        // setTimeout(setcurrPosts, [], 5000);
+        // forceUpdateCP();
+      }
+      // forceUpdate();
+      window.location.reload(true);
+    });
+    // ischange();
+    // firstRendering.current = true;
+    // forceUpdate();
   };
 
   const handleAvatarClick = (event) => {
-    // homeStates.handleHomeStates(false, false, false, false, true, homeStates.UID);
     event.preventDefault();
     const otherUID = event.currentTarget.getAttribute('data-index');
     homeStates.handleHomeStates(false, true, false, false, false, otherUID);
@@ -364,101 +408,107 @@ function Posts(props) {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
-      {renderComment && <Comment uid={homeStates.myUID} pid={commentPostId} handleCommentState={handleComment} />}
-      {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
-      {/* {notification && <NotificationContainer />} */}
-      <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={4}>
-          {currPosts.map((post) => (
-            <Grid item key={post.id} xs={12} sm={6} md={4}>
-              <Card
-                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-              >
-                <CardHeader
-                  avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" onClick={handleAvatarClick} data-index={post.username} />}
-                  action={
-                    <IconButton aria-label="settings" />
-                  }
-                  title={post.username}
-                  subheader={post.timestamp.toString()}
-                />
-                {rendermedia(post)}
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary" maxWidth="20vw">
-                    {post.description}
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  {likebuton(post.id)}
-                  { canEdit && (
+    <div>
+      <NotificationContainer />
+      <ThemeProvider theme={theme}>
+        {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
+        {renderComment && (
+          <Comment
+            uid={homeStates.myUID}
+            pid={commentPostId}
+            handleCommentState={handleComment}
+          />
+        )}
+        {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
+        <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4}>
+            {currPosts.length !== 0 && currPosts.map((post) => (
+              <Grid item key={post.id} xs={12} sm={6} md={4}>
+                <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                  <CardHeader
+                    avatar={<Avatar alt="pikachu" sx={{ m: 1 }} src="http://img4.wikia.nocookie.net/__cb20140328190757/pokemon/images/thumb/2/21/001Bulbasaur.png/200px-001Bulbasaur.png" onClick={handleAvatarClick} data-index={post.username} />}
+                    action={
+                      <IconButton aria-label="settings" />
+                    }
+                    title={post.username}
+                    subheader={post.timestamp.toString()}
+                  />
+                  {rendermedia(post)}
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary" maxWidth="20vw">
+                      {post.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    {likebuton(post.id)}
+                    { canEdit && (
+                      <IconButton
+                        aria-label="edit"
+                        onClick={handleCardClick}
+                        data-index={post.id}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    )}
                     <IconButton
-                      aria-label="edit"
-                      onClick={handleCardClick}
+                      aria-label="comment"
+                      onClick={handleAddCommentClick}
+                      data-index={post.id}
+                      data-testid="test_addComm"
+                    >
+                      <AddCommentIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="tagging"
+                      onClick={handlePhotoTagClick}
                       data-index={post.id}
                     >
-                      <EditIcon />
+                      <AccountCircleIcon />
                     </IconButton>
-                  )}
-                  <IconButton
-                    aria-label="comment"
-                    onClick={handleAddCommentClick}
-                    data-index={post.id}
-                    data-testid="test_addComm"
-                  >
-                    <AddCommentIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="tagging"
-                    onClick={handlePhotoTagClick}
-                    data-index={post.id}
-                  >
-                    <AccountCircleIcon />
-                  </IconButton>
-                  { canEdit && (
-                    <IconButton
-                      aria-label="delete"
-                      onClick={handleDeletePost}
-                      data-index={post.id}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  )}
-                  { post.username === homeStates.myUID && clickbutton(post.hide, post.id)}
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-      <div style={{
-        // position: 'fixed',
-        // top: 0,
-        // bottom: 0,
-        // left: 0,
-        // right: 0,
-        marginTop: '-px',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        background: 'transparent',
-        zIndex: 99
-      }}
-      >
-        <img src={loading} ref={loader} alt="loading..." style={{ width: '200px', height: '150px' }} />
-      </div>
-    </ThemeProvider>
+                    { canEdit && (
+                      <IconButton
+                        aria-label="delete"
+                        onClick={handleDeletePost}
+                        data-index={post.id}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                    { post.username === homeStates.myUID && clickbutton(post.hide, post.id)}
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+        <div style={{
+          // position: 'fixed',
+          // top: 0,
+          // bottom: 0,
+          // left: 0,
+          // right: 0,
+          marginTop: '-px',
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+          background: 'transparent',
+          zIndex: 99
+        }}
+        >
+          <img src={loading} ref={loader} alt="loading..." style={{ width: '200px', height: '150px' }} />
+        </div>
+      </ThemeProvider>
+    </div>
   );
 }
 Posts.propTypes = {
-  homeStates: PropTypes.instanceOf(HomeState),
-  ischange: PropTypes.func
+  homeStates: PropTypes.instanceOf(HomeState)
 
 };
 
 Posts.defaultProps = {
-  homeStates: null,
-  ischange: null
+  homeStates: null
 };
 export default Posts;
