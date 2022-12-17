@@ -9,11 +9,18 @@ describe('Delete a comment endpoint integration test', () => {
   let res;
   let db;
   let testcommentID;
+  let token;
 
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    res = await request(webapp).post('/comments')
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    res = await request(webapp)
+      .post('/comments')
+      .set('Authorization', token)
       .send('postId=63866ffd7137342a8944f054&timestamp=testMonday&content=greatwork&commentorid=Reneee');
     // get the id of the test comment
     // eslint-disable-next-line no-underscore-dangle
@@ -24,7 +31,8 @@ describe('Delete a comment endpoint integration test', () => {
   const clearDatabase = async () => {
     try {
       const result = await db.collection('comments').deleteOne({ timestamp: 'testMonday' });
-
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
       console.log('info', result);
     } catch (err) {
       console.log('error', err.message);
@@ -46,7 +54,7 @@ describe('Delete a comment endpoint integration test', () => {
 
   test('Endpoint response: status code, type and content', async () => {
     // successful deletion returns 200 status code
-    const resp = await request(webapp).delete(`/comments/${testcommentID}`);
+    const resp = await request(webapp).delete(`/comments/${testcommentID}`).set('Authorization', token);
     expect(resp.status).toEqual(200);
     expect(resp.type).toBe('application/json');
     // the user is not in the database
@@ -55,12 +63,12 @@ describe('Delete a comment endpoint integration test', () => {
   });
 
   test('wrong user id format/exception - response 404', async () => {
-    const resp = await request(webapp).delete('/comments/1');
+    const resp = await request(webapp).delete('/comments/1').set('Authorization', token);
     expect(resp.status).toEqual(404);
   });
 
   test('user id not in system (correct id format) - response 404', async () => {
-    const resp = await request(webapp).delete('/comments/63738b602fe72e59d4a72ccc');
+    const resp = await request(webapp).delete('/comments/63738b602fe72e59d4a72ccc').set('Authorization', token);
     expect(resp.status).toEqual(404);
   });
 });

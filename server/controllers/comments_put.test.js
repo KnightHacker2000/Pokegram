@@ -10,11 +10,18 @@ describe('Update a post endpoint integration test', () => {
   let res;
   let db;
   let testcommentID; // will store the id of the test post
+  let token;
 
   beforeAll(async () => {
     mongo = await connect();
     db = mongo.db();
-    res = await request(webapp).post('/comments')
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    res = await request(webapp)
+      .post('/comments')
+      .set('Authorization', token)
       .send('postId=63866ffd7137342a8944f054&timestamp=testMonday&content=greatwork&commentorid=Reneee');
     // get the id of the test post
     // eslint-disable-next-line no-underscore-dangle
@@ -25,6 +32,8 @@ describe('Update a post endpoint integration test', () => {
   const clearDatabase = async () => {
     try {
       await db.collection('comments').deleteOne({ timestamp: 'testMonday' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
     } catch (err) {
       console.log('error', err.message);
     }
@@ -44,7 +53,7 @@ describe('Update a post endpoint integration test', () => {
   });
 
   test('Endpoint status code and response async/await', async () => {
-    const resp = await request(webapp).put(`/comments/${testcommentID}`).send("content=notbad");
+    const resp = await request(webapp).put(`/comments/${testcommentID}`).set('Authorization', token).send("content=notbad");
     expect(resp.status).toEqual(201);
     expect(resp.type).toBe('application/json');
 
@@ -55,7 +64,9 @@ describe('Update a post endpoint integration test', () => {
   });
 
   test('missing 404', async () => {
-    res = await request(webapp).put(`/comments/1`)
+    res = await request(webapp)
+      .put(`/comments/1`)
+      .set('Authorization', token)
       .send('ha');
     expect(res.status).toEqual(404);
   });

@@ -8,6 +8,7 @@ const webapp = require('../server');
 
 // connection to the DB
 let mongo;
+let token;
 
 describe('POST /posts enpoint tests', () => {
   let db; // the db
@@ -18,7 +19,14 @@ describe('POST /posts enpoint tests', () => {
     // get the db
     db = mongo.db();
     // send the request to the API and collect the response
-    response = await request(webapp).post('/posts').send('username=testforbackendonly&timestamp=Monday&type=video');
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    response = await request(webapp)
+      .post('/posts')
+      .set('Authorization', token)
+      .send('username=testforbackendonly&timestamp=Monday&type=video');
   });
   /**
  * removes all testing data from the DB
@@ -26,6 +34,8 @@ describe('POST /posts enpoint tests', () => {
   const clearDatabase = async () => {
     try {
       const result = await db.collection('posts').deleteMany({ username: 'testforbackendonly' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
       console.log('result', result);
     } catch (err) {
       console.log('error', err.message);
@@ -60,7 +70,9 @@ describe('POST /posts enpoint tests', () => {
   });
 
   test('missing a field 404', async () => {
-    const res = await request(webapp).post('/posts')
+    const res = await request(webapp)
+      .post('/posts')
+      .set('Authorization', token)
       .send('username=testuser');
     expect(res.status).toEqual(404);
   });

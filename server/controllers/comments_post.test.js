@@ -12,13 +12,21 @@ let mongo;
 describe('POST /comments enpoint tests', () => {
   let db; // the db
   let response; // the response from our express server
+  let token;
+
   beforeAll(async () => {
     // connect to the db
     mongo = await connect();
     // get the db
     db = mongo.db();
     // send the request to the API and collect the response
-    response = await request(webapp).post('/comments')
+    const user = await request(webapp)
+      .post('/user')
+      .send('id=testforbackendonly&email=test@hotmail.com&fullname=testha&password=testtesttest');
+    token = JSON.parse(user.text).token;
+    response = await request(webapp)
+      .post('/comments')
+      .set('Authorization', token)
       .send('postId=63866ffd7137342a8944f054&timestamp=testMonday&content=greatwork&commentorid=Reneee');
   });
   /**
@@ -27,6 +35,8 @@ describe('POST /comments enpoint tests', () => {
   const clearDatabase = async () => {
     try {
       const result = await db.collection('comments').deleteMany({ timestamp: 'testMonday' });
+      await db.collection('cred').deleteMany({ _id: 'testforbackendonly' });
+      await db.collection('user').deleteMany({ _id: 'testforbackendonly' });
       console.log('result', result);
     } catch (err) {
       console.log('error', err.message);
@@ -61,7 +71,9 @@ describe('POST /comments enpoint tests', () => {
   });
 
   test('missing a field 404', async () => {
-    const res = await request(webapp).post('/comments')
+    const res = await request(webapp)
+      .post('/comments')
+      .set('Authorization', token)
       .send('username=testuser');
     expect(res.status).toEqual(404);
   });
