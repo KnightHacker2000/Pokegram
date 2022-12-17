@@ -25,10 +25,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+// import { NotificationContainer, NotificationManager } from 'react-notifications';
 import loading from '../../images/loading2.gif';
 import postsService from '../../services/postsService';
 import userService from '../../services/userService';
-// import pokemon from '../../images/pikachu.jpg';
 import Comment from './Comment';
 import TagPhoto from './Tag';
 import HomeState from '../../models/homeState';
@@ -44,6 +44,7 @@ function Posts(props) {
   // console.log(homeStates.UID);
   const [postList, setPostList] = useState([]);
   const [currPosts, setcurrPosts] = useState([]);
+  // const [notification, setNotification] = useState(null);
   const [currRange, setcurrRange] = useState([-1, -1]);
   const [numposts, setNumposts] = useState(0);
   const [renderEdit, setrenderEdit] = useState(false);
@@ -62,11 +63,9 @@ function Posts(props) {
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
-    // console.log(currPosts);
     const handleObserver = async (entries) => {
       for (const entry of entries) {
         if (entry.intersectionRatio > 0.9) {
-          // console.log('here');
           if ((postList.length) > 0) {
             if (currRange[0] === -1 && currRange[1] === -1) {
               const tmpList = currRange;
@@ -99,7 +98,6 @@ function Posts(props) {
 
     async function fetchallpostsData() {
       const data = await postsService.getAllPosts();
-      // console.log(data);
       if (data.length === 0) {
         setcurrRange([-1, -1]);
         setcurrPosts([]);
@@ -126,7 +124,13 @@ function Posts(props) {
     async function polling() {
       firstRendering.current = false;
       if (homeStates.UID === -1) {
+        // const oldNumPost = postList.length;
         await fetchallpostsData();
+        // console.log(oldNumPost);
+        // if (postList.length > oldNumPost) {
+        //   console.log('new posts');
+        //   setNotification(NotificationManager.info('New Post!'));
+        // }
       } else {
         try {
           await fetchpostsbyusername(homeStates.UID);
@@ -364,6 +368,7 @@ function Posts(props) {
       {renderEdit && <Edit pid={editPostId} handleEditState={handleEdit} />}
       {renderComment && <Comment uid={homeStates.myUID} pid={commentPostId} handleCommentState={handleComment} />}
       {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
+      {/* {notification && <NotificationContainer />} */}
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {currPosts.map((post) => (

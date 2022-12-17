@@ -38,7 +38,7 @@ const getCommentBypostId = async (postId) => {
  * @param none
 */
 const createComment = async (body) => {
-  console.log(JSON.parse(body));
+  // console.log(JSON.parse(body));
   const response = await client.post(`${API.COMMENTS}`, JSON.parse(body));
   const newBody = JSON.parse(body);
   const post = await postsService.getPostsById(newBody.postId);

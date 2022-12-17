@@ -37,7 +37,7 @@ function TagPhoto(props) {
 
   const renderUserList = () => {
     let ret;
-    console.log(userList, userList.length);
+    // console.log(userList, userList.length);
     if (userList.length !== 0) {
       // console.log(userList);
       ret = userList.map((id) => (

@@ -58,6 +58,7 @@ function Login(props) {
     } catch (err) {
       if (err.message && err.message === 'bad auth') {
         if (failed + 1 >= 5) {
+          MySwal.fire('Incorrect password or username!');
           setFailed(failed + 1);
           setTimeout(handleUnlock, 50000);
         } else {

@@ -12,7 +12,7 @@ const createNewSession = async (id) => {
     db = dbop.getDB();
   }
   try {
-    const token = jwt.sign({uid: id}, KEYS.secret, {expiresIn: 3600});
+    const token = jwt.sign({uid: id}, KEYS.secret, {expiresIn: 300});
     return token;
   } catch (err) {
     console.log(`error: ${err.message}`);
