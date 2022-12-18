@@ -89,8 +89,10 @@ function Posts(props) {
             const tmpList = currRange;
             tmpList[0] = 0;
             tmpList[1] = postList.length >= 6 ? 5 : postList.length - 1;
-            setcurrRange(tmpList);
-            setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+            setcurrRange([...tmpList]);
+            const newCurr = postList.slice(tmpList[0], tmpList[1] + 1);
+            console.log(newCurr);
+            setcurrPosts([...newCurr]);
           } else {
             // console.log(currPosts);
             if (currRange[1] === postList.length - 1) {
@@ -101,7 +103,9 @@ function Posts(props) {
             setcurrRange(tmpList);
             // console.log(tmpList);
             // console.log(postList.slice(tmpList[0], tmpList[1] + 1));
-            setcurrPosts(postList.slice(tmpList[0], tmpList[1] + 1));
+            const newCurr = postList.slice(tmpList[0], tmpList[1] + 1);
+            console.log(newCurr);
+            setcurrPosts(newCurr);
           }
         }
         // forceUpdate();
@@ -159,12 +163,12 @@ function Posts(props) {
         setcurrPosts([]);
       }
       const update = data.filter((item) => blacklistpost.indexOf(item.id.toString()) === -1);
-      setPostList(update);
+      setPostList([...update]);
     }
 
     async function fetchpostsbyusername(userName) {
       await postsService.getPostsByUserName(userName).then((val) => {
-        setPostList(val);
+        setPostList([...val]);
         if (val.length === 0) {
           setcurrRange([-1, -1]);
           // forceUpdateCP();
@@ -200,6 +204,9 @@ function Posts(props) {
         }
       }
       await getUser();
+      // firstRendering.current = true;
+      // forceUpdate();
+      // console.log('updated');
       setTimeout(polling, 5000);
     }
 
@@ -426,6 +433,11 @@ function Posts(props) {
     forceUpdate();
   };
 
+  // const getKey = () => {
+  //   console.log(currPosts);
+  //   return Math.random() * 100;
+  // };
+
   return (
     <div>
       <NotificationContainer />
@@ -441,7 +453,8 @@ function Posts(props) {
         {renderTagging && <TagPhoto pid={tagPostId} handleTagState={handleTagPost} />}
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {currPosts.length !== 0 && currPosts.map((post) => (
+            {currPosts.length !== 0
+            && postList.slice(currRange[0], currRange[1] + 1).map((post) => (
               <Grid item key={post.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
