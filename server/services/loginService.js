@@ -27,12 +27,12 @@ const checkPassword = async (id, password) => {
   try {
     const res = await db.collection('cred').find({ _id: id}).toArray();
     if (res.length === 0) {
-      throw new Error('Not Found');
+      return false;
     }
     const val = await bcrypt.compare(password, res[0].pass);
     return val;    
   } catch (err) {
-    console.log(`error: ${err.message}`);
+    console.log(`error: ${err}`);
     throw new Error(err);
   }
 };
