@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Pokegram/static/css/main.39d36419.css",
-    "main.js": "/Pokegram/static/js/main.6105a96d.js",
+    "main.js": "/Pokegram/static/js/main.c5fc2550.js",
     "static/js/787.6f5f07da.chunk.js": "/Pokegram/static/js/787.6f5f07da.chunk.js",
     "static/media/loading2.gif": "/Pokegram/static/media/loading2.5e01ee7931d3de11d2ef.gif",
     "static/media/notification.svg?s3g3t9": "/Pokegram/static/media/notification.5d0158671dd860c714c4.svg",
@@ -10,11 +10,11 @@
     "static/media/notification.ttf?s3g3t9": "/Pokegram/static/media/notification.c5d9251ea82e42f75381.ttf",
     "index.html": "/Pokegram/index.html",
     "main.39d36419.css.map": "/Pokegram/static/css/main.39d36419.css.map",
-    "main.6105a96d.js.map": "/Pokegram/static/js/main.6105a96d.js.map",
+    "main.c5fc2550.js.map": "/Pokegram/static/js/main.c5fc2550.js.map",
     "787.6f5f07da.chunk.js.map": "/Pokegram/static/js/787.6f5f07da.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.39d36419.css",
-    "static/js/main.6105a96d.js"
+    "static/js/main.c5fc2550.js"
   ]
 }
