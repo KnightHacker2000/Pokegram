@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/KnightHacker2000/Pokegram.git/static/css/main.9b89fcb5.css",
+    "main.js": "/KnightHacker2000/Pokegram.git/static/js/main.b8b78d03.js",
+    "static/js/787.6f5f07da.chunk.js": "/KnightHacker2000/Pokegram.git/static/js/787.6f5f07da.chunk.js",
+    "static/media/loading2.gif": "/KnightHacker2000/Pokegram.git/static/media/loading2.5e01ee7931d3de11d2ef.gif",
+    "static/media/notification.svg?s3g3t9": "/KnightHacker2000/Pokegram.git/static/media/notification.5d0158671dd860c714c4.svg",
+    "static/media/notification.eot": "/KnightHacker2000/Pokegram.git/static/media/notification.3657084dc0419605a91c.eot",
+    "static/media/notification.woff?s3g3t9": "/KnightHacker2000/Pokegram.git/static/media/notification.c392cd33d9d9de730f9d.woff",
+    "static/media/notification.ttf?s3g3t9": "/KnightHacker2000/Pokegram.git/static/media/notification.c5d9251ea82e42f75381.ttf",
+    "index.html": "/KnightHacker2000/Pokegram.git/index.html",
+    "main.9b89fcb5.css.map": "/KnightHacker2000/Pokegram.git/static/css/main.9b89fcb5.css.map",
+    "main.b8b78d03.js.map": "/KnightHacker2000/Pokegram.git/static/js/main.b8b78d03.js.map",
+    "787.6f5f07da.chunk.js.map": "/KnightHacker2000/Pokegram.git/static/js/787.6f5f07da.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9b89fcb5.css",
+    "static/js/main.b8b78d03.js"
+  ]
+}
